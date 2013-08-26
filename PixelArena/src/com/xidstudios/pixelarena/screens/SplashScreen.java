@@ -9,28 +9,21 @@ import aurelienribon.tweenengine.TweenManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.xidstudios.pixelarena.GFile;
 import com.xidstudios.pixelarena.Graphic;
-import com.xidstudios.pixelarena.MainPArena;
 import com.xidstudios.pixelarena.tweenaccesors.SpriteTween;
 
 public class SplashScreen implements Screen {
 
 	private SpriteBatch batch;
 
-	private MainPArena game;
-
 	private TweenManager manager;
 
 	private int splashCount = 0;
 
 	private Sprite[] splash;
-
-	public SplashScreen(MainPArena game) {
-		this.game = game;
-	}
 
 	@Override
 	public void render(float delta) {
@@ -90,7 +83,7 @@ public class SplashScreen implements Screen {
 	};
 
 	private void tweenCompleted() {
-		game.setScreen(new StartScreen(game));
+		GFile.game.setScreen(new StartScreen());
 	}
 
 	private void setSpriteDefaults() {

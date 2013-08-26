@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.xidstudios.pixelarena.MainPArena;
+import com.xidstudios.pixelarena.GFile;
 
 public class StartScreen implements Screen, InputProcessor {
 
@@ -16,12 +16,6 @@ public class StartScreen implements Screen, InputProcessor {
 	private Sprite splashSprite;
 
 	private SpriteBatch batch;
-
-	private MainPArena game;
-
-	public StartScreen(MainPArena game) {
-		this.game = game;
-	}
 
 	@Override
 	public void render(float delta) {
@@ -49,7 +43,7 @@ public class StartScreen implements Screen, InputProcessor {
 
 		splashSprite.setSize(Gdx.graphics.getWidth(),
 				Gdx.graphics.getHeight());
-//		splashSprite.setColor(1, 1, 1, 0);
+		// splashSprite.setColor(1, 1, 1, 0);
 	}
 
 	@Override
@@ -66,7 +60,7 @@ public class StartScreen implements Screen, InputProcessor {
 
 	@Override
 	public boolean keyDown(int keycode) {
-		game.setScreen(new MainMenu(game));
+		GFile.game.setScreen(new MainMenu());
 		return false;
 	}
 
@@ -89,7 +83,7 @@ public class StartScreen implements Screen, InputProcessor {
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer,
 			int button) {
-		game.setScreen(new MainMenu(game));
+		GFile.game.setScreen(new MainMenu());
 		return false;
 	}
 

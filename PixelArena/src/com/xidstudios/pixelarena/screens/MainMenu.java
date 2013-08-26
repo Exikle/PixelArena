@@ -13,15 +13,6 @@ public class MainMenu implements Screen {
 
 	MainPArena game;
 
-	/**
-	 * Constructor
-	 * 
-	 * @param game
-	 */
-	public MainMenu(MainPArena game) {
-		this.game = game;
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * @see com.badlogic.gdx.Screen#render(float)
