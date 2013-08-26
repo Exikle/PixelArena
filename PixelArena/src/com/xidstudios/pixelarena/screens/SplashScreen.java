@@ -43,15 +43,13 @@ public class SplashScreen implements Screen {
 
 		manager.update(delta);
 		batch.begin();
-
-		splash[splashCount].draw(batch);
+		try {
+			splash[splashCount].draw(batch);
+		} catch (Exception Exception) {
+			tweenCompleted();
+		}
 
 		batch.end();
-	}
-
-	@Override
-	public void resize(int width, int height) {
-
 	}
 
 	@Override
@@ -78,9 +76,7 @@ public class SplashScreen implements Screen {
 	private void tweenSprite() {
 		Tween.to(splash[splashCount], SpriteTween.ALPHA, 1.5f)
 				.target(1).ease(TweenEquations.easeInQuad)
-				.repeatYoyo(1, 1.5f).setCallback(cb)
-				.setCallbackTriggers(TweenCallback.COMPLETE)
-				.start(manager);
+				.repeatYoyo(1, 1.5f).setCallback(cb).start(manager);
 
 	}
 
@@ -88,33 +84,16 @@ public class SplashScreen implements Screen {
 
 		@Override
 		public void onEvent(int type, BaseTween<?> source) {
-//			splashCount++;
-			switch (splashCount) {
-				case 0:
-					firstCompleted();
-					break;
-				case 1:
-					secondCompleted();
-					break;
+			splashCount++;
+			try {
+				tweenSprite();
+			} catch (Exception Exception) {
+				tweenCompleted();
 			}
 		}
 	};
 
-	private void firstCompleted() {
-		// Gdx.app.log(MainPArena.LOG, "Switch to Start Screen");
-		// game.setScreen(new StartScreen(game));
-		splashCount++;
-		startSecondTween();
-	}
-
-	private void startSecondTween() {
-		// splashSprite.setTexture(new Texture("imgs/Exikle.png"));
-		tweenSprite();
-
-	}
-
-	private void secondCompleted() {
-		// Gdx.app.log(MainPArena.LOG, "Switch to Start Screen");
+	private void tweenCompleted() {
 		game.setScreen(new StartScreen(game));
 	}
 
@@ -127,18 +106,23 @@ public class SplashScreen implements Screen {
 	}
 
 	@Override
+	public void resize(int width, int height) {
+
+	}
+
+	@Override
 	public void hide() {
 
 	}
 
 	@Override
 	public void pause() {
-
+		splashCount = 0;
 	}
 
 	@Override
 	public void resume() {
-
+		tweenSprite();
 	}
 
 	@Override
