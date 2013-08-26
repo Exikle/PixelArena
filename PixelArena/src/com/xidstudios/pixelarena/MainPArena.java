@@ -3,10 +3,12 @@ package com.xidstudios.pixelarena;
 import com.badlogic.gdx.Game;
 import com.xidstudios.pixelarena.screens.SplashScreen;
 
-public class PixelArenaMain extends Game {
-	public static final String PIXELARENA_VERSION = "0.0.0.01 Pre-Alpha";
+public class MainPArena extends Game {
+
+	public static final String VERSION = "0.0.0.01 Pre-Alpha";
+
 	public static final String LOG = "Pixel Arena";
-	
+
 	@Override
 	public void create() {
 		setScreen(new SplashScreen(this));

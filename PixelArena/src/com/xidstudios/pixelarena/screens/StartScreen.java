@@ -1,14 +1,15 @@
 package com.xidstudios.pixelarena.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.xidstudios.pixelarena.PixelArenaMain;
+import com.xidstudios.pixelarena.MainPArena;
 
-public class StartScreen implements Screen {
+public class StartScreen implements Screen, InputProcessor {
 
 	private Texture splashTexture;
 
@@ -16,9 +17,9 @@ public class StartScreen implements Screen {
 
 	private SpriteBatch batch;
 
-	private PixelArenaMain game;
+	private MainPArena game;
 
-	public StartScreen(PixelArenaMain game) {
+	public StartScreen(MainPArena game) {
 		this.game = game;
 	}
 
@@ -43,12 +44,12 @@ public class StartScreen implements Screen {
 	@Override
 	public void show() {
 		batch = new SpriteBatch();
-		splashTexture = new Texture("imgs/Exikle.png");
+		splashTexture = new Texture("imgs/libgdx.png");
 		splashSprite = new Sprite(splashTexture);
 
 		splashSprite.setSize(Gdx.graphics.getWidth(),
 				Gdx.graphics.getHeight());
-		splashSprite.setColor(1, 1, 1, 0);
+//		splashSprite.setColor(1, 1, 1, 0);
 	}
 
 	@Override
@@ -62,5 +63,49 @@ public class StartScreen implements Screen {
 
 	@Override
 	public void dispose() {}
+
+	@Override
+	public boolean keyDown(int keycode) {
+		game.setScreen(new MainMenu(game));
+		return false;
+	}
+
+	@Override
+	public boolean keyUp(int keycode) {
+		return false;
+	}
+
+	@Override
+	public boolean keyTyped(char character) {
+		return false;
+	}
+
+	@Override
+	public boolean touchDown(int screenX, int screenY, int pointer,
+			int button) {
+		return false;
+	}
+
+	@Override
+	public boolean touchUp(int screenX, int screenY, int pointer,
+			int button) {
+		game.setScreen(new MainMenu(game));
+		return false;
+	}
+
+	@Override
+	public boolean touchDragged(int screenX, int screenY, int pointer) {
+		return false;
+	}
+
+	@Override
+	public boolean mouseMoved(int screenX, int screenY) {
+		return false;
+	}
+
+	@Override
+	public boolean scrolled(int amount) {
+		return false;
+	}
 
 }

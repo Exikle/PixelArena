@@ -12,18 +12,24 @@ import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.xidstudios.pixelarena.PixelArenaMain;
+import com.xidstudios.pixelarena.MainPArena;
 import com.xidstudios.pixelarena.tweenaccesors.SpriteTween;
 
 public class SplashScreen implements Screen {
 
 	private Texture splashTexture;
+
 	private Sprite splashSprite;
+
 	private SpriteBatch batch;
-	private PixelArenaMain game;
+
+	private MainPArena game;
+
 	private TweenManager manager;
 
-	public SplashScreen(PixelArenaMain game) {
+	private int splashCount;
+
+	public SplashScreen(MainPArena game) {
 		this.game = game;
 	}
 
@@ -49,32 +55,71 @@ public class SplashScreen implements Screen {
 	@Override
 	public void show() {
 		batch = new SpriteBatch();
-		splashTexture = new Texture("imgs/xidstudios_splash.png");
-		splashSprite = new Sprite(splashTexture);
 
-		splashSprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		splashSprite.setColor(1, 1, 1, 0);
-
-		Tween.registerAccessor(Sprite.class,
+		Tween.registerAccessor(
+				Sprite.class,
 				new com.xidstudios.pixelarena.tweenaccesors.SpriteTween());
 
 		manager = new TweenManager();
+		startFirstTween();
 
-		TweenCallback cb = new TweenCallback() {
-
-			@Override
-			public void onEvent(int type, BaseTween<?> source) {
-				tweenCompleted();
-			}
-		};
-
-		Tween.to(splashSprite, SpriteTween.ALPHA, 1.5f).target(1)
-				.ease(TweenEquations.easeInQuad).repeatYoyo(1, 1.5f)
-				.setCallback(cb).setCallbackTriggers(TweenCallback.COMPLETE)
-				.start(manager);
 	}
 
-	protected void tweenCompleted() {
+	private void startFirstTween() {
+
+		splashSprite = new Sprite(new Texture(
+				"imgs/xidstudios_splash.png"));
+		setSpriteDefaults();
+		tweenSprite();
+
+	}
+
+	private void tweenSprite() {
+		Tween.to(splashSprite, SpriteTween.ALPHA, 1.5f).target(1)
+				.ease(TweenEquations.easeInQuad).repeatYoyo(1, 1.5f)
+				.setCallback(cb)
+				.setCallbackTriggers(TweenCallback.COMPLETE)
+				.start(manager);
+
+	}
+
+	TweenCallback cb = new TweenCallback() {
+
+		@Override
+		public void onEvent(int type, BaseTween<?> source) {
+			switch (splashCount) {
+				case 0:
+					firstCompleted();
+					break;
+				case 1:
+					secondCompleted();
+					break;
+			}
+		}
+	};
+
+	private void firstCompleted() {
+		// Gdx.app.log(MainPArena.LOG, "Switch to Start Screen");
+		// game.setScreen(new StartScreen(game));
+		splashCount++;
+		startSecondTween();
+	}
+
+	private void startSecondTween() {
+		splashSprite = new Sprite(new Texture("imgs/Exikle.png"));
+		setSpriteDefaults();
+		tweenSprite();
+
+	}
+
+	private void setSpriteDefaults() {
+		splashSprite.setSize(Gdx.graphics.getWidth(),
+				Gdx.graphics.getHeight());
+		splashSprite.setColor(1, 1, 1, 0);
+	}
+
+	private void secondCompleted() {
+		// Gdx.app.log(MainPArena.LOG, "Switch to Start Screen");
 		game.setScreen(new StartScreen(game));
 	}
 
