@@ -12,14 +12,11 @@ import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.xidstudios.pixelarena.Graphic;
 import com.xidstudios.pixelarena.MainPArena;
 import com.xidstudios.pixelarena.tweenaccesors.SpriteTween;
 
 public class SplashScreen implements Screen {
-
-	private Texture splashTexture;
-
-	private Sprite splashSprite;
 
 	private SpriteBatch batch;
 
@@ -64,9 +61,8 @@ public class SplashScreen implements Screen {
 
 		splash = new Sprite[2];
 
-		splash[0] = new Sprite(new Texture(
-				"imgs/xidstudios_splash.png"));
-		splash[1] = new Sprite(new Texture("imgs/Exikle.png"));
+		splash[0] = new Sprite(Graphic.XID_LOGO.getTexture());
+		splash[1] = new Sprite(Graphic.EXIKLE_LOGO.getTexture());
 
 		setSpriteDefaults();
 		tweenSprite();
