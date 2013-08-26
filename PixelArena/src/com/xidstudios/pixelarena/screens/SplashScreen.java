@@ -61,11 +61,6 @@ public class SplashScreen implements Screen {
 				new com.xidstudios.pixelarena.tweenaccesors.SpriteTween());
 
 		manager = new TweenManager();
-		startFirstTween();
-
-	}
-
-	private void startFirstTween() {
 
 		splashSprite = new Sprite(new Texture(
 				"imgs/xidstudios_splash.png"));
@@ -106,21 +101,20 @@ public class SplashScreen implements Screen {
 	}
 
 	private void startSecondTween() {
-		splashSprite = new Sprite(new Texture("imgs/Exikle.png"));
-		setSpriteDefaults();
+		splashSprite.setTexture(new Texture("imgs/Exikle.png"));
 		tweenSprite();
 
+	}
+
+	private void secondCompleted() {
+		// Gdx.app.log(MainPArena.LOG, "Switch to Start Screen");
+		game.setScreen(new StartScreen(game));
 	}
 
 	private void setSpriteDefaults() {
 		splashSprite.setSize(Gdx.graphics.getWidth(),
 				Gdx.graphics.getHeight());
 		splashSprite.setColor(1, 1, 1, 0);
-	}
-
-	private void secondCompleted() {
-		// Gdx.app.log(MainPArena.LOG, "Switch to Start Screen");
-		game.setScreen(new StartScreen(game));
 	}
 
 	@Override
