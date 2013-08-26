@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="75" height="25" tilewidth="32" tileheight="32">
+ <properties>
+  <property name="music" value="NONE"/>
+  <property name="name" value="AreaOnet"/>
+ </properties>
+ <tileset firstgid="1" name="FioriForest" tilewidth="32" tileheight="32">
+  <image source="AreaOne.png" width="320" height="320"/>
+ </tileset>
+ <layer name="BG/Terrain" width="75" height="25">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3DMQ0AAAwEodvfv9/O9QAJq6aqqqqqqqrqe4CA9u9MHQAA
+  </data>
+ </layer>
+ <layer name="Path" width="75" height="25">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2YyQ3AIAwEnQLov900gKLI19rSIM2XXYYP5pjZuZCxbvtWs7U3/OdpRnWebZ4yfXXmqjxl+OrMVXuK+OrOVTtS3zGuAAAAAADms/H9y4wz29XWuar7n8GTN8GXt7e3eyRP6Sva+6t7xt5TfFWeBaCKF65ZYZtMHQAA
+  </data>
+ </layer>
+ <layer name="Water" width="75" height="25">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2XwQ6DMAxDI9gROG77/y8dPXAsWmw3UUWelBvCrtNCupvZXlU1UX2CK2s97Hu/Fs+b8PtPJiN0M3K6YPNCvSO6B6ilZLOcHnt1e1ktZ63ieok8q3qsygrtdZSWIqt2Dj3/ot4+jszK6/nOdwaI/5nWVxRF8UQi56vZiZwZsvDuB+UsHXlHUOzRzfm8cj5k5l4vqjtOtCZLRlZLgqYCJKsGeg6RnFhNBYzvxp333reOJSMvNqeLUZkgmqOqKGbkByOm3U9MHQAA
+  </data>
+ </layer>
+</map>
