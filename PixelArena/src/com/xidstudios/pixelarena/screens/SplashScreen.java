@@ -27,7 +27,9 @@ public class SplashScreen implements Screen {
 
 	private TweenManager manager;
 
-	private int splashCount;
+	private int splashCount = 0;
+
+	private Sprite[] splash;
 
 	public SplashScreen(MainPArena game) {
 		this.game = game;
@@ -42,7 +44,7 @@ public class SplashScreen implements Screen {
 		manager.update(delta);
 		batch.begin();
 
-		splashSprite.draw(batch);
+		splash[splashCount].draw(batch);
 
 		batch.end();
 	}
@@ -62,17 +64,21 @@ public class SplashScreen implements Screen {
 
 		manager = new TweenManager();
 
-		splashSprite = new Sprite(new Texture(
+		splash = new Sprite[2];
+
+		splash[0] = new Sprite(new Texture(
 				"imgs/xidstudios_splash.png"));
+		splash[1] = new Sprite(new Texture("imgs/Exikle.png"));
+
 		setSpriteDefaults();
 		tweenSprite();
 
 	}
 
 	private void tweenSprite() {
-		Tween.to(splashSprite, SpriteTween.ALPHA, 1.5f).target(1)
-				.ease(TweenEquations.easeInQuad).repeatYoyo(1, 1.5f)
-				.setCallback(cb)
+		Tween.to(splash[splashCount], SpriteTween.ALPHA, 1.5f)
+				.target(1).ease(TweenEquations.easeInQuad)
+				.repeatYoyo(1, 1.5f).setCallback(cb)
 				.setCallbackTriggers(TweenCallback.COMPLETE)
 				.start(manager);
 
@@ -82,6 +88,7 @@ public class SplashScreen implements Screen {
 
 		@Override
 		public void onEvent(int type, BaseTween<?> source) {
+//			splashCount++;
 			switch (splashCount) {
 				case 0:
 					firstCompleted();
@@ -101,7 +108,7 @@ public class SplashScreen implements Screen {
 	}
 
 	private void startSecondTween() {
-		splashSprite.setTexture(new Texture("imgs/Exikle.png"));
+		// splashSprite.setTexture(new Texture("imgs/Exikle.png"));
 		tweenSprite();
 
 	}
@@ -112,9 +119,11 @@ public class SplashScreen implements Screen {
 	}
 
 	private void setSpriteDefaults() {
-		splashSprite.setSize(Gdx.graphics.getWidth(),
-				Gdx.graphics.getHeight());
-		splashSprite.setColor(1, 1, 1, 0);
+		for (int x = 0; x < splash.length; x++) {
+			splash[x].setSize(Gdx.graphics.getWidth(),
+					Gdx.graphics.getHeight());
+			splash[x].setColor(1, 1, 1, 0);
+		}
 	}
 
 	@Override
