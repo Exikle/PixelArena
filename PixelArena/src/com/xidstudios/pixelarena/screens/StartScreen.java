@@ -4,14 +4,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.xidstudios.pixelarena.GFile;
+import com.xidstudios.pixelarena.Graphic;
+import com.xidstudios.pixelarena.PArena;
 
 public class StartScreen implements Screen, InputProcessor {
-
-	private Texture splashTexture;
 
 	private Sprite splashSprite;
 
@@ -22,7 +21,6 @@ public class StartScreen implements Screen, InputProcessor {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		// Gdx.app.log(PixelArenaMain.LOG, "Rendering SplashScreen");
-
 		batch.begin();
 
 		splashSprite.draw(batch);
@@ -37,9 +35,11 @@ public class StartScreen implements Screen, InputProcessor {
 
 	@Override
 	public void show() {
+		Gdx.input.setInputProcessor(this);
+		Gdx.app.log(PArena.LOG, "StartScreen Rendered");
 		batch = new SpriteBatch();
-		splashTexture = new Texture("imgs/libgdx.png");
-		splashSprite = new Sprite(splashTexture);
+
+		splashSprite = new Sprite(Graphic.STARTBG.getTexture());
 
 		splashSprite.setSize(Gdx.graphics.getWidth(),
 				Gdx.graphics.getHeight());

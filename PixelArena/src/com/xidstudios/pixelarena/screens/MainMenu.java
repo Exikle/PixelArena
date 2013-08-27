@@ -3,22 +3,25 @@
  */
 package com.xidstudios.pixelarena.screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.xidstudios.pixelarena.MainPArena;
+import com.badlogic.gdx.graphics.GL10;
+import com.xidstudios.pixelarena.PArena;
 
 /**
  * @author Dixon D'Cunha
  */
 public class MainMenu implements Screen {
 
-	MainPArena game;
-
 	/*
 	 * (non-Javadoc)
 	 * @see com.badlogic.gdx.Screen#render(float)
 	 */
 	@Override
-	public void render(float delta) {}
+	public void render(float delta) {
+		Gdx.gl.glClearColor(0, 0, 0, 1);
+		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -32,7 +35,9 @@ public class MainMenu implements Screen {
 	 * @see com.badlogic.gdx.Screen#show()
 	 */
 	@Override
-	public void show() {}
+	public void show() {
+		Gdx.app.log(PArena.LOG, "Main Menu Rendered");
+	}
 
 	/*
 	 * (non-Javadoc)

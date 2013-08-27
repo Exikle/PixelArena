@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.xidstudios.pixelarena.GFile;
 import com.xidstudios.pixelarena.Graphic;
+import com.xidstudios.pixelarena.PArena;
 import com.xidstudios.pixelarena.tweenaccesors.SpriteTween;
 
 public class SplashScreen implements Screen {
@@ -52,10 +53,11 @@ public class SplashScreen implements Screen {
 
 		manager = new TweenManager();
 
-		splash = new Sprite[2];
+		splash = new Sprite[3];
 
 		splash[0] = new Sprite(Graphic.XID_LOGO.getTexture());
 		splash[1] = new Sprite(Graphic.EXIKLE_LOGO.getTexture());
+		splash[2] = new Sprite(Graphic.STARTBG.getTexture());
 
 		setSpriteDefaults();
 		tweenSprite();
@@ -63,10 +65,20 @@ public class SplashScreen implements Screen {
 	}
 
 	private void tweenSprite() {
+		Gdx.app.log(PArena.LOG, "SplashScreen " + splashCount
+				+ " Rendered");
 		Tween.to(splash[splashCount], SpriteTween.ALPHA, 1.5f)
 				.target(1).ease(TweenEquations.easeInQuad)
 				.repeatYoyo(1, 1.5f).setCallback(cb).start(manager);
 
+	}
+
+	private void stopTween() {
+		Gdx.app.log(PArena.LOG, "SplashScreen " + splashCount
+				+ " Rendered");
+		Tween.to(splash[splashCount], SpriteTween.ALPHA, 1.5f)
+				.target(1).ease(TweenEquations.easeInQuad)
+				.setCallback(cb).start(manager);
 	}
 
 	TweenCallback cb = new TweenCallback() {
@@ -75,7 +87,11 @@ public class SplashScreen implements Screen {
 		public void onEvent(int type, BaseTween<?> source) {
 			splashCount++;
 			try {
-				tweenSprite();
+				if (splashCount < splash.length - 1) {
+					tweenSprite();
+				} else {
+					stopTween();
+				}
 			} catch (Exception Exception) {
 				tweenCompleted();
 			}
@@ -116,7 +132,7 @@ public class SplashScreen implements Screen {
 
 	@Override
 	public void dispose() {
-
+		batch.dispose();
 	}
 
 }

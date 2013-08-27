@@ -3,7 +3,7 @@ package com.xidstudios.pixelarena;
 import com.badlogic.gdx.Game;
 import com.xidstudios.pixelarena.screens.SplashScreen;
 
-public class MainPArena extends Game {
+public class PArena extends Game {
 
 	public static final String VERSION = "0.0.0.02 Pre-Alpha";
 

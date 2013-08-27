@@ -11,6 +11,6 @@ public class GFile {
 	/**
 	 * The game instance
 	 */
-	public static MainPArena game;
+	public static PArena game;
 
 }

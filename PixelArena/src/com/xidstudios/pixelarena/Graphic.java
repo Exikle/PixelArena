@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
  * @author Dixon D'Cunha
  */
 public enum Graphic {
-	XID_LOGO("imgs/XidStudios.png"), EXIKLE_LOGO("imgs/Exikle.png");
+	XID_LOGO("imgs/XidStudios.png"), EXIKLE_LOGO("imgs/Exikle.png"), STARTBG("imgs/StartBG.png");
 
 	String parent = "imgs/";
 
