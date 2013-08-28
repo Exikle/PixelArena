@@ -7,12 +7,13 @@ public class RunPArena {
 
 	public static void main(String[] args) {
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
-		cfg.title = "Pixel Arena  - Xid Studios "
+		cfg.title = PArena.TITLE+" v"
 				+ PArena.VERSION;
 		cfg.useGL20 = true;
 		cfg.width = 1080;
 		cfg.height = 720;
 		cfg.resizable = false;
+		cfg.vSyncEnabled = true;
 
 		new LwjglApplication(new PArena(), cfg);
 	}

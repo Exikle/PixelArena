@@ -26,6 +26,8 @@ public class SplashScreen implements Screen {
 
 	private Sprite[] splash;
 
+	private final float SPLASH_SPEED = 1.5f;
+
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -67,7 +69,7 @@ public class SplashScreen implements Screen {
 	private void tweenSprite() {
 		Gdx.app.log(PArena.LOG, "SplashScreen " + splashCount
 				+ " Rendered");
-		Tween.to(splash[splashCount], SpriteTween.ALPHA, 1.5f)
+		Tween.to(splash[splashCount], SpriteTween.ALPHA, SPLASH_SPEED)
 				.target(1).ease(TweenEquations.easeInQuad)
 				.repeatYoyo(1, 1.5f).setCallback(cb).start(manager);
 
@@ -76,7 +78,7 @@ public class SplashScreen implements Screen {
 	private void stopTween() {
 		Gdx.app.log(PArena.LOG, "SplashScreen " + splashCount
 				+ " Rendered");
-		Tween.to(splash[splashCount], SpriteTween.ALPHA, 1.5f)
+		Tween.to(splash[splashCount], SpriteTween.ALPHA, SPLASH_SPEED)
 				.target(1).ease(TweenEquations.easeInQuad)
 				.setCallback(cb).start(manager);
 	}

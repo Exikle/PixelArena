@@ -9,6 +9,8 @@ public class PArena extends Game {
 
 	public static final String LOG = "Pixel Arena";
 
+	public static final String TITLE = "Pixel Arena";
+
 	@Override
 	public void create() {
 		GFile.game = this;

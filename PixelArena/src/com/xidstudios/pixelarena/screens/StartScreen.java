@@ -4,17 +4,23 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.xidstudios.pixelarena.GFile;
 import com.xidstudios.pixelarena.Graphic;
 import com.xidstudios.pixelarena.PArena;
+import com.xidstudios.pixelarena.map.GameFont;
 
 public class StartScreen implements Screen, InputProcessor {
 
 	private Sprite splashSprite;
 
 	private SpriteBatch batch;
+
+	private BitmapFont font;
+
+	private final float mid = Gdx.graphics.getWidth() / 2;
 
 	@Override
 	public void render(float delta) {
@@ -24,26 +30,36 @@ public class StartScreen implements Screen, InputProcessor {
 		batch.begin();
 
 		splashSprite.draw(batch);
-
+		String string = "";
+		switch (Gdx.app.getType()) {
+			case Android:
+				string = "Tap to Start";
+				break;
+			case Desktop:
+				string = "Press to Start";
+				break;
+			default:
+				break;
+		}
+		font.setScale(2.3f);
+		font.draw(batch, string, mid - font.getBounds(string).width
+				/ 2, 150);
 		batch.end();
 	}
 
 	@Override
-	public void resize(int width, int height) {
-
-	}
+	public void resize(int width, int height) {}
 
 	@Override
 	public void show() {
-		Gdx.input.setInputProcessor(this);
 		Gdx.app.log(PArena.LOG, "StartScreen Rendered");
 		batch = new SpriteBatch();
+		font = GameFont.fWhite;
 
+		Gdx.input.setInputProcessor(this);
 		splashSprite = new Sprite(Graphic.STARTBG.getTexture());
-
 		splashSprite.setSize(Gdx.graphics.getWidth(),
 				Gdx.graphics.getHeight());
-		// splashSprite.setColor(1, 1, 1, 0);
 	}
 
 	@Override
