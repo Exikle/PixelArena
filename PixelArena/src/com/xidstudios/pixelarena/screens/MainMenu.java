@@ -6,7 +6,6 @@ package com.xidstudios.pixelarena.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -15,15 +14,15 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.xidstudios.pixelarena.GFile;
+import com.xidstudios.pixelarena.GameFont;
 import com.xidstudios.pixelarena.Graphic;
 import com.xidstudios.pixelarena.PArena;
-import com.xidstudios.pixelarena.map.GameFont;
 
 /**
  * @author Dixon D'Cunha
@@ -37,8 +36,6 @@ public class MainMenu implements Screen, InputProcessor {
 	private BitmapFont fWhite, fBlack;
 
 	private Stage stage;
-
-	private TextureAtlas atlas;
 
 	private Skin skin;
 
@@ -86,17 +83,16 @@ public class MainMenu implements Screen, InputProcessor {
 		initializeFont();
 		initializeBG();
 
-		atlas = new TextureAtlas("ui/button.pack");
-		skin = new Skin(atlas);
+		skin = new Skin(new TextureAtlas("ui/button.pack"));
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
 		table = new Table(skin);
 		table.setBounds(0, 0, width, height);
 
-		LabelStyle headingStyle = new LabelStyle(fWhite, Color.WHITE);
-		heading = new Label(PArena.TITLE, headingStyle);
-		table.add(heading).padBottom(30);
-		table.row();
+		// LabelStyle headingStyle = new LabelStyle(fWhite, Color.WHITE);
+		// heading = new Label(PArena.TITLE, headingStyle);
+		// table.add(heading).padBottom(30);
+		// table.row();
 
 		createTextButton();
 
@@ -128,11 +124,9 @@ public class MainMenu implements Screen, InputProcessor {
 
 		addClickListeners();
 
-		table.add(btnPlay).padBottom(10);
-		table.row();
-		table.add(btnStore).padBottom(10);
-		table.row();
-		table.add(btnExit).padBottom(10);
+		table.add(btnPlay).padRight(40);
+		table.add(btnStore).padRight(40);
+		table.add(btnExit);
 
 		table.debug();
 
@@ -145,6 +139,7 @@ public class MainMenu implements Screen, InputProcessor {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				super.clicked(event, x, y);
+				dispose();
 				Gdx.app.log(PArena.LOG, "Exit Clicked");
 				Gdx.app.exit();
 			}
@@ -156,7 +151,6 @@ public class MainMenu implements Screen, InputProcessor {
 			public void clicked(InputEvent event, float x, float y) {
 				super.clicked(event, x, y);
 				Gdx.app.log(PArena.LOG, "Play Clicked");
-				Gdx.app.exit();
 			}
 
 		});

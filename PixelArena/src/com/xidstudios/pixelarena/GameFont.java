@@ -1,4 +1,4 @@
-package com.xidstudios.pixelarena.map;
+package com.xidstudios.pixelarena;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;

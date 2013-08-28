@@ -8,9 +8,9 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.xidstudios.pixelarena.GFile;
+import com.xidstudios.pixelarena.GameFont;
 import com.xidstudios.pixelarena.Graphic;
 import com.xidstudios.pixelarena.PArena;
-import com.xidstudios.pixelarena.map.GameFont;
 
 public class StartScreen implements Screen, InputProcessor {
 
