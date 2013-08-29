@@ -26,7 +26,7 @@ public class SplashScreen implements Screen {
 
 	private Sprite[] splash;
 
-	private final float SPLASH_SPEED = 1.5f;
+	private final float SPLASH_SPEED = .05f;
 
 	@Override
 	public void render(float delta) {

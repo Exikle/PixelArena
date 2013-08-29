@@ -3,30 +3,31 @@
  */
 package com.xidstudios.pixelarena.screens;
 
+import aurelienribon.tweenengine.Timeline;
+import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenManager;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.xidstudios.pixelarena.GFile;
 import com.xidstudios.pixelarena.GameFont;
 import com.xidstudios.pixelarena.Graphic;
 import com.xidstudios.pixelarena.PArena;
+import com.xidstudios.pixelarena.tweenaccesors.ActorAccessor;
 
 /**
  * @author Dixon D'Cunha
@@ -91,14 +92,17 @@ public class MainMenu implements Screen, InputProcessor {
 		initializeFont();
 		initializeBG();
 
-		skin = new Skin(new TextureAtlas("ui/button.pack"));
+		skin = new Skin(Gdx.files.internal("ui/menuSkin.json"),
+				new TextureAtlas("ui/button.pack"));
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
 		table = new Table(skin);
 		table.setBounds(0, 0, width, height);
 
-		heading = new Label(PArena.TITLE, new LabelStyle(fWhite,
-				Color.WHITE));
+		// heading = new Label(PArena.TITLE, new
+		// LabelStyle(fWhite,Color.WHITE));
+		
+		heading = new Label(PArena.TITLE, skin);
 		table.add(heading);
 		table.getCell(heading).spaceBottom(100);
 		table.row();
@@ -106,31 +110,33 @@ public class MainMenu implements Screen, InputProcessor {
 		createTextButton();
 
 		// anim
+		manager = new TweenManager();
+		Tween.registerAccessor(Actor.class, new ActorAccessor());
+
+		Timeline.createParallel()
+				.beginParallel()
+				.push(Tween.from(table, ActorAccessor.ALPHA, 0.5f)
+						.target(0)).end().start(manager);
 
 	}
 
 	private void createTextButton() {
-		TextButtonStyle txtBtnStyle = new TextButtonStyle();
+		// TextButtonStyle txtBtnStyle = new TextButtonStyle();
+		// txtBtnStyle.up = skin.getDrawable("button.up");
+		// txtBtnStyle.down = skin.getDrawable("button.down");
+		// txtBtnStyle.disabled = skin.getDrawable("button.disabled");
+		// txtBtnStyle.pressedOffsetX = 1;
+		// txtBtnStyle.pressedOffsetY = -1;
+		// txtBtnStyle.font = fBlack;
 
-		txtBtnStyle.up = skin.getDrawable("button.up");
-
-		txtBtnStyle.down = skin.getDrawable("button.down");
-
-		txtBtnStyle.disabled = skin.getDrawable("button.disabled");
-
-		txtBtnStyle.pressedOffsetX = 1;
-		txtBtnStyle.pressedOffsetY = -1;
-
-		txtBtnStyle.font = fBlack;
-
-		btnPlay = new TextButton("PLAY", txtBtnStyle);
+		btnPlay = new TextButton("PLAY", skin);
 		btnPlay.pad(15);
 
-		btnStore = new TextButton("STORE", txtBtnStyle);
+		btnStore = new TextButton("STORE", skin);
 		btnStore.pad(15);
 		btnStore.setDisabled(true);
 
-		btnExit = new TextButton("EXIT", txtBtnStyle);
+		btnExit = new TextButton("EXIT", skin);
 		btnExit.pad(15);
 
 		addClickListeners();
