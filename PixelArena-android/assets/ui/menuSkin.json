@@ -48,6 +48,11 @@
 		}
 		
 	},
+	com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle:{
+		default:{
+		}
+		
+	},
 	com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle:{
 		default:{
 			up:"button.up",

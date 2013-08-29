@@ -68,16 +68,16 @@ public class ArenaSelect implements Screen {
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
 
-		atlas = new TextureAtlas("ui/atlas.pack");
-		skin = new Skin(Gdx.files.internal("ui.menuSkin.json"), atlas);
+		atlas = new TextureAtlas("ui/button.pack");
+		skin = new Skin(Gdx.files.internal("ui/menuSkin.json"), atlas);
 
 		table = new Table(skin);
 		table.debug();
 
-		list = new List(new String[] { "Arena One", "Arena Two",
-				"Arena Three", "Arena Four" }, skin);
-
-		scrlPane = new ScrollPane(list, skin);
+//		list = new List(new String[] { "Arena One", "Arena Two",
+//				"Arena Three", "Arena Four" }, skin);
+//
+//		scrlPane = new ScrollPane(list, skin);
 
 		playBtn = new TextButton("PLAY", skin);
 		playBtn.pad(15f);
@@ -98,6 +98,8 @@ public class ArenaSelect implements Screen {
 	public void resume() {}
 
 	@Override
-	public void dispose() {}
+	public void dispose() {
+		skin.dispose();
+	}
 
 }
