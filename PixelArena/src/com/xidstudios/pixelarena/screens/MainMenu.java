@@ -3,9 +3,12 @@
  */
 package com.xidstudios.pixelarena.screens;
 
+import aurelienribon.tweenengine.TweenManager;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -14,6 +17,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -49,12 +53,16 @@ public class MainMenu implements Screen, InputProcessor {
 
 	private int height = Gdx.graphics.getHeight();
 
-	private final boolean DEBUG = false;
+	private final boolean DEBUG = true;
+
+	private TweenManager manager;
 
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+
+		manager.update(delta);
 
 		stage.act(delta);
 
@@ -64,11 +72,11 @@ public class MainMenu implements Screen, InputProcessor {
 
 		batch.end();
 
+		stage.draw();
+
 		if (DEBUG) {
 			Table.drawDebug(stage);
 		}
-
-		stage.draw();
 	}
 
 	@Override
@@ -89,12 +97,15 @@ public class MainMenu implements Screen, InputProcessor {
 		table = new Table(skin);
 		table.setBounds(0, 0, width, height);
 
-		// LabelStyle headingStyle = new LabelStyle(fWhite, Color.WHITE);
-		// heading = new Label(PArena.TITLE, headingStyle);
-		// table.add(heading).padBottom(30);
-		// table.row();
+		heading = new Label(PArena.TITLE, new LabelStyle(fWhite,
+				Color.WHITE));
+		table.add(heading);
+		table.getCell(heading).spaceBottom(100);
+		table.row();
 
 		createTextButton();
+
+		// anim
 
 	}
 
@@ -113,24 +124,34 @@ public class MainMenu implements Screen, InputProcessor {
 		txtBtnStyle.font = fBlack;
 
 		btnPlay = new TextButton("PLAY", txtBtnStyle);
-		btnPlay.pad(20);
+		btnPlay.pad(15);
 
 		btnStore = new TextButton("STORE", txtBtnStyle);
-		btnStore.pad(20);
+		btnStore.pad(15);
 		btnStore.setDisabled(true);
 
 		btnExit = new TextButton("EXIT", txtBtnStyle);
-		btnExit.pad(20);
+		btnExit.pad(15);
 
 		addClickListeners();
 
-		table.add(btnPlay).padRight(40);
-		table.add(btnStore).padRight(40);
-		table.add(btnExit);
+		addToTable();
 
 		table.debug();
 
 		stage.addActor(table);
+	}
+
+	private void addToTable() {
+		table.add(btnPlay);
+		table.getCell(btnPlay).spaceBottom(20);
+		table.row();
+		table.add(btnStore);
+		table.getCell(btnStore).spaceBottom(20);
+		table.row();
+		table.add(btnExit);
+		table.getCell(btnExit).spaceBottom(20);
+		table.row();
 	}
 
 	private void addClickListeners() {
@@ -138,7 +159,6 @@ public class MainMenu implements Screen, InputProcessor {
 
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				super.clicked(event, x, y);
 				dispose();
 				Gdx.app.log(PArena.LOG, "Exit Clicked");
 				Gdx.app.exit();
@@ -149,8 +169,8 @@ public class MainMenu implements Screen, InputProcessor {
 
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				super.clicked(event, x, y);
 				Gdx.app.log(PArena.LOG, "Play Clicked");
+				GFile.game.setScreen(new ArenaScreen());
 			}
 
 		});
@@ -181,6 +201,7 @@ public class MainMenu implements Screen, InputProcessor {
 		stage.dispose();
 		fBlack.dispose();
 		fWhite.dispose();
+		skin.dispose();
 		batch.dispose();
 	}
 
