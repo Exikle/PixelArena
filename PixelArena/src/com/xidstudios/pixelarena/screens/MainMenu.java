@@ -98,11 +98,9 @@ public class MainMenu implements Screen, InputProcessor {
 		Gdx.input.setInputProcessor(stage);
 		table = new Table(skin);
 		table.setBounds(0, 0, width, height);
-
-		// heading = new Label(PArena.TITLE, new
-		// LabelStyle(fWhite,Color.WHITE));
 		
 		heading = new Label(PArena.TITLE, skin);
+		
 		table.add(heading);
 		table.getCell(heading).spaceBottom(100);
 		table.row();
@@ -176,7 +174,7 @@ public class MainMenu implements Screen, InputProcessor {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				Gdx.app.log(PArena.LOG, "Play Clicked");
-				GFile.game.setScreen(new ArenaScreen());
+				GFile.game.setScreen(new ArenaSelect());
 			}
 
 		});
