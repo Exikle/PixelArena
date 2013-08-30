@@ -7,6 +7,7 @@ import aurelienribon.tweenengine.TweenEquations;
 import aurelienribon.tweenengine.TweenManager;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -16,7 +17,7 @@ import com.xidstudios.pixelarena.Graphic;
 import com.xidstudios.pixelarena.PArena;
 import com.xidstudios.pixelarena.tweenaccesors.SpriteTween;
 
-public class SplashScreen implements Screen {
+public class SplashScreen implements Screen, InputProcessor {
 
 	private SpriteBatch batch;
 
@@ -28,6 +29,8 @@ public class SplashScreen implements Screen {
 
 	private final float SPLASH_SPEED = 1.5f;
 
+	private int tempCounter;
+
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -36,6 +39,7 @@ public class SplashScreen implements Screen {
 
 		manager.update(delta);
 		batch.begin();
+
 		try {
 			splash[splashCount].draw(batch);
 		} catch (Exception Exception) {
@@ -49,24 +53,33 @@ public class SplashScreen implements Screen {
 	public void show() {
 		batch = new SpriteBatch();
 
-		Tween.registerAccessor(
-				Sprite.class,
-				new com.xidstudios.pixelarena.tweenaccesors.SpriteTween());
-
-		manager = new TweenManager();
-
-		splash = new Sprite[3];
-
-		splash[0] = new Sprite(Graphic.XID_LOGO.getTexture());
-		splash[1] = new Sprite(Graphic.EXIKLE_LOGO.getTexture());
-		splash[2] = new Sprite(Graphic.STARTBG.getTexture());
-
+		createTweens();
+		initializeSplashImages();
 		setSpriteDefaults();
 		tweenSprite();
 
+		Gdx.input.setInputProcessor(this);
+
+	}
+
+	private void createTweens() {
+		Tween.registerAccessor(
+				Sprite.class,
+				new com.xidstudios.pixelarena.tweenaccesors.SpriteTween());
+		manager = new TweenManager();
+	}
+
+	private void initializeSplashImages() {
+		splash = new Sprite[3];
+		splash[0] = new Sprite(Graphic.XID_LOGO.getTexture());
+		splash[1] = new Sprite(Graphic.EXIKLE_LOGO.getTexture());
+		splash[2] = new Sprite(Graphic.STARTBG.getTexture());
 	}
 
 	private void tweenSprite() {
+		if (splashCount > splash.length - 1) {
+			splashCount--;
+		}
 		Gdx.app.log(PArena.LOG, "SplashScreen " + splashCount
 				+ " Rendered");
 		Tween.to(splash[splashCount], SpriteTween.ALPHA, SPLASH_SPEED)
@@ -76,6 +89,7 @@ public class SplashScreen implements Screen {
 	}
 
 	private void stopTween() {
+		Gdx.input.setInputProcessor(null);
 		Gdx.app.log(PArena.LOG, "SplashScreen " + splashCount
 				+ " Rendered");
 		Tween.to(splash[splashCount], SpriteTween.ALPHA, SPLASH_SPEED)
@@ -124,17 +138,63 @@ public class SplashScreen implements Screen {
 
 	@Override
 	public void pause() {
-		splashCount = 0;
+		tempCounter = splashCount;
 	}
 
 	@Override
 	public void resume() {
+		splashCount = tempCounter;
 		tweenSprite();
 	}
 
 	@Override
 	public void dispose() {
 		batch.dispose();
+	}
+
+	@Override
+	public boolean keyDown(int keycode) {
+		return false;
+	}
+
+	@Override
+	public boolean keyUp(int keycode) {
+		return false;
+	}
+
+	@Override
+	public boolean keyTyped(char character) {
+		return false;
+	}
+
+	@Override
+	public boolean touchDown(int screenX, int screenY, int pointer,
+			int button) {
+		splashCount++;
+		Gdx.app.log(PArena.LOG, "SplashScreen Pressed");
+		tweenSprite();
+		return false;
+	}
+
+	@Override
+	public boolean touchUp(int screenX, int screenY, int pointer,
+			int button) {
+		return false;
+	}
+
+	@Override
+	public boolean touchDragged(int screenX, int screenY, int pointer) {
+		return false;
+	}
+
+	@Override
+	public boolean mouseMoved(int screenX, int screenY) {
+		return false;
+	}
+
+	@Override
+	public boolean scrolled(int amount) {
+		return false;
 	}
 
 }

@@ -88,26 +88,24 @@ public class MainMenu implements Screen, InputProcessor {
 		Gdx.app.log(PArena.LOG, "Main Menu Rendered");
 
 		batch = new SpriteBatch();
+		stage = new Stage();
+		Gdx.input.setInputProcessor(stage);
 
 		initializeFont();
 		initializeBG();
+		loadSkin();
+		createButtons();
+		createTable();
+		createTweens();
 
+	}
+
+	private void loadSkin() {
 		skin = new Skin(Gdx.files.internal("ui/menuSkin.json"),
 				new TextureAtlas("ui/button.pack"));
-		stage = new Stage();
-		Gdx.input.setInputProcessor(stage);
-		table = new Table(skin);
-		table.setBounds(0, 0, width, height);
-		
-		heading = new Label(PArena.TITLE, skin);
-		
-		table.add(heading);
-		table.getCell(heading).spaceBottom(100);
-		table.row();
+	}
 
-		createTextButton();
-
-		// anim
+	private void createTweens() {
 		manager = new TweenManager();
 		Tween.registerAccessor(Actor.class, new ActorAccessor());
 
@@ -115,42 +113,15 @@ public class MainMenu implements Screen, InputProcessor {
 				.beginParallel()
 				.push(Tween.from(table, ActorAccessor.ALPHA, 0.5f)
 						.target(0)).end().start(manager);
-
 	}
 
-	private void createTextButton() {
-		btnPlay = new TextButton("PLAY", skin);
-		btnPlay.pad(15);
-
+	private void createButtons() {
 		btnStore = new TextButton("STORE", skin);
 		btnStore.pad(15);
 		btnStore.setDisabled(true);
 
 		btnExit = new TextButton("EXIT", skin);
 		btnExit.pad(15);
-
-		addClickListeners();
-
-		addToTable();
-
-		table.debug();
-
-		stage.addActor(table);
-	}
-
-	private void addToTable() {
-		table.add(btnPlay);
-		table.getCell(btnPlay).spaceBottom(20);
-		table.row();
-		table.add(btnStore);
-		table.getCell(btnStore).spaceBottom(20);
-		table.row();
-		table.add(btnExit);
-		table.getCell(btnExit).spaceBottom(20);
-		table.row();
-	}
-
-	private void addClickListeners() {
 		btnExit.addListener(new ClickListener() {
 
 			@Override
@@ -161,15 +132,44 @@ public class MainMenu implements Screen, InputProcessor {
 			}
 
 		});
+
+		btnPlay = new TextButton("PLAY", skin);
+		btnPlay.pad(15);
 		btnPlay.addListener(new ClickListener() {
 
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				Gdx.app.log(PArena.LOG, "Play Clicked");
-				GFile.game.setScreen(new ArenaSelect());
+//				GFile.game.setScreen(new ArenaSelect());
 			}
 
 		});
+	}
+
+	private void createTable() {
+		table = new Table(skin);
+		table.setBounds(0, 0, width, height);
+
+		heading = new Label(PArena.TITLE, skin);
+		heading.scale(2f);
+
+		table.add(heading);
+		table.getCell(heading).spaceBottom(100);
+		table.row();
+
+		table.add(btnPlay);
+		table.getCell(btnPlay).spaceBottom(20);
+		table.row();
+		table.add(btnStore);
+		table.getCell(btnStore).spaceBottom(20);
+		table.row();
+		table.add(btnExit);
+		table.getCell(btnExit).spaceBottom(20);
+		table.row();
+
+		table.debug();
+
+		stage.addActor(table);
 	}
 
 	private void initializeFont() {
