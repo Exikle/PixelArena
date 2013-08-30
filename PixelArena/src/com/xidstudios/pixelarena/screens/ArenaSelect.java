@@ -38,6 +38,8 @@ public class ArenaSelect implements Screen {
 
 	private final boolean DEBUG = true;
 
+	private String[] arenas;
+
 	/**
 	 * 
 	 */
@@ -49,6 +51,8 @@ public class ArenaSelect implements Screen {
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+		stage.act(delta);
+		stage.draw();
 
 		batch.begin();
 
@@ -68,16 +72,18 @@ public class ArenaSelect implements Screen {
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
 
-		atlas = new TextureAtlas("ui/button.pack");
+		atlas = new TextureAtlas("ui/atlas.pack");
 		skin = new Skin(Gdx.files.internal("ui/menuSkin.json"), atlas);
 
 		table = new Table(skin);
 		table.debug();
 
-//		list = new List(new String[] { "Arena One", "Arena Two",
-//				"Arena Three", "Arena Four" }, skin);
-//
-//		scrlPane = new ScrollPane(list, skin);
+		arenas = new String[] { "Arena One", "Arena Two",
+				"Arena Three", "Arena Four" };
+
+		list = new List(arenas, skin);
+
+		scrlPane = new ScrollPane(list, skin);
 
 		playBtn = new TextButton("PLAY", skin);
 		playBtn.pad(15f);
@@ -100,6 +106,9 @@ public class ArenaSelect implements Screen {
 	@Override
 	public void dispose() {
 		skin.dispose();
+		stage.dispose();
+		atlas.dispose();
+		batch.dispose();
 	}
 
 }

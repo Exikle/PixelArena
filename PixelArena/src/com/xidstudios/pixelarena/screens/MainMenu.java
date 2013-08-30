@@ -54,7 +54,7 @@ public class MainMenu implements Screen, InputProcessor {
 
 	private int height = Gdx.graphics.getHeight();
 
-	private final boolean DEBUG = true;
+	private final boolean DEBUG = false;
 
 	private TweenManager manager;
 
@@ -119,14 +119,6 @@ public class MainMenu implements Screen, InputProcessor {
 	}
 
 	private void createTextButton() {
-		// TextButtonStyle txtBtnStyle = new TextButtonStyle();
-		// txtBtnStyle.up = skin.getDrawable("button.up");
-		// txtBtnStyle.down = skin.getDrawable("button.down");
-		// txtBtnStyle.disabled = skin.getDrawable("button.disabled");
-		// txtBtnStyle.pressedOffsetX = 1;
-		// txtBtnStyle.pressedOffsetY = -1;
-		// txtBtnStyle.font = fBlack;
-
 		btnPlay = new TextButton("PLAY", skin);
 		btnPlay.pad(15);
 
