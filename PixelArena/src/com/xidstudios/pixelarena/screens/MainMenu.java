@@ -23,7 +23,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.xidstudios.pixelarena.GFile;
 import com.xidstudios.pixelarena.GameFont;
 import com.xidstudios.pixelarena.Graphic;
 import com.xidstudios.pixelarena.PArena;
@@ -97,7 +96,6 @@ public class MainMenu implements Screen, InputProcessor {
 		createButtons();
 		createTable();
 		createTweens();
-
 	}
 
 	private void loadSkin() {
