@@ -116,7 +116,7 @@ public class MainMenu implements Screen, InputProcessor {
 	private void createButtons() {
 		btnStore = new TextButton("STORE", skin);
 		btnStore.pad(15);
-//		btnStore.setDisabled(true);
+		btnStore.setDisabled(true);
 
 		btnExit = new TextButton("EXIT", skin);
 		btnExit.pad(15);
