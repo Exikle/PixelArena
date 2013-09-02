@@ -22,7 +22,17 @@
    H4sIAAAAAAAAC+2XwQ6DMAxDI9gROG77/y8dPXAsWmw3UUWelBvCrtNCupvZXlU1UX2CK2s97Hu/Fs+b8PtPJiN0M3K6YPNCvSO6B6ilZLOcHnt1e1ktZ63ieok8q3qsygrtdZSWIqt2Dj3/ot4+jszK6/nOdwaI/5nWVxRF8UQi56vZiZwZsvDuB+UsHXlHUOzRzfm8cj5k5l4vqjtOtCZLRlZLgqYCJKsGeg6RnFhNBYzvxp333reOJSMvNqeLUZkgmqOqKGbkByOm3U9MHQAA
   </data>
  </layer>
+ <layer name="Animated Bottom" width="75" height="25">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3BMQEAAADCoPVP7W8GoAAAAAAAAAB4A7+v28tMHQAA
+  </data>
+ </layer>
  <layer name="PlayerLayer" width="75" height="25">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3BMQEAAADCoPVP7W8GoAAAAAAAAAB4A7+v28tMHQAA
+  </data>
+ </layer>
+ <layer name="Animated Top" width="75" height="25">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAAC+3BMQEAAADCoPVP7W8GoAAAAAAAAAB4A7+v28tMHQAA
   </data>

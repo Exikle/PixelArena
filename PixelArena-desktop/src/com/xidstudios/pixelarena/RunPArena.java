@@ -12,7 +12,7 @@ public class RunPArena {
 		cfg.useGL20 = true;
 		cfg.width = 1080;
 		cfg.height = 720;
-		cfg.resizable = false;
+//		cfg.resizable = false;
 		cfg.vSyncEnabled = true;
 
 		new LwjglApplication(new PArena(), cfg);
