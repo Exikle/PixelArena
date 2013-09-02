@@ -7,7 +7,7 @@ public class PArena extends Game {
 
 	public static final String VERSION = "0.0.0.02 Pre-Alpha";
 
-	public static final String LOG = "Pixel Arena";
+	public static final String LOG = "P.A.";
 
 	public static final String TITLE = "Pixel Arena";
 
