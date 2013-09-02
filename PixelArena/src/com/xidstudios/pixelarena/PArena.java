@@ -1,6 +1,7 @@
 package com.xidstudios.pixelarena;
 
 import com.badlogic.gdx.Game;
+import com.xidstudios.pixelarena.arena.Arena;
 import com.xidstudios.pixelarena.screens.SplashScreen;
 
 public class PArena extends Game {
@@ -11,10 +12,16 @@ public class PArena extends Game {
 
 	public static final String TITLE = "Pixel Arena";
 
+	private final boolean NORMAL = false;
+
 	@Override
 	public void create() {
 		GFile.game = this;
-		setScreen(new SplashScreen());
+		if (NORMAL) {
+			setScreen(new SplashScreen());
+		} else {
+			setScreen(new Arena());
+		}
 	}
 
 	@Override

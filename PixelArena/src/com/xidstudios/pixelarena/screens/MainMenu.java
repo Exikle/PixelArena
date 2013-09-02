@@ -27,7 +27,7 @@ import com.xidstudios.pixelarena.GFile;
 import com.xidstudios.pixelarena.GameFont;
 import com.xidstudios.pixelarena.Graphic;
 import com.xidstudios.pixelarena.PArena;
-import com.xidstudios.pixelarena.arena.ArenaRenderer;
+import com.xidstudios.pixelarena.arena.Arena;
 import com.xidstudios.pixelarena.tweenaccesors.ActorAccessor;
 
 /**
@@ -140,7 +140,7 @@ public class MainMenu implements Screen, InputProcessor {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				Gdx.app.log(PArena.LOG, "Play Clicked");
-				GFile.game.setScreen(new ArenaRenderer());
+				GFile.game.setScreen(new Arena());
 				btnPlay.removeListener(this);
 				btnExit.removeListener(btnExit.getClickListener());
 			}
