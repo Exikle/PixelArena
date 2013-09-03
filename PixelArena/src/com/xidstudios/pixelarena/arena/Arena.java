@@ -6,16 +6,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Vector2;
+import com.xidstudios.pixelarena.entity.Player;
+import com.xidstudios.pixelarena.input.InputHandler;
 
 public class Arena extends ArenaBase {
-
-	/**
-	 * The map the player starts in
-	 */
-	private String START_MAP_NAME = "AreaOne";
-
-	private final Vector2 STARTCOORD = new Vector2(50, 50);
 
 	private OrthographicCamera camera = new OrthographicCamera();
 
@@ -23,7 +17,9 @@ public class Arena extends ArenaBase {
 
 	private OrthogonalTiledMapRenderer tileMapRenderer;
 
-	TiledMap map;
+	private TiledMap map;
+
+	private Player player;
 
 	public void render(float delta) {
 		super.render(delta);
@@ -48,6 +44,9 @@ public class Arena extends ArenaBase {
 		camera.viewportHeight = Gdx.graphics.getHeight();
 		camera.viewportWidth = Gdx.graphics.getWidth();
 		camera.position.set(100, 50, 0);
+		camera.position.y = Gdx.graphics.getHeight() / 2;
+
+		Gdx.input.setInputProcessor(new InputHandler(camera, player));
 	}
 
 	private void cameraUpdater() {
