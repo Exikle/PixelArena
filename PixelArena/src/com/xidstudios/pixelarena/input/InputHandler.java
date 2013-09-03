@@ -66,9 +66,9 @@ public class InputHandler implements InputProcessor {
 			Vector2 nPos = new Vector2(Gdx.input.getX(),
 					Gdx.input.getY());
 			if (nPos.x > oPos.x) {
-				camera.position.x = (nPos.x);
+				camera.translate(nPos.x,0);
 			} else {
-				camera.position.x = (nPos.x);
+				camera.translate(-nPos.x, 0);
 			}
 			Gdx.app.log(PArena.LOG, camera.position.x + "");
 			if (camera.position.x < 0) {
