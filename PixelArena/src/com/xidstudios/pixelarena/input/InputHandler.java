@@ -25,6 +25,8 @@ public class InputHandler implements InputProcessor {
 
 	private TiledMap map;
 
+	private Vector2 oPos;
+
 	/**
 	 * 
 	 */
@@ -60,14 +62,14 @@ public class InputHandler implements InputProcessor {
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer,
 			int button) {
-		if (!dragged)
+		Vector2 nPos = getNewCameraPosition(screenX, screenY);
+		if (!dragged) {
 			Gdx.app.log(PArena.LOG, "Move Player Here");
-		else
+			player.setPosition(screenX, screenY);
+		} else
 			dragged = false;
 		return false;
 	}
-
-	private Vector2 oPos;
 
 	public boolean touchDragged(int x, int y, int pointer) {
 		dragged = true;
@@ -78,12 +80,13 @@ public class InputHandler implements InputProcessor {
 	private void moveCamera(int touchX, int touchY) {
 		Vector2 nPos = getNewCameraPosition(touchX, touchY);
 
-		// if (!cameraOutOfLimit(nPos)) {
-		cam.translate(nPos.sub(cam.position.x,
-				cam.position.y));
-		Gdx.app.log(PArena.LOG, "Moved Camera");
-		// }
+		// if (!cameraOutOfLimit(nPos))
+		{
+			cam.translate(nPos.sub(cam.position.x, cam.position.y));
+			Gdx.app.log(PArena.LOG, "Moved Camera");
+		}
 		oPos.set(touchX, touchY);
+		Gdx.app.log(PArena.LOG, oPos.x + "," + oPos.y);
 	}
 
 	private Vector2 getNewCameraPosition(int x, int y) {
@@ -91,7 +94,6 @@ public class InputHandler implements InputProcessor {
 		nPos.sub(x, y);
 		nPos.y = -nPos.y;
 		nPos.add(cam.position.x, cam.position.y);
-
 		return nPos;
 	}
 

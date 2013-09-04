@@ -36,7 +36,7 @@ public class Player extends Sprite {
 		// playerSpriteSheet = spriteSheet;
 		playerSpriteSheet = new TextureRegion(new Texture(
 				"imgs/MalePlayer.png"));
-		changePlayerDirection(1);
+		changePlayerDirection(3);
 	}
 
 	public void changePlayerDirection(int d) {
