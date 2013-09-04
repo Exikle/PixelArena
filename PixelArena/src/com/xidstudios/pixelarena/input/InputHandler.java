@@ -17,7 +17,7 @@ import com.xidstudios.pixelarena.entity.Player;
  */
 public class InputHandler implements InputProcessor {
 
-	private OrthographicCamera camera;
+	private OrthographicCamera cam;
 
 	private boolean dragged = false;
 
@@ -30,7 +30,7 @@ public class InputHandler implements InputProcessor {
 	 */
 	public InputHandler(OrthographicCamera camera, Player player,
 			TiledMap map) {
-		this.camera = camera;
+		this.cam = camera;
 		this.player = player;
 		this.map = map;
 	}
@@ -53,7 +53,6 @@ public class InputHandler implements InputProcessor {
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer,
 			int button) {
-		Gdx.app.log(PArena.LOG, "Press Down");
 		oPos = new Vector2(Gdx.input.getX(), Gdx.input.getY());
 		return false;
 	}
@@ -61,8 +60,10 @@ public class InputHandler implements InputProcessor {
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer,
 			int button) {
-		Gdx.app.log(PArena.LOG, "Let Go");
-		dragged = false;
+		if (!dragged)
+			Gdx.app.log(PArena.LOG, "Move Player Here");
+		else
+			dragged = false;
 		return false;
 	}
 
@@ -78,20 +79,20 @@ public class InputHandler implements InputProcessor {
 		Vector2 nPos = getNewCameraPosition(touchX, touchY);
 
 		// if (!cameraOutOfLimit(nPos)) {
-		camera.translate(nPos.sub(camera.position.x,
-				camera.position.y));
+		cam.translate(nPos.sub(cam.position.x,
+				cam.position.y));
 		Gdx.app.log(PArena.LOG, "Moved Camera");
 		// }
 		oPos.set(touchX, touchY);
 	}
 
 	private Vector2 getNewCameraPosition(int x, int y) {
-		Vector2 new_position = oPos;
-		new_position.sub(x, y);
-		new_position.y = -new_position.y;
-		new_position.add(camera.position.x, camera.position.y);
+		Vector2 nPos = oPos;
+		nPos.sub(x, y);
+		nPos.y = -nPos.y;
+		nPos.add(cam.position.x, cam.position.y);
 
-		return new_position;
+		return nPos;
 	}
 
 	private boolean cameraOutOfLimit(Vector2 position) {
