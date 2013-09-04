@@ -43,7 +43,7 @@ public class Arena extends ArenaBase {
 		camera = new OrthographicCamera();
 		camera.viewportHeight = Gdx.graphics.getHeight();
 		camera.viewportWidth = Gdx.graphics.getWidth();
-		camera.position.set(100, 50, 0);
+		camera.position.set(900, 50, 0);
 		camera.position.y = Gdx.graphics.getHeight() / 2;
 		Gdx.input.setInputProcessor(new InputHandler(camera, player, map));
 	}

@@ -74,15 +74,15 @@ public class InputHandler implements InputProcessor {
 		return false;
 	}
 
-	private void moveCamera(int touch_x, int touch_y) {
-		Vector2 nPos = getNewCameraPosition(touch_x, touch_y);
+	private void moveCamera(int touchX, int touchY) {
+		Vector2 nPos = getNewCameraPosition(touchX, touchY);
 
-		if (!cameraOutOfLimit(nPos)) {
-			camera.translate(nPos.sub(camera.position.x,
-					camera.position.y));
-			Gdx.app.log(PArena.LOG, "Moved Camera");
-		}
-		oPos.set(touch_x, touch_y);
+		// if (!cameraOutOfLimit(nPos)) {
+		camera.translate(nPos.sub(camera.position.x,
+				camera.position.y));
+		Gdx.app.log(PArena.LOG, "Moved Camera");
+		// }
+		oPos.set(touchX, touchY);
 	}
 
 	private Vector2 getNewCameraPosition(int x, int y) {
