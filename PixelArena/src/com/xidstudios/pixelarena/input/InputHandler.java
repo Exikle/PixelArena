@@ -6,6 +6,7 @@ package com.xidstudios.pixelarena.input;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
@@ -16,7 +17,7 @@ import com.xidstudios.pixelarena.entity.Player;
 /**
  * @author Dixon D'Cunha
  */
-public class InputHandler implements InputProcessor {
+public class InputHandler implements InputProcessor, GestureListener {
 
 	private OrthographicCamera cam;
 
@@ -67,7 +68,7 @@ public class InputHandler implements InputProcessor {
 			dragged = false;
 		return false;
 	}
-	
+
 	private void movePlayer(float x, float y) {
 		Vector3 newPos = new Vector3();
 		cam.unproject(newPos.set(x, y, 0));
@@ -129,6 +130,50 @@ public class InputHandler implements InputProcessor {
 
 	@Override
 	public boolean scrolled(int amount) {
+		return false;
+	}
+
+	@Override
+	public boolean touchDown(float x, float y, int pointer, int button) {
+		Gdx.app.log(PArena.LOG, "Touch Down");
+		return false;
+	}
+
+	@Override
+	public boolean tap(float x, float y, int count, int button) {
+		Gdx.app.log(PArena.LOG, "Tap");
+		return false;
+	}
+
+	@Override
+	public boolean longPress(float x, float y) {
+		Gdx.app.log(PArena.LOG, "Long Press");
+		return false;
+	}
+
+	@Override
+	public boolean fling(float velocityX, float velocityY, int button) {
+		Gdx.app.log(PArena.LOG, "Fling");
+		return false;
+	}
+
+	@Override
+	public boolean pan(float x, float y, float deltaX, float deltaY) {
+		Gdx.app.log(PArena.LOG, "pan");
+		return false;
+	}
+
+	@Override
+	public boolean zoom(float initialDistance, float distance) {
+		Gdx.app.log(PArena.LOG, "Zoom");
+		return false;
+	}
+
+	@Override
+	public boolean pinch(Vector2 initialPointer1,
+			Vector2 initialPointer2, Vector2 pointer1,
+			Vector2 pointer2) {
+		Gdx.app.log(PArena.LOG, "Pinch");
 		return false;
 	}
 
