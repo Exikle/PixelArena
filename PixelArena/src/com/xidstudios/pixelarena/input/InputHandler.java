@@ -27,9 +27,6 @@ public class InputHandler implements InputProcessor {
 
 	private Vector2 oPos;
 
-	/**
-	 * 
-	 */
 	public InputHandler(OrthographicCamera camera, Player player,
 			TiledMap map) {
 		this.cam = camera;
@@ -62,13 +59,18 @@ public class InputHandler implements InputProcessor {
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer,
 			int button) {
-		Vector2 nPos = getNewCameraPosition(screenX, screenY);
 		if (!dragged) {
-			Gdx.app.log(PArena.LOG, "Move Player Here");
-			player.setPosition(screenX, screenY);
+			// Gdx.app.log(PArena.LOG, "Move Player Here");
+			// movePlayer(5, 0);
+			//move the player
+
 		} else
 			dragged = false;
 		return false;
+	}
+
+	private void movePlayer(float x, float y) {
+		player.setPosition(player.getX() + x, player.getY() + y);
 	}
 
 	public boolean touchDragged(int x, int y, int pointer) {
@@ -86,7 +88,7 @@ public class InputHandler implements InputProcessor {
 			Gdx.app.log(PArena.LOG, "Moved Camera");
 		}
 		oPos.set(touchX, touchY);
-		Gdx.app.log(PArena.LOG, oPos.x + "," + oPos.y);
+		// Gdx.app.log(PArena.LOG, oPos.x + "," + oPos.y);
 	}
 
 	private Vector2 getNewCameraPosition(int x, int y) {

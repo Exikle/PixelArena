@@ -51,6 +51,10 @@ public class Arena extends ArenaBase {
 		// Load the tmx file into map
 		map = new TmxMapLoader().load("maps/AreaOne.tmx");
 
+		player = new Player(camera, new TextureRegion(new Texture(
+				"imgs/MalePlayer.png")));
+		player.setPosition(50, 150);
+
 		// Create the renderer
 		tileMapRenderer = new OrthogonalTiledMapRenderer(map);
 
@@ -62,9 +66,6 @@ public class Arena extends ArenaBase {
 		camera.position.y = Gdx.graphics.getHeight() / 2;
 		Gdx.input.setInputProcessor(new InputHandler(camera, player,
 				map));
-
-		player = new Player(camera, new TextureRegion(new Texture(
-				"imgs/MalePlayer.png")));
 	}
 
 	private void cameraUpdater() {
