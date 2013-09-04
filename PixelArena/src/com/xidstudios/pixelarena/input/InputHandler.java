@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.xidstudios.pixelarena.PArena;
 import com.xidstudios.pixelarena.entity.Player;
 
@@ -53,6 +54,7 @@ public class InputHandler implements InputProcessor {
 	public boolean touchDown(int screenX, int screenY, int pointer,
 			int button) {
 		oPos = new Vector2(Gdx.input.getX(), Gdx.input.getY());
+		oPos.set(screenX, screenY);
 		return false;
 	}
 
@@ -60,17 +62,16 @@ public class InputHandler implements InputProcessor {
 	public boolean touchUp(int screenX, int screenY, int pointer,
 			int button) {
 		if (!dragged) {
-			// Gdx.app.log(PArena.LOG, "Move Player Here");
-			// movePlayer(5, 0);
-			//move the player
-
+			movePlayer(screenX, screenY);
 		} else
 			dragged = false;
 		return false;
 	}
-
+	
 	private void movePlayer(float x, float y) {
-		player.setPosition(player.getX() + x, player.getY() + y);
+		Vector3 newPos = new Vector3();
+		cam.unproject(newPos.set(x, y, 0));
+		player.setPosition(newPos.x, newPos.y);
 	}
 
 	public boolean touchDragged(int x, int y, int pointer) {
@@ -99,6 +100,7 @@ public class InputHandler implements InputProcessor {
 		return nPos;
 	}
 
+	@SuppressWarnings("unused")
 	private boolean cameraOutOfLimit(Vector2 position) {
 		final int WINDOW_WIDTH = Gdx.graphics.getWidth();
 		final int WINDOW_HEIGHT = Gdx.graphics.getHeight();
