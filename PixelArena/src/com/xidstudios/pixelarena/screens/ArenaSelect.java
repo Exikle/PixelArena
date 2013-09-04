@@ -32,7 +32,7 @@ public class ArenaSelect implements Screen {
 
 	private List list;
 
-	private ScrollPane scrlPane;
+	// private ScrollPane scrlPane;
 
 	private TextButton playBtn, backBtn;
 
@@ -83,7 +83,7 @@ public class ArenaSelect implements Screen {
 
 		list = new List(arenas, skin);
 
-		scrlPane = new ScrollPane(list, skin);
+		// scrlPane = new ScrollPane(list, skin);
 
 		playBtn = new TextButton("PLAY", skin);
 		playBtn.pad(15f);

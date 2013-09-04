@@ -1,35 +1,24 @@
 package com.xidstudios.pixelarena.input;
 
-import aurelienribon.tweenengine.TweenManager;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.xidstudios.pixelarena.PArena;
 import com.xidstudios.pixelarena.entity.Player;
 
 public class GestureHandler implements GestureListener {
 
-	private OrthographicCamera cam;
-
-	private boolean dragged = false;
+	private OrthographicCamera camera;
 
 	private Player player;
 
-	private TiledMap map;
-
 	private Vector2 oPos;
 
-	private TweenManager manager;
-
-	public GestureHandler(OrthographicCamera camera, Player player,
-			TiledMap map, TweenManager manager) {
-		this.cam = camera;
+	public GestureHandler(OrthographicCamera camera, Player player) {
+		this.camera = camera;
 		this.player = player;
-		this.map = map;
-		this.manager = manager;
 	}
 
 	@Override
@@ -43,7 +32,14 @@ public class GestureHandler implements GestureListener {
 	@Override
 	public boolean tap(float x, float y, int count, int button) {
 		Gdx.app.log(PArena.LOG, "Tap");
+		movePlayer(x, y);
 		return false;
+	}
+
+	private void movePlayer(float x, float y) {
+		Vector3 newPos = new Vector3();
+		camera.unproject(newPos.set(x, y, 0));
+		player.setPosition(newPos.x, newPos.y);
 	}
 
 	@Override
@@ -56,7 +52,7 @@ public class GestureHandler implements GestureListener {
 	public boolean fling(float velocityX, float velocityY, int button) {
 		Gdx.app.log(PArena.LOG, "Fling");
 		// moveCamera(velocityX, velocityY);
-		cam.translate(-velocityX, velocityY);
+		// camera.translate(-velocityX, velocityY);
 		return false;
 	}
 
@@ -69,6 +65,10 @@ public class GestureHandler implements GestureListener {
 	@Override
 	public boolean zoom(float initialDistance, float distance) {
 		Gdx.app.log(PArena.LOG, "Zoom");
+		if (initialDistance > distance)
+			camera.zoom += .01;
+		else if (initialDistance < distance)
+			camera.zoom -= .01;
 		return false;
 	}
 

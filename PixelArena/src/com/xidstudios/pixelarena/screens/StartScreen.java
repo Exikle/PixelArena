@@ -1,5 +1,6 @@
 package com.xidstudios.pixelarena.screens;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
@@ -7,7 +8,6 @@ import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.xidstudios.pixelarena.GFile;
 import com.xidstudios.pixelarena.GameFont;
 import com.xidstudios.pixelarena.Graphic;
 import com.xidstudios.pixelarena.PArena;
@@ -76,7 +76,8 @@ public class StartScreen implements Screen, InputProcessor {
 
 	@Override
 	public boolean keyDown(int keycode) {
-		GFile.game.setScreen(new MainMenu());
+		((Game) Gdx.app.getApplicationListener())
+				.setScreen(new MainMenu());
 		return false;
 	}
 
@@ -99,7 +100,8 @@ public class StartScreen implements Screen, InputProcessor {
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer,
 			int button) {
-		GFile.game.setScreen(new MainMenu());
+		((Game) Gdx.app.getApplicationListener())
+				.setScreen(new MainMenu());
 		return false;
 	}
 

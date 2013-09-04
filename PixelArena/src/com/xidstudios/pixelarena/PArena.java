@@ -16,7 +16,6 @@ public class PArena extends Game {
 
 	@Override
 	public void create() {
-		GFile.game = this;
 		if (NORMAL) {
 			setScreen(new SplashScreen());
 		} else {

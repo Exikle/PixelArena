@@ -7,6 +7,7 @@ import aurelienribon.tweenengine.Timeline;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenManager;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
@@ -23,7 +24,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.xidstudios.pixelarena.GFile;
 import com.xidstudios.pixelarena.GameFont;
 import com.xidstudios.pixelarena.Graphic;
 import com.xidstudios.pixelarena.PArena;
@@ -140,7 +140,9 @@ public class MainMenu implements Screen, InputProcessor {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				Gdx.app.log(PArena.LOG, "Play Clicked");
-				GFile.game.setScreen(new Arena());
+
+				((Game) Gdx.app.getApplicationListener())
+						.setScreen(new Arena());
 				btnPlay.removeListener(this);
 				btnExit.removeListener(btnExit.getClickListener());
 			}

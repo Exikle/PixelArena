@@ -6,13 +6,13 @@ import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.TweenEquations;
 import aurelienribon.tweenengine.TweenManager;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.xidstudios.pixelarena.GFile;
 import com.xidstudios.pixelarena.Graphic;
 import com.xidstudios.pixelarena.PArena;
 import com.xidstudios.pixelarena.tweenaccesors.SpriteTween;
@@ -115,7 +115,8 @@ public class SplashScreen implements Screen, InputProcessor {
 	};
 
 	private void tweenCompleted() {
-		GFile.game.setScreen(new StartScreen());
+		((Game) Gdx.app.getApplicationListener())
+				.setScreen(new StartScreen());
 	}
 
 	private void setSpriteDefaults() {

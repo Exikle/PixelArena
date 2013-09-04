@@ -4,6 +4,7 @@ import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenManager;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -14,6 +15,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.xidstudios.pixelarena.entity.Player;
 import com.xidstudios.pixelarena.input.GestureHandler;
+import com.xidstudios.pixelarena.input.InputHandler;
 import com.xidstudios.pixelarena.tweenaccessors.CameraTween;
 
 public class Arena extends ArenaBase {
@@ -56,7 +58,8 @@ public class Arena extends ArenaBase {
 	public void show() {
 		// importMap(START_MAP_NAME, STARTCOORD);
 
-		Tween.registerAccessor(OrthographicCamera.class, new CameraTween());
+		Tween.registerAccessor(OrthographicCamera.class,
+				new CameraTween());
 		manager = new TweenManager();
 
 		// Load the tmx file into map
@@ -77,8 +80,11 @@ public class Arena extends ArenaBase {
 		camera.position.y = Gdx.graphics.getHeight() / 2;
 
 		// Gdx.input.setInputProcessor(new InputHandler(camera, player,map));
-		Gdx.input.setInputProcessor(new GestureDetector(
-				new GestureHandler(camera, player, map, manager)));
+		InputMultiplexer iM = new InputMultiplexer(new InputHandler(
+				camera, map, manager), new GestureDetector(
+				new GestureHandler(camera, player)));
+
+		Gdx.input.setInputProcessor(iM);
 	}
 
 	private void cameraUpdater() {
