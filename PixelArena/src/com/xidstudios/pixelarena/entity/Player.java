@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
  * @author Dixon D'Cunha
  *         Extension of {@link Sprite}
  */
-public class Player extends Sprite {
+public class Player extends Sprite{
 
 	public int direction = 1;
 

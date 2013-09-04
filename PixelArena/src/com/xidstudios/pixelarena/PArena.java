@@ -12,7 +12,7 @@ public class PArena extends Game {
 
 	public static final String TITLE = "Pixel Arena";
 
-	private final boolean NORMAL = false;
+	private final boolean NORMAL = true;
 
 	@Override
 	public void create() {
