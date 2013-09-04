@@ -45,8 +45,7 @@ public class Arena extends ArenaBase {
 		camera.viewportWidth = Gdx.graphics.getWidth();
 		camera.position.set(100, 50, 0);
 		camera.position.y = Gdx.graphics.getHeight() / 2;
-
-		Gdx.input.setInputProcessor(new InputHandler(camera, player));
+		Gdx.input.setInputProcessor(new InputHandler(camera, player, map));
 	}
 
 	private void cameraUpdater() {
