@@ -31,6 +31,8 @@ public class Player extends Sprite {
 
 	public boolean move;
 
+	public boolean cameraLocked = true;
+
 	OrthographicCamera camera;
 
 	public Player(OrthographicCamera camera, TextureRegion spriteSheet) {
@@ -128,6 +130,5 @@ public class Player extends Sprite {
 	public void setDirection(int direction) {
 		this.direction = direction;
 	}
-	
 
 }

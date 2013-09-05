@@ -12,6 +12,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 import com.xidstudios.pixelarena.PArena;
+import com.xidstudios.pixelarena.entity.Player;
 
 /**
  * @author Dixon D'Cunha
@@ -24,10 +25,13 @@ public class InputHandler implements InputProcessor {
 
 	private Vector2 oPos;
 
+	private Player player;
+
 	public InputHandler(OrthographicCamera camera, TiledMap map,
-			TweenManager manager) {
+			TweenManager manager, Player player) {
 		this.cam = camera;
 		this.map = map;
+		this.player = player;
 	}
 
 	@Override
@@ -39,7 +43,8 @@ public class InputHandler implements InputProcessor {
 	}
 
 	public boolean touchDragged(int x, int y, int pointer) {
-		moveCamera(x, y);
+		if (!player.cameraLocked)
+			moveCamera(x, y);
 		return false;
 	}
 

@@ -56,26 +56,30 @@ public class GestureHandler implements GestureListener {
 	}
 
 	private void movePlayer(float x, float y) {
-		Vector3 newPos = new Vector3();
-		camera.unproject(newPos.set(x, y, 0));
+		Vector3 nPos = new Vector3();
+
+		camera.unproject(nPos.set(x, y, 0));
 
 		player.move = true;
 		if (player.move) {
 			Tween.to(player, SpriteTween.POS_XY, 1.6f)
 					.ease(TweenEquations.easeNone)
-					.target(newPos.x, newPos.y).start(manager);
+					.target(nPos.x, nPos.y).start(manager);
+			if(player.cameraLocked){
+				//move camera with player
+			}
 		}
 	}
 
 	@Override
 	public boolean longPress(float x, float y) {
 		Gdx.app.log(PArena.LOG, "Long Press");
+		player.cameraLocked = !player.cameraLocked;
 		return false;
 	}
 
 	@Override
 	public boolean fling(float velocityX, float velocityY, int button) {
-		Gdx.app.log(PArena.LOG, "Fling");
 		// moveCamera(velocityX, velocityY);
 		// camera.translate(-velocityX, velocityY);
 		return false;
@@ -83,13 +87,11 @@ public class GestureHandler implements GestureListener {
 
 	@Override
 	public boolean pan(float x, float y, float deltaX, float deltaY) {
-		Gdx.app.log(PArena.LOG, "Pan");
 		return false;
 	}
 
 	@Override
 	public boolean zoom(float initialDistance, float distance) {
-		Gdx.app.log(PArena.LOG, "Zoom");
 		if (initialDistance > distance)
 			camera.zoom += .01;
 		else if (initialDistance < distance)

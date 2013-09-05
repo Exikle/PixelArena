@@ -95,7 +95,7 @@ public class Arena extends ArenaBase {
 
 		// Gdx.input.setInputProcessor(new InputHandler(camera, player,map));
 		InputMultiplexer iM = new InputMultiplexer(new InputHandler(
-				camera, map, manager), new GestureDetector(
+				camera, map, manager, player), new GestureDetector(
 				new GestureHandler(camera, player, manager, map)));
 
 		Gdx.input.setInputProcessor(iM);
