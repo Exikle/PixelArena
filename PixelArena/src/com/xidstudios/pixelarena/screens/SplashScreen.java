@@ -15,7 +15,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.xidstudios.pixelarena.Graphic;
 import com.xidstudios.pixelarena.PArena;
-import com.xidstudios.pixelarena.tweenaccesors.SpriteTween;
+import com.xidstudios.pixelarena.tweenaccessors.SpriteTween;
 
 public class SplashScreen implements Screen, InputProcessor {
 
@@ -65,7 +65,7 @@ public class SplashScreen implements Screen, InputProcessor {
 	private void createTweens() {
 		Tween.registerAccessor(
 				Sprite.class,
-				new com.xidstudios.pixelarena.tweenaccesors.SpriteTween());
+				new SpriteTween());
 		manager = new TweenManager();
 	}
 

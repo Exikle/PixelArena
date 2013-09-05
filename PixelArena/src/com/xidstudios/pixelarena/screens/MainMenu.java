@@ -28,7 +28,7 @@ import com.xidstudios.pixelarena.GameFont;
 import com.xidstudios.pixelarena.Graphic;
 import com.xidstudios.pixelarena.PArena;
 import com.xidstudios.pixelarena.arena.Arena;
-import com.xidstudios.pixelarena.tweenaccesors.ActorAccessor;
+import com.xidstudios.pixelarena.tweenaccessors.ActorAccessor;
 
 /**
  * @author Dixon D'Cunha

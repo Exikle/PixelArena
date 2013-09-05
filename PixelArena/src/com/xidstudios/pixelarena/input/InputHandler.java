@@ -20,8 +20,6 @@ public class InputHandler implements InputProcessor {
 
 	private OrthographicCamera cam;
 
-	private boolean dragged = false;
-
 	private TiledMap map;
 
 	private Vector2 oPos;
@@ -33,21 +31,6 @@ public class InputHandler implements InputProcessor {
 	}
 
 	@Override
-	public boolean keyDown(int keycode) {
-		return false;
-	}
-
-	@Override
-	public boolean keyUp(int keycode) {
-		return false;
-	}
-
-	@Override
-	public boolean keyTyped(char character) {
-		return false;
-	}
-
-	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer,
 			int button) {
 		oPos = new Vector2(Gdx.input.getX(), Gdx.input.getY());
@@ -55,18 +38,7 @@ public class InputHandler implements InputProcessor {
 		return false;
 	}
 
-	@Override
-	public boolean touchUp(int screenX, int screenY, int pointer,
-			int button) {
-		if (!dragged) {
-			// movePlayer(screenX, screenY);
-		} else
-			dragged = false;
-		return false;
-	}
-
 	public boolean touchDragged(int x, int y, int pointer) {
-		dragged = true;
 		moveCamera(x, y);
 		return false;
 	}
@@ -114,12 +86,33 @@ public class InputHandler implements InputProcessor {
 	}
 
 	@Override
+	public boolean touchUp(int screenX, int screenY, int pointer,
+			int button) {
+		return false;
+	}
+
+	@Override
 	public boolean mouseMoved(int screenX, int screenY) {
 		return false;
 	}
 
 	@Override
 	public boolean scrolled(int amount) {
+		return false;
+	}
+
+	@Override
+	public boolean keyDown(int keycode) {
+		return false;
+	}
+
+	@Override
+	public boolean keyUp(int keycode) {
+		return false;
+	}
+
+	@Override
+	public boolean keyTyped(char character) {
 		return false;
 	}
 

@@ -1,5 +1,10 @@
 package com.xidstudios.pixelarena.input;
 
+import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.TweenEquation;
+import aurelienribon.tweenengine.TweenEquations;
+import aurelienribon.tweenengine.TweenManager;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
@@ -7,6 +12,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.xidstudios.pixelarena.PArena;
 import com.xidstudios.pixelarena.entity.Player;
+import com.xidstudios.pixelarena.tweenaccessors.SpriteTween;
 
 public class GestureHandler implements GestureListener {
 
@@ -16,9 +22,13 @@ public class GestureHandler implements GestureListener {
 
 	private Vector2 oPos;
 
-	public GestureHandler(OrthographicCamera camera, Player player) {
+	private TweenManager manager;
+
+	public GestureHandler(OrthographicCamera camera, Player player,
+			TweenManager manager) {
 		this.camera = camera;
 		this.player = player;
+		this.manager = manager;
 	}
 
 	@Override
@@ -32,14 +42,25 @@ public class GestureHandler implements GestureListener {
 	@Override
 	public boolean tap(float x, float y, int count, int button) {
 		Gdx.app.log(PArena.LOG, "Tap");
-		movePlayer(x, y);
+		checkWhatClicked(x, y);
 		return false;
+	}
+
+	private void checkWhatClicked(float x, float y) {
+		// if(entity){
+		// show stats
+		// }else
+		movePlayer(x, y);
 	}
 
 	private void movePlayer(float x, float y) {
 		Vector3 newPos = new Vector3();
 		camera.unproject(newPos.set(x, y, 0));
-		player.setPosition(newPos.x, newPos.y);
+		// player.setPosition(newPos.x, newPos.y);
+
+		Tween.to(player, SpriteTween.POS_XY, 1.6f)
+				.ease(TweenEquations.easeNone)
+				.target(newPos.x, newPos.y).start(manager);
 	}
 
 	@Override

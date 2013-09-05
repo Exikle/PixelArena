@@ -9,8 +9,6 @@ import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.List;
-import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -30,7 +28,7 @@ public class ArenaSelect implements Screen {
 
 	private Skin skin;
 
-	private List list;
+	// private List list;
 
 	// private ScrollPane scrlPane;
 
@@ -38,7 +36,7 @@ public class ArenaSelect implements Screen {
 
 	private final boolean DEBUG = true;
 
-	private String[] arenas;
+//	private String[] arenas;
 
 	/**
 	 * 
@@ -78,10 +76,10 @@ public class ArenaSelect implements Screen {
 		table = new Table(skin);
 		table.debug();
 
-		arenas = new String[] { "Arena One", "Arena Two",
-				"Arena Three", "Arena Four" };
+		// arenas = new String[] { "Arena One", "Arena Two",
+		// "Arena Three", "Arena Four" };
 
-		list = new List(arenas, skin);
+		// list = new List(arenas, skin);
 
 		// scrlPane = new ScrollPane(list, skin);
 

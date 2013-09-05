@@ -7,6 +7,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.input.GestureDetector;
@@ -17,6 +18,7 @@ import com.xidstudios.pixelarena.entity.Player;
 import com.xidstudios.pixelarena.input.GestureHandler;
 import com.xidstudios.pixelarena.input.InputHandler;
 import com.xidstudios.pixelarena.tweenaccessors.CameraTween;
+import com.xidstudios.pixelarena.tweenaccessors.SpriteTween;
 
 public class Arena extends ArenaBase {
 
@@ -58,8 +60,7 @@ public class Arena extends ArenaBase {
 	public void show() {
 		// importMap(START_MAP_NAME, STARTCOORD);
 
-		Tween.registerAccessor(OrthographicCamera.class,
-				new CameraTween());
+		Tween.registerAccessor(Sprite.class, new SpriteTween());
 		manager = new TweenManager();
 
 		// Load the tmx file into map
@@ -82,7 +83,7 @@ public class Arena extends ArenaBase {
 		// Gdx.input.setInputProcessor(new InputHandler(camera, player,map));
 		InputMultiplexer iM = new InputMultiplexer(new InputHandler(
 				camera, map, manager), new GestureDetector(
-				new GestureHandler(camera, player)));
+				new GestureHandler(camera, player, manager)));
 
 		Gdx.input.setInputProcessor(iM);
 	}
