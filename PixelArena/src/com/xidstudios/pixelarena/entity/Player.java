@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
  * @author Dixon D'Cunha
  *         Extension of {@link Sprite}
  */
-public class Player extends Sprite{
+public class Player extends Sprite {
 
 	public int direction = 1;
 
@@ -28,6 +28,8 @@ public class Player extends Sprite{
 	public final int STEP_DELAY = 15;
 
 	public int counter = 0;
+
+	public boolean move;
 
 	OrthographicCamera camera;
 
@@ -126,5 +128,6 @@ public class Player extends Sprite{
 	public void setDirection(int direction) {
 		this.direction = direction;
 	}
+	
 
 }

@@ -6,6 +6,66 @@
  </properties>
  <tileset firstgid="1" name="FioriForest" tilewidth="32" tileheight="32">
   <image source="AreaOne.png" width="320" height="320"/>
+  <tile id="1">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="13">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="14">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="21">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="22">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="23">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="24">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
  </tileset>
  <layer name="BG/Terrain" width="50" height="50">
   <data encoding="base64" compression="gzip">
@@ -22,17 +82,17 @@
    H4sIAAAAAAAAC+3TOQ4CMAwF0QgoEXQs978ozAEAx/HyJTKSS1t6hcfY7XbWDu85is3J4Tg7drK7OnbUHB4DKTm8BlJxfDI8h+1fFBzfDHQx3Oh2/DKQusNiIGWH1UCqjhkDKTpmDaTm8BhIyeE1kIpjxUAKjlUDdTsiDNTpiDJQlyPSQB2OaANVOzIMVOnIMlCVI9NAFY5sA2U7KgyU6agyUJaj0kAZjmoDRTs6DBTp6DJQlKPTQBGObgOtOhQMtOJQMZDXoWQgj0PNQLMORQPNOFQNZHHchraBLI5PqRjI61AykMehZiCPg3+5i83D4djt/rkXLexrsxAnAAA=
   </data>
  </layer>
- <layer name="Animated Bottom" width="50" height="50" visible="0">
+ <layer name="Animated Bottom" width="50" height="50">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAAC+3BAQ0AAADCoPdPbQ43oAAAAAAAAAAAAODfAC7KO00QJwAA
   </data>
  </layer>
- <layer name="PlayerLayer" width="50" height="50" visible="0">
+ <layer name="PlayerLayer" width="50" height="50">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAAC+3BAQ0AAADCoPdPbQ43oAAAAAAAAAAAAODfAC7KO00QJwAA
   </data>
  </layer>
- <layer name="Animated Top" width="50" height="50" visible="0">
+ <layer name="Animated Top" width="50" height="50">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAAC+3BAQ0AAADCoPdPbQ43oAAAAAAAAAAAAODfAC7KO00QJwAA
   </data>

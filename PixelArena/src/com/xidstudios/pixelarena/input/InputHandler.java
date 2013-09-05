@@ -49,7 +49,6 @@ public class InputHandler implements InputProcessor {
 		// if (!cameraOutOfLimit(nPos))
 		{
 			cam.translate(nPos.sub(cam.position.x, cam.position.y));
-			Gdx.app.log(PArena.LOG, "Moved Camera");
 		}
 		oPos.set(touchX, touchY);
 		// Gdx.app.log(PArena.LOG, oPos.x + "," + oPos.y);
