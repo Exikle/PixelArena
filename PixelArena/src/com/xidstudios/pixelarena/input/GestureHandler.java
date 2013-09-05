@@ -1,13 +1,13 @@
 package com.xidstudios.pixelarena.input;
 
 import aurelienribon.tweenengine.Tween;
-import aurelienribon.tweenengine.TweenEquation;
 import aurelienribon.tweenengine.TweenEquations;
 import aurelienribon.tweenengine.TweenManager;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
+import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.xidstudios.pixelarena.PArena;
@@ -20,33 +20,35 @@ public class GestureHandler implements GestureListener {
 
 	private Player player;
 
-	private Vector2 oPos;
+	private Vector3 oPos;
 
 	private TweenManager manager;
 
+	private TiledMap map;
+
 	public GestureHandler(OrthographicCamera camera, Player player,
-			TweenManager manager) {
+			TweenManager manager, TiledMap map) {
 		this.camera = camera;
 		this.player = player;
 		this.manager = manager;
+		this.map = map;
 	}
 
 	@Override
 	public boolean touchDown(float x, float y, int pointer, int button) {
-		Gdx.app.log(PArena.LOG, "Touch Down");
-		oPos = new Vector2(Gdx.input.getX(), Gdx.input.getY());
-		oPos.set(x, y);
+		oPos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+		camera.unproject(oPos.set(x, y, 0));
+		oPos.set(x, y, 0);
 		return false;
 	}
 
 	@Override
 	public boolean tap(float x, float y, int count, int button) {
-		Gdx.app.log(PArena.LOG, "Tap");
-		checkWhatClicked(x, y);
+		checkWhatTapped(x, y);
 		return false;
 	}
 
-	private void checkWhatClicked(float x, float y) {
+	private void checkWhatTapped(float x, float y) {
 		// if(entity){
 		// show stats
 		// }else
@@ -56,11 +58,13 @@ public class GestureHandler implements GestureListener {
 	private void movePlayer(float x, float y) {
 		Vector3 newPos = new Vector3();
 		camera.unproject(newPos.set(x, y, 0));
-		// player.setPosition(newPos.x, newPos.y);
 
-		Tween.to(player, SpriteTween.POS_XY, 1.6f)
-				.ease(TweenEquations.easeNone)
-				.target(newPos.x, newPos.y).start(manager);
+		player.move = true;
+		if (player.move) {
+			Tween.to(player, SpriteTween.POS_XY, 1.6f)
+					.ease(TweenEquations.easeNone)
+					.target(newPos.x, newPos.y).start(manager);
+		}
 	}
 
 	@Override
