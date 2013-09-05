@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="75" height="25" tilewidth="32" tileheight="32">
+<map version="1.0" orientation="orthogonal" width="50" height="50" tilewidth="32" tileheight="32">
  <properties>
   <property name="music" value="NONE"/>
   <property name="name" value="AreaOnet"/>
@@ -7,34 +7,34 @@
  <tileset firstgid="1" name="FioriForest" tilewidth="32" tileheight="32">
   <image source="AreaOne.png" width="320" height="320"/>
  </tileset>
- <layer name="BG/Terrain" width="75" height="25">
+ <layer name="BG/Terrain" width="50" height="50">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3DMQ0AAAwEodvfv9/O9QAJq6aqqqqqqqrqe4CA9u9MHQAA
+   H4sIAAAAAAAAC+3DAQkAAAwEoSvw/esux0DBVVNVVVVVVVVVVdXnD3/XJTYQJwAA
   </data>
  </layer>
- <layer name="Path" width="75" height="25">
+ <layer name="Path" width="50" height="50">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2YyQ3AIAwEnQLov900gKLI19rSIM2XXYYP5pjZuZCxbvtWs7U3/OdpRnWebZ4yfXXmqjxl+OrMVXuK+OrOVTtS3zGuAAAAAADms/H9y4wz29XWuar7n8GTN8GXt7e3eyRP6Sva+6t7xt5TfFWeBaCKF65ZYZtMHQAA
+   H4sIAAAAAAAAC+2USxKAIAxD4f6XdrpXU6CfWJuZbM17Is4xxux2u78rWyp4VDiPCt9VhfuB2L7goeFi99AyMXus8LB6rLIweuxwsHnsMjB5nOyzeJxuM3hY7GZ7WG1meljuZXlYb2V4eOxEe3htRHp4Pj/KI/MdRZy5Vbw9GP4dnv9C63h5RDqgvd3taAe0ubOf4YB2VxmyHND2CkemA9rXsmQ7IAYND4MD4kBMLA6I5Y2LyQHxPLGxOSCmOz5Gh3HD8sbI6iDRejA7SCo4SCo4SCo4SCzuR7fb/V4vnJg/lxAnAAA=
   </data>
  </layer>
- <layer name="Water" width="75" height="25">
+ <layer name="Water" width="50" height="50">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2XwQ6DMAxDI9gROG77/y8dPXAsWmw3UUWelBvCrtNCupvZXlU1UX2CK2s97Hu/Fs+b8PtPJiN0M3K6YPNCvSO6B6ilZLOcHnt1e1ktZ63ieok8q3qsygrtdZSWIqt2Dj3/ot4+jszK6/nOdwaI/5nWVxRF8UQi56vZiZwZsvDuB+UsHXlHUOzRzfm8cj5k5l4vqjtOtCZLRlZLgqYCJKsGeg6RnFhNBYzvxp333reOJSMvNqeLUZkgmqOqKGbkByOm3U9MHQAA
+   H4sIAAAAAAAAC+3TOQ4CMAwF0QgoEXQs978ozAEAx/HyJTKSS1t6hcfY7XbWDu85is3J4Tg7drK7OnbUHB4DKTm8BlJxfDI8h+1fFBzfDHQx3Oh2/DKQusNiIGWH1UCqjhkDKTpmDaTm8BhIyeE1kIpjxUAKjlUDdTsiDNTpiDJQlyPSQB2OaANVOzIMVOnIMlCVI9NAFY5sA2U7KgyU6agyUJaj0kAZjmoDRTs6DBTp6DJQlKPTQBGObgOtOhQMtOJQMZDXoWQgj0PNQLMORQPNOFQNZHHchraBLI5PqRjI61AykMehZiCPg3+5i83D4djt/rkXLexrsxAnAAA=
   </data>
  </layer>
- <layer name="Animated Bottom" width="75" height="25">
+ <layer name="Animated Bottom" width="50" height="50" visible="0">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3BMQEAAADCoPVP7W8GoAAAAAAAAAB4A7+v28tMHQAA
+   H4sIAAAAAAAAC+3BAQ0AAADCoPdPbQ43oAAAAAAAAAAAAODfAC7KO00QJwAA
   </data>
  </layer>
- <layer name="PlayerLayer" width="75" height="25">
+ <layer name="PlayerLayer" width="50" height="50" visible="0">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3BMQEAAADCoPVP7W8GoAAAAAAAAAB4A7+v28tMHQAA
+   H4sIAAAAAAAAC+3BAQ0AAADCoPdPbQ43oAAAAAAAAAAAAODfAC7KO00QJwAA
   </data>
  </layer>
- <layer name="Animated Top" width="75" height="25">
+ <layer name="Animated Top" width="50" height="50" visible="0">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3BMQEAAADCoPVP7W8GoAAAAAAAAAB4A7+v28tMHQAA
+   H4sIAAAAAAAAC+3BAQ0AAADCoPdPbQ43oAAAAAAAAAAAAODfAC7KO00QJwAA
   </data>
  </layer>
 </map>
