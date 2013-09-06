@@ -71,8 +71,7 @@ public class GestureHandler implements GestureListener {
 
 		player.move = true;
 		if (player.move) {
-			Tween.to(player, SpriteTween.POS_XY, 1.6f)
-					.ease(TweenEquations.easeNone)
+			Tween.to(player, SpriteTween.POS_XY, 2.5f)
 					.target(nPos.x, nPos.y).start(manager);
 			if (player.cameraLocked) {
 				// move camera with player

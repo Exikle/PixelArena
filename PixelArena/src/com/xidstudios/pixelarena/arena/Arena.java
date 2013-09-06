@@ -117,6 +117,8 @@ public class Arena extends ArenaBase {
 			render.rect((touchX / 32) * tileWidth, (touchY / 32)
 					* tileHeight, tileWidth, tileHeight);
 
+			// render
+
 			render.setColor(Color.BLUE);
 			render.rect((oX / 32) * tileWidth,
 					(oY / 32) * tileHeight, tileWidth, tileHeight);
@@ -129,7 +131,7 @@ public class Arena extends ArenaBase {
 	public void show() {
 		// importMap(START_MAP_NAME, STARTCOORD);
 
-		Tween.registerAccessor(Sprite.class, new SpriteTween());
+		Tween.registerAccessor(Sprite.class, new SpriteTween(this));
 		manager = new TweenManager();
 
 		// Load the tmx file into map
@@ -158,6 +160,10 @@ public class Arena extends ArenaBase {
 		Gdx.input.setInputProcessor(iM);
 
 		createTiles();
+		oX = (int) player.getX();
+		oY = (int) player.getY();
+		touchX = (int) player.getX();
+		touchY = (int) player.getY();
 	}
 
 	private void createTiles() {
