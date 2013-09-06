@@ -11,6 +11,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.xidstudios.pixelarena.PArena;
+import com.xidstudios.pixelarena.arena.Arena;
 import com.xidstudios.pixelarena.entity.Player;
 import com.xidstudios.pixelarena.tweenaccessors.SpriteTween;
 
@@ -26,8 +27,11 @@ public class GestureHandler implements GestureListener {
 
 	private TiledMap map;
 
-	public GestureHandler(OrthographicCamera camera, Player player,
-			TweenManager manager, TiledMap map) {
+	private Arena arena;
+
+	public GestureHandler(Arena arena, OrthographicCamera camera,
+			Player player, TweenManager manager, TiledMap map) {
+		this.arena = arena;
 		this.camera = camera;
 		this.player = player;
 		this.manager = manager;
@@ -53,11 +57,16 @@ public class GestureHandler implements GestureListener {
 		// show stats
 		// }else
 		movePlayer(x, y);
+		Vector3 nPos = new Vector3();
+		camera.unproject(nPos.set(x, y, 0));
+		arena.oX = arena.touchX;
+		arena.oY = arena.touchY;
+		arena.touchX = (int) (nPos.x);
+		arena.touchY = (int) (nPos.y);
 	}
 
 	private void movePlayer(float x, float y) {
 		Vector3 nPos = new Vector3();
-
 		camera.unproject(nPos.set(x, y, 0));
 
 		player.move = true;
@@ -65,8 +74,8 @@ public class GestureHandler implements GestureListener {
 			Tween.to(player, SpriteTween.POS_XY, 1.6f)
 					.ease(TweenEquations.easeNone)
 					.target(nPos.x, nPos.y).start(manager);
-			if(player.cameraLocked){
-				//move camera with player
+			if (player.cameraLocked) {
+				// move camera with player
 			}
 		}
 	}

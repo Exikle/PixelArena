@@ -43,8 +43,8 @@ public class InputHandler implements InputProcessor {
 	}
 
 	public boolean touchDragged(int x, int y, int pointer) {
-		if (!player.cameraLocked)
-			moveCamera(x, y);
+		// if (!player.cameraLocked)
+		moveCamera(x, y);
 		return false;
 	}
 

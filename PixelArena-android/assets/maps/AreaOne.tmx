@@ -6,67 +6,77 @@
  </properties>
  <tileset firstgid="1" name="FioriForest" tilewidth="32" tileheight="32">
   <image source="AreaOne.png" width="320" height="320"/>
+  <tile id="0">
+   <properties>
+    <property name="" value=""/>
+   </properties>
+  </tile>
   <tile id="1">
    <properties>
-    <property name="blocked" value=""/>
+    <property name="blocked" value="true"/>
    </properties>
   </tile>
   <tile id="2">
    <properties>
-    <property name="blocked" value=""/>
+    <property name="blocked" value="true"/>
    </properties>
   </tile>
   <tile id="3">
    <properties>
-    <property name="blocked" value=""/>
+    <property name="blocked" value="true"/>
    </properties>
   </tile>
   <tile id="4">
    <properties>
-    <property name="blocked" value=""/>
+    <property name="blocked" value="true"/>
    </properties>
   </tile>
   <tile id="11">
    <properties>
-    <property name="blocked" value=""/>
+    <property name="blocked" value="true"/>
    </properties>
   </tile>
   <tile id="12">
    <properties>
-    <property name="blocked" value=""/>
+    <property name="blocked" value="true"/>
    </properties>
   </tile>
   <tile id="13">
    <properties>
-    <property name="blocked" value=""/>
+    <property name="blocked" value="true"/>
    </properties>
   </tile>
   <tile id="14">
    <properties>
-    <property name="blocked" value=""/>
+    <property name="blocked" value="true"/>
    </properties>
   </tile>
   <tile id="21">
    <properties>
-    <property name="blocked" value=""/>
+    <property name="blocked" value="true"/>
    </properties>
   </tile>
   <tile id="22">
    <properties>
-    <property name="blocked" value=""/>
+    <property name="blocked" value="true"/>
    </properties>
   </tile>
   <tile id="23">
    <properties>
-    <property name="blocked" value=""/>
+    <property name="blocked" value="true"/>
    </properties>
   </tile>
   <tile id="24">
    <properties>
-    <property name="blocked" value=""/>
+    <property name="blocked" value="true"/>
    </properties>
   </tile>
  </tileset>
+ <layer name="Blocked Tiles" width="50" height="50">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3TOQKCQBAF0UENVTKX+19UOADS02uhE1T0oxf8qbU2jUYjUaelM6yLwnFdusGaf8ChMdAcWgPJsWV4N9lfCI5vhnW/H8CxZziCQ2KgO6QGsqPHQHX0GogOjYHm0BpIDouB4rAaCA4PQ7XDy1Dp8DRUObwNFY4IQ7YjypDpiDRkOaINGY4MQ7QjyxDpyDREObINEY4Kg7ejyuDpqDR4OaoNHg6CweqgGCwOkkHroBk0DqKh10E1SB0PuEHq2IpisDhIBq2DZtA61r88Yb0UjtHon/sAi0RF2xAnAAA=
+  </data>
+ </layer>
  <layer name="BG/Terrain" width="50" height="50">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAAC+3DAQkAAAwEoSvw/esux0DBVVNVVVVVVVVVVdXnD3/XJTYQJwAA

@@ -15,8 +15,13 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTile;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.utils.Array;
+import com.xidstudios.pixelarena.PArena;
 import com.xidstudios.pixelarena.entity.Player;
 import com.xidstudios.pixelarena.input.GestureHandler;
 import com.xidstudios.pixelarena.input.InputHandler;
@@ -34,11 +39,37 @@ public class Arena extends ArenaBase {
 
 	private Player player;
 
-	private final boolean DEBUG = false;
+	private final boolean DEBUG = true;
 
 	private TweenManager manager;
 
 	ShapeRenderer render = new ShapeRenderer();
+
+	ShapeRenderer clicked = new ShapeRenderer();
+
+	Array<TiledMapTile> tiles = new Array<TiledMapTile>();
+
+	float tileWidth;
+
+	float tileHeight;
+
+	Cell[][] cell;
+
+	int col;
+
+	private int row;
+
+	float mapWidth;
+
+	public float mapHeight;
+
+	public int touchX = 0;
+
+	public int touchY = 0;
+
+	public int oX = 0;
+
+	public int oY = 0;
 
 	public void render(float delta) {
 		super.render(delta);
@@ -48,14 +79,11 @@ public class Arena extends ArenaBase {
 
 		tileMapRenderer.render();// need to render layers
 
-		render.begin(ShapeType.Line);
-		render.setColor(Color.MAGENTA);
-		// for (int x = 0; x < cRect.length; x++) {
-		// sRen.rect(cRect[x].x, cRect[x].y, cRect[x].width,
-		// cRect[x].height);
+		// if(tile.getProperties().getKey("blocked")){
+		// render.setColor(Color.MAGENTA);
+		// }else{
+		// render.setColor(Color.BLACK);
 		// }
-		render.end();
-
 		batch.begin();
 		// layes under player
 		batch.draw(player, player.getX(), player.getY());
@@ -64,6 +92,35 @@ public class Arena extends ArenaBase {
 
 		if (DEBUG) {
 			// the point i clicked, rectangles, etc
+
+			render.begin(ShapeType.Line);
+			for (int y = 0; y < row; y++) {
+				for (int x = 0; x < col; x++) {
+					if (!cell[x][y].getTile().getProperties()
+							.containsKey("blocked")) {
+						render.setColor(Color.GRAY);
+						if (x == touchX / 32 && y == touchY / 32) {
+						}
+					} else
+						render.setColor(Color.MAGENTA);
+					render.rect(x * tileWidth, y * tileHeight,
+							tileWidth, tileHeight);
+				}
+			}
+			render.setColor(Color.ORANGE);
+			render.rect(0, 0, mapWidth, mapHeight);
+			render.end();
+
+			render.begin(ShapeType.Filled);
+
+			render.setColor(Color.RED);
+			render.rect((touchX / 32) * tileWidth, (touchY / 32)
+					* tileHeight, tileWidth, tileHeight);
+
+			render.setColor(Color.BLUE);
+			render.rect((oX / 32) * tileWidth,
+					(oY / 32) * tileHeight, tileWidth, tileHeight);
+			render.end();
 		}
 
 	}
@@ -77,7 +134,6 @@ public class Arena extends ArenaBase {
 
 		// Load the tmx file into map
 		map = new TmxMapLoader().load("maps/AreaOne.tmx");
-		getCollisions();
 
 		player = new Player(camera, new TextureRegion(new Texture(
 				"imgs/MalePlayer.png")));
@@ -90,28 +146,55 @@ public class Arena extends ArenaBase {
 		camera = new OrthographicCamera();
 		camera.viewportHeight = Gdx.graphics.getHeight();
 		camera.viewportWidth = Gdx.graphics.getWidth();
-		camera.position.set(900, 50, 0);
-		camera.position.y = Gdx.graphics.getHeight() / 2;
+		camera.position.set(Gdx.graphics.getWidth() / 2,
+				Gdx.graphics.getHeight() / 2, 0);
 
 		// Gdx.input.setInputProcessor(new InputHandler(camera, player,map));
 		InputMultiplexer iM = new InputMultiplexer(new InputHandler(
-				camera, map, manager, player), new GestureDetector(
-				new GestureHandler(camera, player, manager, map)));
+				camera, map, manager, player),
+				new GestureDetector(new GestureHandler(this, camera,
+						player, manager, map)));
 
 		Gdx.input.setInputProcessor(iM);
+
+		createTiles();
 	}
 
-	private void getCollisions() {
+	private void createTiles() {
+		TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers()
+				.get(0);
+
+		tileHeight = layer.getTileHeight();
+		Gdx.app.log(PArena.LOG, "" + tileHeight);
+		tileWidth = layer.getTileWidth();
+		Gdx.app.log(PArena.LOG, "" + tileWidth);
+
+		col = layer.getWidth();
+		row = layer.getHeight();
+
+		mapWidth = col * tileWidth;
+		mapHeight = row * tileHeight;
+
+		Gdx.app.log(PArena.LOG, "THeight - " + tileHeight
+				+ ",TWidth - " + tileWidth);
+		Gdx.app.log(PArena.LOG, "Col - " + col + ",Row - " + row);
+
+		cell = new Cell[row][col];
+		for (int y = 0; y < row; y++) {
+			for (int x = 0; x < col; x++) {
+				cell[x][y] = new Cell();
+				cell[x][y] = layer.getCell(x, y);
+			}
+		}
 
 	}
 
 	private void cameraUpdater() {
-		// camera.zoom = 1.1f;
 		camera.update();
 
 		batch.setProjectionMatrix(camera.combined);
+		render.setProjectionMatrix(camera.combined);
 		tileMapRenderer.setView(camera);
-		// sRen.setProjectionMatrix(camera.combined);
 	}
 
 	@Override
