@@ -1,7 +1,6 @@
 package com.xidstudios.pixelarena.input;
 
 import aurelienribon.tweenengine.Tween;
-import aurelienribon.tweenengine.TweenEquations;
 import aurelienribon.tweenengine.TweenManager;
 
 import com.badlogic.gdx.Gdx;
@@ -59,8 +58,8 @@ public class GestureHandler implements GestureListener {
 		movePlayer(x, y);
 		Vector3 nPos = new Vector3();
 		camera.unproject(nPos.set(x, y, 0));
-		arena.oX = arena.touchX;
-		arena.oY = arena.touchY;
+		arena.oX = (int) player.getX();
+		arena.oY = (int) player.getY();
 		arena.touchX = (int) (nPos.x);
 		arena.touchY = (int) (nPos.y);
 	}
@@ -73,10 +72,15 @@ public class GestureHandler implements GestureListener {
 		if (player.move) {
 			Tween.to(player, SpriteTween.POS_XY, 2.5f)
 					.target(nPos.x, nPos.y).start(manager);
+			createWaypoints();
 			if (player.cameraLocked) {
 				// move camera with player
 			}
 		}
+	}
+
+	private void createWaypoints() {
+
 	}
 
 	@Override

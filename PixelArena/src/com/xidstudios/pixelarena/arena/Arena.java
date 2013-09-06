@@ -1,5 +1,7 @@
 package com.xidstudios.pixelarena.arena;
 
+import java.awt.List;
+
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenManager;
 
@@ -79,15 +81,8 @@ public class Arena extends ArenaBase {
 
 		tileMapRenderer.render();// need to render layers
 
-		// if(tile.getProperties().getKey("blocked")){
-		// render.setColor(Color.MAGENTA);
-		// }else{
-		// render.setColor(Color.BLACK);
-		// }
 		batch.begin();
-		// layes under player
 		batch.draw(player, player.getX(), player.getY());
-		// layers over player
 		batch.end();
 
 		if (DEBUG) {
@@ -99,12 +94,9 @@ public class Arena extends ArenaBase {
 					if (!cell[x][y].getTile().getProperties()
 							.containsKey("blocked")) {
 						render.setColor(Color.GRAY);
-						if (x == touchX / 32 && y == touchY / 32) {
-						}
-					} else
-						render.setColor(Color.MAGENTA);
-					render.rect(x * tileWidth, y * tileHeight,
-							tileWidth, tileHeight);
+						render.rect(x * tileWidth, y * tileHeight,
+								tileWidth, tileHeight);
+					}
 				}
 			}
 			render.setColor(Color.ORANGE);
@@ -117,7 +109,12 @@ public class Arena extends ArenaBase {
 			render.rect((touchX / 32) * tileWidth, (touchY / 32)
 					* tileHeight, tileWidth, tileHeight);
 
-			// render
+			render.setColor(Color.YELLOW);
+			// find amount of steps needed, xy coord of box
+			// for (int x = 0; x < 1; x++) {
+			// render.rect((40 / 32) * tileWidth, (50 / 32)
+			// * tileHeight, tileWidth, tileHeight);
+			// }
 
 			render.setColor(Color.BLUE);
 			render.rect((oX / 32) * tileWidth,
@@ -151,7 +148,6 @@ public class Arena extends ArenaBase {
 		camera.position.set(Gdx.graphics.getWidth() / 2,
 				Gdx.graphics.getHeight() / 2, 0);
 
-		// Gdx.input.setInputProcessor(new InputHandler(camera, player,map));
 		InputMultiplexer iM = new InputMultiplexer(new InputHandler(
 				camera, map, manager, player),
 				new GestureDetector(new GestureHandler(this, camera,

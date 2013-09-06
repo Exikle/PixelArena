@@ -42,8 +42,8 @@ public class SpriteTween implements TweenAccessor<Sprite> {
 			case POS_XY:
 				target.setPosition(newValues[0], newValues[1]);
 				if (arena != null) {
-//					arena.oX = (int) target.getX();
-//					arena.oY = (int) target.getY();
+					// arena.oX = (int) newValues[0];
+					// arena.oY = (int) newValues[1];
 				}
 				break;
 			case ALPHA:
