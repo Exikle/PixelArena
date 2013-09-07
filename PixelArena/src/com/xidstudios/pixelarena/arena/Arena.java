@@ -88,15 +88,15 @@ public class Arena extends ArenaBase {
 
 		font.setScale(.4f);
 
-		// for (int y = 0; y < row; y++) {
-		// for (int x = 0; x < col; x++) {
-		// if (!cell[x][y].getTile().getProperties()
-		// .containsKey("blocked")) {
-		// font.draw(batch, x + "," + y, x * tileWidth,
-		// tileWidth + (y * tileWidth));
-		// }
-		// }
-		// }
+		for (int y = 0; y < row; y++) {
+			for (int x = 0; x < col; x++) {
+				if (!cell[x][y].getTile().getProperties()
+						.containsKey("blocked")) {
+					font.draw(batch, x + "," + y, x * tileWidth,
+							tileWidth + (y * tileWidth));
+				}
+			}
+		}
 		batch.end();
 
 		if (DEBUG) {
@@ -195,7 +195,7 @@ public class Arena extends ArenaBase {
 				+ ",TWidth - " + tileWidth);
 		Gdx.app.log(PArena.LOG, "Col - " + col + ",Row - " + row);
 
-		cell = new Cell[row][col];
+		cell = new Cell[col][row];
 		for (int y = 0; y < row; y++) {
 			for (int x = 0; x < col; x++) {
 				cell[x][y] = new Cell();
