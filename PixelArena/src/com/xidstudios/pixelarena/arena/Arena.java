@@ -1,7 +1,5 @@
 package com.xidstudios.pixelarena.arena;
 
-import java.awt.List;
-
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenManager;
 
@@ -10,6 +8,7 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -23,6 +22,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.Array;
+import com.xidstudios.pixelarena.GameFont;
 import com.xidstudios.pixelarena.PArena;
 import com.xidstudios.pixelarena.entity.Player;
 import com.xidstudios.pixelarena.input.GestureHandler;
@@ -73,6 +73,8 @@ public class Arena extends ArenaBase {
 
 	public int oY = 0;
 
+	private BitmapFont font = GameFont.fWhite;
+
 	public void render(float delta) {
 		super.render(delta);
 		manager.update(delta);
@@ -83,6 +85,18 @@ public class Arena extends ArenaBase {
 
 		batch.begin();
 		batch.draw(player, player.getX(), player.getY());
+
+		font.setScale(.4f);
+
+		// for (int y = 0; y < row; y++) {
+		// for (int x = 0; x < col; x++) {
+		// if (!cell[x][y].getTile().getProperties()
+		// .containsKey("blocked")) {
+		// font.draw(batch, x + "," + y, x * tileWidth,
+		// tileWidth + (y * tileWidth));
+		// }
+		// }
+		// }
 		batch.end();
 
 		if (DEBUG) {
@@ -132,7 +146,7 @@ public class Arena extends ArenaBase {
 		manager = new TweenManager();
 
 		// Load the tmx file into map
-		map = new TmxMapLoader().load("maps/AreaOne.tmx");
+		map = new TmxMapLoader().load("maps/AreaTest.tmx");
 
 		player = new Player(camera, new TextureRegion(new Texture(
 				"imgs/MalePlayer.png")));
