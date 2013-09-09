@@ -37,7 +37,9 @@ public class PathFinding {
 
 	}
 
-	private static void createNode() {}
+	private static void createNode() {
+
+	}
 
 	public static class Node {
 
@@ -52,7 +54,7 @@ public class PathFinding {
 		Vector2 parentV;
 
 		private Node(Node node, Vector2 p) {
-			this.parentNode = node;
+			setParent(node);
 			this.parentV = p;
 			calcVal();
 		}
@@ -70,6 +72,10 @@ public class PathFinding {
 				y *= -1;
 
 			hVal = (int) ((parentV.x) + (parentV.y));
+		}
+
+		private void setParent(Node node) {
+			this.parentNode = node;
 		}
 	}
 }
