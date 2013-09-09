@@ -10,6 +10,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.xidstudios.pixelarena.PArena;
+import com.xidstudios.pixelarena.PathFinding;
 import com.xidstudios.pixelarena.arena.Arena;
 import com.xidstudios.pixelarena.entity.Player;
 import com.xidstudios.pixelarena.tweenaccessors.SpriteTween;
@@ -62,6 +63,8 @@ public class GestureHandler implements GestureListener {
 		arena.oY = (int) player.getY();
 		arena.touchX = (int) (nPos.x);
 		arena.touchY = (int) (nPos.y);
+		PathFinding.calcPAth(new Vector2(arena.oX, arena.oY),
+				new Vector2(arena.touchX, arena.touchY), arena.cell);
 	}
 
 	private void movePlayer(float x, float y) {

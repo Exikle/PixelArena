@@ -55,7 +55,7 @@ public class Arena extends ArenaBase {
 
 	float tileHeight;
 
-	Cell[][] cell;
+	public Cell[][] cell;
 
 	int col;
 
@@ -150,7 +150,7 @@ public class Arena extends ArenaBase {
 
 		player = new Player(camera, new TextureRegion(new Texture(
 				"imgs/MalePlayer.png")));
-		player.setPosition(50, 150);
+		player.setPosition(0, 0);
 
 		// Create the renderer
 		tileMapRenderer = new OrthogonalTiledMapRenderer(map);
