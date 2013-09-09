@@ -1,6 +1,8 @@
 package com.xidstudios.pixelarena.input;
 
 import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.TweenEquation;
+import aurelienribon.tweenengine.TweenEquations;
 import aurelienribon.tweenengine.TweenManager;
 
 import com.badlogic.gdx.Gdx;
@@ -29,6 +31,8 @@ public class GestureHandler implements GestureListener {
 
 	private Arena arena;
 
+	private final float SPEED_MOD = 3;
+
 	public GestureHandler(Arena arena, OrthographicCamera camera,
 			Player player, TweenManager manager, TiledMap map) {
 		this.arena = arena;
@@ -49,6 +53,9 @@ public class GestureHandler implements GestureListener {
 	@Override
 	public boolean tap(float x, float y, int count, int button) {
 		checkWhatTapped(x, y);
+
+		PathFinding.calcPAth(new Vector2(arena.oX, arena.oY),
+				new Vector2(arena.touchX, arena.touchY), arena.cell);
 		return false;
 	}
 
@@ -63,8 +70,6 @@ public class GestureHandler implements GestureListener {
 		arena.oY = (int) player.getY();
 		arena.touchX = (int) (nPos.x);
 		arena.touchY = (int) (nPos.y);
-		PathFinding.calcPAth(new Vector2(arena.oX, arena.oY),
-				new Vector2(arena.touchX, arena.touchY), arena.cell);
 	}
 
 	private void movePlayer(float x, float y) {
@@ -73,17 +78,24 @@ public class GestureHandler implements GestureListener {
 
 		player.move = true;
 		if (player.move) {
-			Tween.to(player, SpriteTween.POS_XY, 2.5f)
+			float speed = calcSpeed(nPos);
+			Tween.to(player, SpriteTween.POS_XY, speed)
+					.ease(TweenEquations.easeNone)
 					.target(nPos.x, nPos.y).start(manager);
-			createWaypoints();
 			if (player.cameraLocked) {
 				// move camera with player
 			}
 		}
 	}
 
-	private void createWaypoints() {
-
+	private float calcSpeed(Vector3 pos) {
+		float x = pos.x / 32 - player.getX() / 32;
+		x += 1;
+		float y = pos.y / 32 - player.getY() / 32;
+		y += 1;
+		float total = Math.abs((x / y) / SPEED_MOD);
+		Gdx.app.log(PArena.LOG, "" + total);
+		return total;
 	}
 
 	@Override

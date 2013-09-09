@@ -33,38 +33,84 @@ public class PathFinding {
 		// check squares around this and add
 
 		int startPX = (int) currentNode.parentV.x / 32;
+		Gdx.app.log(PArena.LOG, "Start X" + startPX);
 		int startPY = (int) currentNode.parentV.y / 32;
+		Gdx.app.log(PArena.LOG, "Start Y" + startPY);
+
+		Gdx.app.log("", "");
 
 		// middle right
-
 		if (!cells[startPX + 1][startPY].getTile().getProperties()
 				.containsKey("blocked")) {
 			openList.add(new Node(currentNode, new Vector2(
 					startPX + 1, startPY)));
+			Gdx.app.log(PArena.LOG, "MidRight " + (startPX + 1) + ","
+					+ (startPY));
 		}
 		// top right
-		else if (!cells[startPX + 1][startPY + 1].getTile()
+		if (!cells[startPX + 1][startPY + 1].getTile()
 				.getProperties().containsKey("blocked")) {
-
+			openList.add(new Node(currentNode, new Vector2(
+					startPX + 1, startPY + 1)));
+			Gdx.app.log(PArena.LOG, "TopRight " + (startPX + 1) + ","
+					+ (startPY + 1));
 		}
 		// top middle
-		else if (!cells[startPX][startPY + 1].getTile()
-				.getProperties().containsKey("blocked")) {
-
+		if (!cells[startPX][startPY + 1].getTile().getProperties()
+				.containsKey("blocked")) {
+			openList.add(new Node(currentNode, new Vector2(startPX,
+					startPY + 1)));
+			Gdx.app.log(PArena.LOG, "TopMiddle " + (startPX) + ","
+					+ (startPY + 1));
 		}
 		// top left
-		else if (!cells[startPX - 1][startPY + 1].getTile()
+		if (!cells[startPX - 1][startPY + 1].getTile()
 				.getProperties().containsKey("blocked")) {
-
+			openList.add(new Node(currentNode, new Vector2(
+					startPX - 1, startPY + 1)));
+			Gdx.app.log(PArena.LOG, "TopLeft " + (startPX - 1) + ","
+					+ (startPY + 1));
 		}
-		// check if the parent is in a list
-		// if (openList.contains(new Vector2())) {
+		// middle left
+		if (!cells[startPX - 1][startPY].getTile().getProperties()
+				.containsKey("blocked")) {
+			openList.add(new Node(currentNode, new Vector2(
+					startPX - 1, startPY)));
+			Gdx.app.log(PArena.LOG, "MidLeft " + (startPX - 1) + ","
+					+ (startPY));
+		}
+		// bottom left
+		if (!cells[startPX - 1][startPY - 1].getTile()
+				.getProperties().containsKey("blocked")) {
+			openList.add(new Node(currentNode, new Vector2(
+					startPX - 1, startPY - 1)));
+			Gdx.app.log(PArena.LOG, "BotLeft " + (startPX - 1) + ","
+					+ (startPY - 1));
+		}
+		// bottom middle
+		if (!cells[startPX][startPY - 1].getTile().getProperties()
+				.containsKey("blocked")) {
+			openList.add(new Node(currentNode, new Vector2(startPX,
+					startPY - 1)));
+			Gdx.app.log(PArena.LOG, "BotMid " + (startPX) + ","
+					+ (startPY - 1));
+		}
+		// bottom right
+		if (!cells[startPX + 1][startPY - 1].getTile()
+				.getProperties().containsKey("blocked")) {
+			openList.add(new Node(currentNode, new Vector2(
+					startPX + 1, startPY - 1)));
+			Gdx.app.log(PArena.LOG, "BotRight " + (startPX - 1) + ","
+					+ (startPY + 1));
+		}
+		openList.remove(currentNode);
+		closedList.add(currentNode);
+
+		// need to calc move cost;
+			
 		//
-		// } else if (openList.contains(new Vector2())) {
-		//
-		// } else {
-		//
-		// }
+
+		Gdx.app.log("", "");
 
 	}
 
@@ -99,7 +145,7 @@ public class PathFinding {
 				y *= -1;
 
 			hVal = (int) (x + y) / 32;
-			Gdx.app.log("Pathfinding", hVal + "");
+			// Gdx.app.log(PArena.LOG, "Heuristic Value" + hVal);
 		}
 
 		private void setParent(Node node) {

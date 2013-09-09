@@ -146,11 +146,11 @@ public class Arena extends ArenaBase {
 		manager = new TweenManager();
 
 		// Load the tmx file into map
-		map = new TmxMapLoader().load("maps/AreaTest.tmx");
+		map = new TmxMapLoader().load("maps/AreaOne.tmx");
 
 		player = new Player(camera, new TextureRegion(new Texture(
 				"imgs/MalePlayer.png")));
-		player.setPosition(0, 0);
+		player.setPosition(50, 50);
 
 		// Create the renderer
 		tileMapRenderer = new OrthogonalTiledMapRenderer(map);
@@ -181,9 +181,9 @@ public class Arena extends ArenaBase {
 				.get(0);
 
 		tileHeight = layer.getTileHeight();
-		Gdx.app.log(PArena.LOG, "" + tileHeight);
+		// Gdx.app.log(PArena.LOG, "" + tileHeight);
 		tileWidth = layer.getTileWidth();
-		Gdx.app.log(PArena.LOG, "" + tileWidth);
+		// Gdx.app.log(PArena.LOG, "" + tileWidth);
 
 		col = layer.getWidth();
 		row = layer.getHeight();
@@ -191,9 +191,9 @@ public class Arena extends ArenaBase {
 		mapWidth = col * tileWidth;
 		mapHeight = row * tileHeight;
 
-		Gdx.app.log(PArena.LOG, "THeight - " + tileHeight
-				+ ",TWidth - " + tileWidth);
-		Gdx.app.log(PArena.LOG, "Col - " + col + ",Row - " + row);
+		// Gdx.app.log(PArena.LOG, "THeight - " + tileHeight
+		// + ",TWidth - " + tileWidth);
+		// Gdx.app.log(PArena.LOG, "Col - " + col + ",Row - " + row);
 
 		cell = new Cell[col][row];
 		for (int y = 0; y < row; y++) {
