@@ -58,67 +58,71 @@ public class PathFinding {
 		// Gdx.app.log(PArena.LOG, "Added start to openList");
 		// check squares around this and add
 
-		// for(int loop=0;loop<2;loop++){
-		int startPX = (int) currentNode.parentV.x / 32;
-		// Gdx.app.log(PArena.LOG, "Start X " + startPX);
-		int startPY = (int) currentNode.parentV.y / 32;
-		// Gdx.app.log(PArena.LOG, "Start Y " + startPY);
+		for (int loop = 0; loop < 2; loop++) {
+			int startPX = (int) currentNode.parentV.x / 32;
+			// Gdx.app.log(PArena.LOG, "Start X " + startPX);
+			int startPY = (int) currentNode.parentV.y / 32;
+			// Gdx.app.log(PArena.LOG, "Start Y " + startPY);
 
-		Gdx.app.log("", "");
-		//
-		MIN_X = startPX - 1;
-		MIN_Y = startPY - 1;
-		MAX_X = startPX + 1;
-		MAX_Y = startPY + 1;
+			Gdx.app.log("", "" + currentNode.parentV);
+			//
+			MIN_X = startPX - 1;
+			MIN_Y = startPY - 1;
+			MAX_X = startPX + 1;
+			MAX_Y = startPY + 1;
+			Gdx.app.log(PArena.LOG, "MinX " + MIN_X + ", MinY "
+					+ MIN_Y);
+			Gdx.app.log(PArena.LOG, "MaxX " + MAX_X + ", MaxY "
+					+ MAX_Y);
 
-		startPosX = (startPX - 1 < MIN_X) ? startPX : startPX - 1;
-		startPosY = (startPY - 1 < MIN_Y) ? startPY : startPY - 1;
-		endPosX = (startPX + 1 > MAX_X) ? startPX : startPX + 1;
-		endPosY = (startPY + 1 > MAX_Y) ? startPY : startPY + 1;
+			startPosX = (startPX - 1 < MIN_X) ? startPX : startPX - 1;
+			startPosY = (startPY - 1 < MIN_Y) ? startPY : startPY - 1;
+			endPosX = (startPX + 1 > MAX_X) ? startPX : startPX + 1;
+			endPosY = (startPY + 1 > MAX_Y) ? startPY : startPY + 1;
 
-		// Check boundaries on start cell
-		for (int colNum = startPosY; colNum <= endPosY; colNum++) {
-			for (int rowNum = startPosX; rowNum <= endPosX; rowNum++) {
-				// All the neighbors will be grid[rowNum][colNum]
-				if ((rowNum == startPY) && (colNum == startPY)) {
-					// System.out.print("SS|");
-				} else if (!cells[rowNum][colNum].getTile()
-						.getProperties().containsKey("blocked")) {
-					Node node = new Node(currentNode, new Vector2(
-							rowNum, colNum));
-					if (rowNum != startPX && colNum != startPY) {
-						node.setMovementCost(14);
-					} else
-						node.setMovementCost(10);
-					// System.out.print(node.getFValue() + "|");
-					openList.add(node);
-				} else {
-					// System.out.print("BB|");
+			// Check boundaries on start cell
+			for (int colNum = startPosX; colNum <= endPosX; colNum++) {
+				for (int rowNum = startPosY; rowNum <= endPosY; rowNum++) {
+					// Gdx.app.log(PArena.LOG, colNum + "," + rowNum);
+					// All the neighbors will be grid[rowNum][colNum]
+					if ((rowNum == startPY) && (colNum == startPY)) {
+					} else if (!cells[rowNum][colNum].getTile()
+							.getProperties().containsKey("blocked")) {
+						Node node = new Node(currentNode,
+								new Vector2(rowNum, colNum));
+						if (rowNum != startPX && colNum != startPY) {
+							node.setMovementCost(14);
+						} else
+							node.setMovementCost(10);
+						// System.out.print(node.getFValue() + "|");
+						openList.add(node);
+					} else {
+						// System.out.print("BB|");
+					}
+				}
+				// System.out.println("");
+
+			}
+
+			openList.remove(currentNode);
+			closedList.add(currentNode);
+			int f = openList.get(0).getFValue();
+			int index = 0;
+			for (Node temp : openList) {
+				if (temp.getFValue() < f) {
+					f = temp.getFValue();
+					index = openList.lastIndexOf(temp);
+					// Gdx.app.log("Node Vals", "HVal = " + temp.hVal);
+					// Gdx.app.log("Node Vals", "GVal = " + temp.gVal);
+					// Gdx.app.log("Node Vals", "FVal = " + f);
 				}
 			}
-			System.out.println("");
+			currentNode = openList.get(index);
+			arena.colorSquare(currentNode.getVectorPos());
+
+			// openList.
 
 		}
-
-		openList.remove(currentNode);
-		closedList.add(currentNode);
-		int f = openList.get(0).getFValue();
-		int index = 0;
-		for (Node temp : openList) {
-			if (temp.getFValue() < f) {
-				f = temp.getFValue();
-				index = openList.lastIndexOf(temp);
-				// Gdx.app.log("Node Vals", "HVal = " + temp.hVal);
-				// Gdx.app.log("Node Vals", "GVal = " + temp.gVal);
-				// Gdx.app.log("Node Vals", "FVal = " + f);
-			}
-		}
-		currentNode = openList.get(index);
-		arena.colorSquare(currentNode.getVectorPos());
-
-		// openList.
-
-		// }
 	}
 
 	public static class Node {
@@ -156,8 +160,10 @@ public class PathFinding {
 			int y = (int) Math.abs(parentV.y - (end.y / 32));
 			// Gdx.app.log("Node", "x = " + x);
 			// Gdx.app.log("Node", "y = " + y);
-
-			hVal = (int) (x + y);
+			if (parentNode != null) {
+				hVal += parentNode.hVal;
+			}
+			hVal += (int) (x + y);
 		}
 
 		private void debugCalcHValue() {
