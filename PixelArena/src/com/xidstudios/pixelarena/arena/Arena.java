@@ -21,6 +21,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.xidstudios.pixelarena.GameFont;
 import com.xidstudios.pixelarena.PArena;
@@ -75,6 +76,8 @@ public class Arena extends ArenaBase {
 
 	private BitmapFont font = GameFont.fWhite;
 
+	private Vector2 square;
+
 	public void render(float delta) {
 		super.render(delta);
 		manager.update(delta);
@@ -124,11 +127,10 @@ public class Arena extends ArenaBase {
 					* tileHeight, tileWidth, tileHeight);
 
 			render.setColor(Color.YELLOW);
-			// find amount of steps needed, xy coord of box
-			// for (int x = 0; x < 1; x++) {
-			// render.rect((40 / 32) * tileWidth, (50 / 32)
-			// * tileHeight, tileWidth, tileHeight);
-			// }
+			if (square != null) {
+				render.rect(square.x * 32, square.y * 32, tileWidth,
+						tileHeight);
+			}
 
 			render.setColor(Color.BLUE);
 			render.rect((oX / 32) * tileWidth,
@@ -227,5 +229,9 @@ public class Arena extends ArenaBase {
 
 	@Override
 	public void dispose() {}
+
+	public void colorSquare(Vector2 vectorPos) {
+		square = vectorPos;
+	}
 
 }

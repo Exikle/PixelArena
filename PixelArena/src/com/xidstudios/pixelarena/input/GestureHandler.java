@@ -54,7 +54,7 @@ public class GestureHandler implements GestureListener {
 		checkWhatTapped(x, y);
 
 		PathFinding.calcPAth(new Vector2(arena.oX, arena.oY),
-				new Vector2(arena.touchX, arena.touchY), arena.cell);
+				new Vector2(arena.touchX, arena.touchY), arena.cell, arena);
 		return false;
 	}
 
