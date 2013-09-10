@@ -54,7 +54,8 @@ public class GestureHandler implements GestureListener {
 		checkWhatTapped(x, y);
 
 		PathFinding.calcPAth(new Vector2(arena.oX, arena.oY),
-				new Vector2(arena.touchX, arena.touchY), arena.cell, arena);
+				new Vector2(arena.touchX, arena.touchY), arena.cell,
+				arena);
 		return false;
 	}
 
@@ -77,8 +78,8 @@ public class GestureHandler implements GestureListener {
 
 		player.move = true;
 		if (player.move) {
-			float speed = calcSpeed(nPos);
-			Tween.to(player, SpriteTween.POS_XY, speed)
+			double speed = calcSpeed(nPos);
+			Tween.to(player, SpriteTween.POS_XY, (float) speed)
 					.ease(TweenEquations.easeNone)
 					.target(nPos.x, nPos.y).start(manager);
 			if (player.cameraLocked) {
@@ -87,14 +88,19 @@ public class GestureHandler implements GestureListener {
 		}
 	}
 
-	private float calcSpeed(Vector3 pos) {
-		float x = pos.x / 32 - player.getX() / 32;
-		x += 1;
-		float y = pos.y / 32 - player.getY() / 32;
-		y += 1;
-		float total = Math.abs((x / y) / SPEED_MOD);
-		Gdx.app.log(PArena.LOG, "" + total);
-		return total;
+	private double calcSpeed(Vector3 newPos) {
+		// velocity = d/t but t = ?
+		float x = Math.abs(newPos.x / 32 - player.getX() / 32);
+		Gdx.app.log(PArena.LOG, "x " + x);
+		float y = Math.abs(newPos.y / 32 - player.getY() / 32);
+		Gdx.app.log(PArena.LOG, "y " + y);
+
+		float d = y / x;
+		Gdx.app.log(PArena.LOG, "d " + d);
+
+		double s = Math.sqrt(d * 4.9);
+		Gdx.app.log(PArena.LOG, "Speed " + s);
+		return s;
 	}
 
 	@Override

@@ -159,7 +159,7 @@ public class Arena extends ArenaBase {
 
 		player = new Player(camera, new TextureRegion(new Texture(
 				"imgs/MalePlayer.png")));
-		player.setPosition(50, 50);
+		player.setPosition(100, 100);
 
 		// Create the renderer
 		tileMapRenderer = new OrthogonalTiledMapRenderer(map);
