@@ -188,6 +188,7 @@ public class Arena extends ArenaBase {
 	private void createTiles() {
 		TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers()
 				.get(0);
+		
 
 		tileHeight = layer.getTileHeight();
 		// Gdx.app.log(PArena.LOG, "" + tileHeight);

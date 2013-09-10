@@ -1,6 +1,7 @@
 package com.xidstudios.pixelarena;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
@@ -54,11 +55,11 @@ public class PathFinding {
 		// Gdx.app.log(PArena.LOG, "Lists Created");
 
 		currentNode = new Node(null, start);
-		openList.add(currentNode);
 		// Gdx.app.log(PArena.LOG, "Added start to openList");
 		// check squares around this and add
-
+		openList.clear();
 		for (int loop = 0; loop < 2; loop++) {
+			openList.add(currentNode);
 			int startPX = (int) currentNode.parentV.x / 32;
 			// Gdx.app.log(PArena.LOG, "Start X " + startPX);
 			int startPY = (int) currentNode.parentV.y / 32;
@@ -89,7 +90,7 @@ public class PathFinding {
 					} else if (!cells[rowNum][colNum].getTile()
 							.getProperties().containsKey("blocked")) {
 						Node node = new Node(currentNode,
-								new Vector2(rowNum, colNum));
+								new Vector2(rowNum * 32, colNum * 32));
 						if (rowNum != startPX && colNum != startPY) {
 							node.setMovementCost(14);
 						} else
@@ -155,6 +156,15 @@ public class PathFinding {
 			// Gdx.app.log("Node", "FVal = " + fVal);
 		}
 
+		public int compareTo(Node o) {
+			if ((this.gVal + this.hVal) < (o.gVal + o.hVal))
+				return -1;
+			else if ((this.gVal + this.hVal) >= (o.gVal + o.hVal))
+				return 1;
+			else
+				return 0;
+		}
+
 		private void calcHValue() {
 			int x = (int) Math.abs(parentV.x - (end.x / 32));
 			int y = (int) Math.abs(parentV.y - (end.y / 32));
@@ -186,5 +196,15 @@ public class PathFinding {
 		public Vector2 getVectorPos() {
 			return parentV;
 		}
+	}
+
+	private static boolean betterIn(Node n, Collection<Node> l) {
+		for (Node no : l) {
+			if (no.parentV.x == n.parentV.x
+					&& no.parentV.y == n.parentV.y
+					&& (no.gVal + no.hVal) <= (n.gVal + n.hVal))
+				return true;
+		}
+		return false;
 	}
 }
