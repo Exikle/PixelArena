@@ -1,5 +1,8 @@
 package com.xidstudios.pixelarena.arena;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenManager;
 
@@ -25,6 +28,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.xidstudios.pixelarena.GameFont;
 import com.xidstudios.pixelarena.PArena;
+import com.xidstudios.pixelarena.PathFinding.Node;
 import com.xidstudios.pixelarena.entity.Player;
 import com.xidstudios.pixelarena.input.GestureHandler;
 import com.xidstudios.pixelarena.input.InputHandler;
@@ -76,7 +80,7 @@ public class Arena extends ArenaBase {
 
 	private BitmapFont font = GameFont.fWhite;
 
-	private Vector2 square;
+	public List<Vector2> squareList = new ArrayList<Vector2>();
 
 	public void render(float delta) {
 		super.render(delta);
@@ -127,9 +131,12 @@ public class Arena extends ArenaBase {
 					* tileHeight, tileWidth, tileHeight);
 
 			render.setColor(Color.YELLOW);
-			if (square != null) {
-				render.rect(square.x * 32, square.y * 32, tileWidth,
-						tileHeight);
+			if (squareList != null) {
+				for (Vector2 temp : squareList) {
+					render.rect(temp.x * 32, temp.y * 32, tileWidth,
+							tileHeight);
+				}
+
 			}
 
 			render.setColor(Color.BLUE);
@@ -231,7 +238,7 @@ public class Arena extends ArenaBase {
 	public void dispose() {}
 
 	public void colorSquare(Vector2 vectorPos) {
-		square = vectorPos;
+		squareList.add(vectorPos);
 	}
 
 }

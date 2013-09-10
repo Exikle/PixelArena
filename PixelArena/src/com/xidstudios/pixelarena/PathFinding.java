@@ -21,9 +21,9 @@ public class PathFinding {
 
 	static Cell[][] cells;
 
-	static Node currentNode;
-
 	static Arena arena;
+
+	static Node currentNode;
 
 	public static void calcPAth(Vector2 from, Vector2 to,
 			Cell[][] mapCells, Arena a) {
@@ -41,6 +41,7 @@ public class PathFinding {
 		Gdx.app.log(PArena.LOG, "Added start to openList");
 		// check squares around this and add
 
+		// for(int loop=0;loop<2;loop++){
 		int startPX = (int) currentNode.parentV.x / 32;
 		Gdx.app.log(PArena.LOG, "Start X" + startPX);
 		int startPY = (int) currentNode.parentV.y / 32;
@@ -59,23 +60,23 @@ public class PathFinding {
 		int endPosY = (startPY + 1 > MAX_Y) ? startPY : startPY + 1;
 
 		// Check boundaries on start cell
-		for (int rowNum = startPosX; rowNum <= endPosX; rowNum++) {
-			for (int colNum = startPosY; colNum <= endPosY; colNum++) {
+		for (int colNum = startPosY; colNum <= endPosY; colNum++) {
+			for (int rowNum = startPosX; rowNum <= endPosX; rowNum++) {
 				// All the neighbors will be grid[rowNum][colNum]
-
-				if (!cells[rowNum][colNum].getTile().getProperties()
-						.containsKey("blocked")) {
+				if ((rowNum == startPY) && (colNum == startPY)) {
+					System.out.print("SS|");
+				} else if (!cells[rowNum][colNum].getTile()
+						.getProperties().containsKey("blocked")) {
 					Node node = new Node(currentNode, new Vector2(
 							rowNum, colNum));
 					if (rowNum != startPX && colNum != startPY) {
 						node.setMovementCost(14);
 					} else
 						node.setMovementCost(10);
-					openList.add(node);
-
 					System.out.print(node.getFValue() + "|");
+					openList.add(node);
 				} else
-					System.out.print("B");
+					System.out.print("BB|");
 
 			}
 			System.out.println("");
@@ -84,26 +85,21 @@ public class PathFinding {
 
 		openList.remove(currentNode);
 		closedList.add(currentNode);
-		int n = openList.get(0).getFValue();
+		int f = openList.get(0).getFValue();
 		int index = 0;
 		for (Node temp : openList) {
-			if (temp.getFValue() < n) {
-				n = temp.getFValue();
+			if (temp.getFValue() < f) {
+				f = temp.getFValue();
 				index = openList.lastIndexOf(temp);
-				Gdx.app.log("n", "n = " + n);
+				Gdx.app.log("Node Vals", "HVal = " + temp.hVal);
+				Gdx.app.log("Node Vals", "GVal = " + temp.gVal);
+				Gdx.app.log("Node Vals", "FVal = " + f);
 			}
 		}
 		currentNode = openList.get(index);
 		arena.colorSquare(currentNode.getVectorPos());
 
-		// need to calc move cost;
-
-		//
-
-		Gdx.app.log("", "");
-		openList.clear();
-		closedList.clear();
-
+		// }
 	}
 
 	public static class Node {
@@ -137,15 +133,21 @@ public class PathFinding {
 		}
 
 		private void calcHValue() {
-			int x = (int) (parentV.x - end.x);
-			if (x < 0)
-				x *= -1;
-			int y = (int) (parentV.y - end.y);
-			if (y < 0)
-				y *= -1;
+			int x = (int) Math.abs(parentV.x - (end.x / 32));
+			int y = (int) Math.abs(parentV.y - (end.y / 32));
+			Gdx.app.log("Node", "x = " + x);
+			Gdx.app.log("Node", "y = " + y);
 
-			hVal = (int) (x + y) / 32;
-			// Gdx.app.log(PArena.LOG, "Heuristic Value" + hVal);
+			hVal = (int) (x + y);
+		}
+
+		private void debugCalcHValue() {
+			int x = (int) Math.abs(parentV.x - (end.x / 32));
+			int y = (int) Math.abs(parentV.y - (end.y / 32));
+			Gdx.app.log("Node", "x = " + x);
+			Gdx.app.log("Node", "y = " + y);
+
+			hVal = (int) (x + y);
 		}
 
 		private void setParent(Node node) {
