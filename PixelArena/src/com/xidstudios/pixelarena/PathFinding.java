@@ -62,11 +62,11 @@ public class PathFinding {
 
 	static int endPosY;
 
-	private final static int TIMES_TO_LOOP = 1;// debug variable
+	private final static int TIMES_TO_LOOP = 0;// debug variable
 
-	public static void calcPAth(Vector2 from, Vector2 to,
+	public static void calcPath(Vector2 from, Vector2 to,
 			Cell[][] mapCells, Arena a) {
-		start = new Vector2(from.x, from.y);
+		start = from;
 		end = to;
 		cells = mapCells;
 		arena = a;

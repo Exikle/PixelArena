@@ -8,9 +8,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.xidstudios.pixelarena.PArena;
+import com.xidstudios.pixelarena.Path;
 import com.xidstudios.pixelarena.PathFinding;
 import com.xidstudios.pixelarena.arena.Arena;
 import com.xidstudios.pixelarena.entity.Player;
@@ -52,10 +54,12 @@ public class GestureHandler implements GestureListener {
 	@Override
 	public boolean tap(float x, float y, int count, int button) {
 		checkWhatTapped(x, y);
-
-		PathFinding.calcPAth(new Vector2(arena.oX, arena.oY),
-				new Vector2(arena.touchX, arena.touchY), arena.cell,
-				arena);
+		// PathFinding.calcPath(new Vector2(arena.oX, arena.oY),
+		// new Vector2(arena.touchX, arena.touchY), arena.cell,
+		// arena);
+		Path.calculatePath(new Vector2(arena.oX, arena.oY), new Vector2(
+				arena.touchX, arena.touchY), arena.cell, arena,
+				player);
 		return false;
 	}
 
