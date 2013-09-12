@@ -91,15 +91,10 @@ public class GestureHandler implements GestureListener {
 	private float calcTime(Vector3 newPos) {
 		// velocity = d/t but t = ?
 		float x = Math.abs(newPos.x - player.getX());
-		Gdx.app.log(PArena.LOG, "x " + x);
 		float y = Math.abs(newPos.y - player.getY());
-		Gdx.app.log(PArena.LOG, "y " + y);
-
-		double d = Math.sqrt((x * x) + (y * y));
-		Gdx.app.log(PArena.LOG, "d " + d);
+		float d = (float) Math.sqrt((x * x) + (y * y));
 
 		float t = (float) (SPEED_MOD * d);
-		Gdx.app.log(PArena.LOG, "Time  " + t);
 		return t;
 	}
 

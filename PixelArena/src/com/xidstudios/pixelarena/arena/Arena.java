@@ -133,8 +133,8 @@ public class Arena extends ArenaBase {
 			render.setColor(Color.YELLOW);
 			if (squareList != null) {
 				for (Vector2 temp : squareList) {
-					render.rect(temp.x * 32, temp.y * 32, tileWidth,
-							tileHeight);
+					render.rect(temp.x * 32,
+							temp.y * 32, tileWidth, tileHeight);
 				}
 
 			}
@@ -237,12 +237,10 @@ public class Arena extends ArenaBase {
 	@Override
 	public void dispose() {}
 
-	public void colorSquare(Vector2 vectorPos) {
-		Vector2 v = new Vector2((vectorPos.x / 32),
-				(vectorPos.y / 32));
+	public void colorSquare(Vector2 vP) {
+		Vector2 v = new Vector2((vP.y), (vP.x));
+		System.out.println("Arena: " + v);
 		squareList.add(v);
-
-		System.out.println("" + v);
 	}
 
 }

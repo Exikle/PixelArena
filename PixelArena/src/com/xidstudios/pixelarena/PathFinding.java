@@ -1,7 +1,6 @@
 package com.xidstudios.pixelarena;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
@@ -48,7 +47,7 @@ public class PathFinding {
 
 	public static void calcPAth(Vector2 from, Vector2 to,
 			Cell[][] mapCells, Arena a) {
-		start = new Vector2(from.x / 32, from.y / 32);
+		start = new Vector2(from.x, from.y);
 		end = to;
 		cells = mapCells;
 		arena = a;
@@ -58,14 +57,15 @@ public class PathFinding {
 		// Gdx.app.log(PArena.LOG, "Added start to openList");
 		// check squares around this and add
 		openList.clear();
+		openList.add(currentNode);
+
 		for (int loop = 0; loop < 1; loop++) {
-			openList.add(currentNode);
 			int startPX = (int) currentNode.parentV.x;
 			// Gdx.app.log(PArena.LOG, "Start X " + startPX);
 			int startPY = (int) currentNode.parentV.y;
 			// Gdx.app.log(PArena.LOG, "Start Y " + startPY);
 
-			Gdx.app.log("", "" + currentNode.parentV);
+			// Gdx.app.log("", "" + currentNode.parentV);
 			//
 			MIN_X = startPX - 1;
 			MIN_Y = startPY - 1;
@@ -103,7 +103,6 @@ public class PathFinding {
 					}
 				}
 				System.out.println("");
-
 			}
 
 			openList.remove(currentNode);
@@ -116,16 +115,16 @@ public class PathFinding {
 					// System.out.println("Lowest FVal"
 					// + temp.calcFVal());
 					index = openList.lastIndexOf(temp);
-					// Gdx.app.log("Node Vals", "HVal = " + temp.hVal);
-					// Gdx.app.log("Node Vals", "GVal = " + temp.gVal);
-					// Gdx.app.log("Node Vals", "FVal = " + f);
+					Gdx.app.log("Node Vals", "HVal = " + temp.hVal);
+					Gdx.app.log("Node Vals", "GVal = " + temp.gVal);
+					Gdx.app.log("Node Vals", "FVal = " + temp.fVal);
 				}
 			}
+			Gdx.app.log("PathFinding", "" + currentNode.hVal);
+			// System.out.println("PathFinding: " + currentNode.gVal);
+			System.out.println("PathFinding: " + currentNode.parentV);
 			currentNode = openList.get(index);
-			arena.colorSquare(currentNode.getVectorPos());
-
-			// openList.
-
+			arena.colorSquare(currentNode.parentV);
 		}
 	}
 
@@ -143,7 +142,9 @@ public class PathFinding {
 
 		private Node(Node node, Vector2 p) {
 			setParent(node);
-			this.parentV = p;
+			if (p != null) {
+				this.parentV = new Vector2(p.x / 32, p.y / 32);
+			}
 			calcHValue();
 		}
 
@@ -154,7 +155,6 @@ public class PathFinding {
 
 		private int calcFVal() {
 			fVal = gVal + hVal;
-			fVal /= 32;
 			// Gdx.app.log("Node", "HVal = " + hVal);
 			// Gdx.app.log("Node", "GVal = " + gVal);
 			// Gdx.app.log("Node", "FVal = " + fVal);
@@ -202,15 +202,5 @@ public class PathFinding {
 		public Vector2 getVectorPos() {
 			return parentV;
 		}
-	}
-
-	private static boolean betterIn(Node n, Collection<Node> l) {
-		for (Node no : l) {
-			if (no.parentV.x == n.parentV.x
-					&& no.parentV.y == n.parentV.y
-					&& (no.gVal + no.hVal) <= (n.gVal + n.hVal))
-				return true;
-		}
-		return false;
 	}
 }
