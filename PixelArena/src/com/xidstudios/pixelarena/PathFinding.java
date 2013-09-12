@@ -87,6 +87,7 @@ public class PathFinding {
 					// Gdx.app.log(PArena.LOG, colNum + "," + rowNum);
 					// All the neighbors will be grid[rowNum][colNum]
 					if ((rowNum == startPY) && (colNum == startPY)) {
+						System.out.print("SS|");
 					} else if (!cells[rowNum][colNum].getTile()
 							.getProperties().containsKey("blocked")) {
 						Node node = new Node(currentNode,
@@ -95,13 +96,13 @@ public class PathFinding {
 							node.setMovementCost(14);
 						} else
 							node.setMovementCost(10);
-						// System.out.print(node.getFValue() + "|");
+						System.out.print(node.getFValue() + "|");
 						openList.add(node);
 					} else {
-						// System.out.print("BB|");
+						System.out.print("BB|");
 					}
 				}
-				// System.out.println("");
+				System.out.println("");
 
 			}
 
@@ -112,6 +113,8 @@ public class PathFinding {
 			for (Node temp : openList) {
 				if (temp.getFValue() < f) {
 					f = temp.getFValue();
+					System.out.println("Lowest FVal"
+							+ temp.calcFVal());
 					index = openList.lastIndexOf(temp);
 					// Gdx.app.log("Node Vals", "HVal = " + temp.hVal);
 					// Gdx.app.log("Node Vals", "GVal = " + temp.gVal);
@@ -149,11 +152,13 @@ public class PathFinding {
 			calcFVal();
 		}
 
-		private void calcFVal() {
+		private int calcFVal() {
 			fVal = gVal + hVal;
+			fVal /= 32;
 			// Gdx.app.log("Node", "HVal = " + hVal);
 			// Gdx.app.log("Node", "GVal = " + gVal);
 			// Gdx.app.log("Node", "FVal = " + fVal);
+			return fVal;
 		}
 
 		public int compareTo(Node o) {

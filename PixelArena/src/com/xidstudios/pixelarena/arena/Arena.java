@@ -188,7 +188,6 @@ public class Arena extends ArenaBase {
 	private void createTiles() {
 		TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers()
 				.get(0);
-		
 
 		tileHeight = layer.getTileHeight();
 		// Gdx.app.log(PArena.LOG, "" + tileHeight);
@@ -239,7 +238,11 @@ public class Arena extends ArenaBase {
 	public void dispose() {}
 
 	public void colorSquare(Vector2 vectorPos) {
-		squareList.add(vectorPos);
+		Vector2 v = new Vector2((vectorPos.x / 32),
+				(vectorPos.y / 32));
+		squareList.add(v);
+
+		System.out.println("" + v);
 	}
 
 }
