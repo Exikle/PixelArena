@@ -30,7 +30,7 @@ public class GestureHandler implements GestureListener {
 
 	private Arena arena;
 
-	private final float SPEED_MOD = 3;
+	private final float SPEED_MOD = .005f;
 
 	public GestureHandler(Arena arena, OrthographicCamera camera,
 			Player player, TweenManager manager, TiledMap map) {
@@ -78,8 +78,8 @@ public class GestureHandler implements GestureListener {
 
 		player.move = true;
 		if (player.move) {
-			double speed = calcSpeed(nPos);
-			Tween.to(player, SpriteTween.POS_XY, (float) speed)
+			float time = calcTime(nPos);
+			Tween.to(player, SpriteTween.POS_XY, time)
 					.ease(TweenEquations.easeNone)
 					.target(nPos.x, nPos.y).start(manager);
 			if (player.cameraLocked) {
@@ -88,19 +88,19 @@ public class GestureHandler implements GestureListener {
 		}
 	}
 
-	private double calcSpeed(Vector3 newPos) {
+	private float calcTime(Vector3 newPos) {
 		// velocity = d/t but t = ?
-		float x = Math.abs(newPos.x / 32 - player.getX() / 32);
+		float x = Math.abs(newPos.x - player.getX());
 		Gdx.app.log(PArena.LOG, "x " + x);
-		float y = Math.abs(newPos.y / 32 - player.getY() / 32);
+		float y = Math.abs(newPos.y - player.getY());
 		Gdx.app.log(PArena.LOG, "y " + y);
 
-		float d = y / x;
+		double d = Math.sqrt((x * x) + (y * y));
 		Gdx.app.log(PArena.LOG, "d " + d);
 
-		double s = Math.sqrt(d * 4.9);
-		Gdx.app.log(PArena.LOG, "Speed " + s);
-		return s;
+		float t = (float) (SPEED_MOD * d);
+		Gdx.app.log(PArena.LOG, "Time  " + t);
+		return t;
 	}
 
 	@Override

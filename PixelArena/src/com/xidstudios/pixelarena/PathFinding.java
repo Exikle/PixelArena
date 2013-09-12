@@ -48,7 +48,7 @@ public class PathFinding {
 
 	public static void calcPAth(Vector2 from, Vector2 to,
 			Cell[][] mapCells, Arena a) {
-		start = from;
+		start = new Vector2(from.x / 32, from.y / 32);
 		end = to;
 		cells = mapCells;
 		arena = a;
@@ -58,11 +58,11 @@ public class PathFinding {
 		// Gdx.app.log(PArena.LOG, "Added start to openList");
 		// check squares around this and add
 		openList.clear();
-		for (int loop = 0; loop < 2; loop++) {
+		for (int loop = 0; loop < 1; loop++) {
 			openList.add(currentNode);
-			int startPX = (int) currentNode.parentV.x / 32;
+			int startPX = (int) currentNode.parentV.x;
 			// Gdx.app.log(PArena.LOG, "Start X " + startPX);
-			int startPY = (int) currentNode.parentV.y / 32;
+			int startPY = (int) currentNode.parentV.y;
 			// Gdx.app.log(PArena.LOG, "Start Y " + startPY);
 
 			Gdx.app.log("", "" + currentNode.parentV);
@@ -113,8 +113,8 @@ public class PathFinding {
 			for (Node temp : openList) {
 				if (temp.getFValue() < f) {
 					f = temp.getFValue();
-					System.out.println("Lowest FVal"
-							+ temp.calcFVal());
+					// System.out.println("Lowest FVal"
+					// + temp.calcFVal());
 					index = openList.lastIndexOf(temp);
 					// Gdx.app.log("Node Vals", "HVal = " + temp.hVal);
 					// Gdx.app.log("Node Vals", "GVal = " + temp.gVal);
@@ -177,6 +177,7 @@ public class PathFinding {
 			// Gdx.app.log("Node", "y = " + y);
 			if (parentNode != null) {
 				hVal += parentNode.hVal;
+				// System.out.println("" + hVal);
 			}
 			hVal += (int) (x + y);
 		}
