@@ -27,8 +27,6 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.xidstudios.pixelarena.GameFont;
-import com.xidstudios.pixelarena.PArena;
-import com.xidstudios.pixelarena.PathFinding.Node;
 import com.xidstudios.pixelarena.entity.Player;
 import com.xidstudios.pixelarena.input.GestureHandler;
 import com.xidstudios.pixelarena.input.InputHandler;
@@ -44,7 +42,7 @@ public class Arena extends ArenaBase {
 
 	private TiledMap map;
 
-	private Player player;
+	public Player player;
 
 	private final boolean DEBUG = true;
 
@@ -238,7 +236,7 @@ public class Arena extends ArenaBase {
 	public void dispose() {}
 
 	public void colorSquare(Vector2 vP) {
-		Vector2 v = new Vector2((vP.y), (vP.x));
+		Vector2 v = new Vector2((vP.x), (vP.y));
 		System.out.println("Arena: " + v);
 		squareList.add(v);
 	}
