@@ -79,8 +79,8 @@ public class Path {
 		for (int loop = 0; loop < 2; loop++) {
 			// Step a)
 			Node node = checkForLowestCost();
-			cList.add(node);
-
+			oList.add(node);
+			Gdx.app.log("Path", "" + node.getParentVector());
 			setCheckLimits(node);
 			for (int x = startPosX; x <= endPosX; x++) {
 				for (int y = startPosY; y <= endPosY; y++) {
@@ -90,10 +90,15 @@ public class Path {
 						if (!cells[x][y].getTile().getProperties()
 								.containsKey("blocked")) {
 							if (!oList.contains(node)) {
-								oList.add(new Node(node, new Vector2(
-										x, y)));
+								oList.add(new Node(node, new Vector2(x, y)));
 								Gdx.app.log("Node", "Added");
 							} else {
+								if (x != MAX_X - 1 && y != MAX_Y - 1) {
+									node.setMoveCost(14);
+								} else {
+									node.setMoveCost(10);
+								}
+								oList.add(node);
 								boolean better = betterIn(node, oList);
 								if (better) {
 									cNode.setParentNode(node);
@@ -104,7 +109,7 @@ public class Path {
 					}
 				}
 			}
-			
+
 		}
 
 	}
@@ -120,9 +125,10 @@ public class Path {
 	}
 
 	private static Node checkForLowestCost() {
-		int f = oList.get(0).getTotalValue();
 		int index = 0;
+		int f = oList.get(index).getTotalValue();
 		for (Node temp : oList) {
+			Gdx.app.log("", "" + temp.getParentVector());
 			if (temp.getTotalValue() < f) {
 				f = temp.getTotalValue();
 				index = oList.lastIndexOf(temp);
