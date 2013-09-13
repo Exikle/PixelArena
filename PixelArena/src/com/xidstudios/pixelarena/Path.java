@@ -90,16 +90,16 @@ public class Path {
 						// check if not blocked
 						if (!cells[x][y].getTile().getProperties()
 								.containsKey("blocked")) {
+							Node n = new Node(node, new Vector2(x, y));
+							oList.add(n);
 							if (!oList.contains(node)) {
-								oList.add(new Node(node, new Vector2(x, y)));
 								Gdx.app.log("Node", "Added");
 							} else {
-								setMoveCost(x, y, node);
-								debugTotalValue(x, y, node);
-								oList.add(node);
-								boolean better = betterIn(node, oList);
+								setMoveCost(x, y, n);
+								debugTotalValue(x, y, n);
+								boolean better = betterIn(n, oList);
 								if (better) {
-									cNode.setParentNode(node);
+									cNode.setParentNode(n);
 								}
 							}
 
@@ -144,7 +144,9 @@ public class Path {
 		Gdx.app.log("Path", "oList size = " + oList.size());
 		int f = oList.get(index).getTotalValue();
 		for (Node temp : oList) {
-			Gdx.app.log("", oList.indexOf(temp) + "" + temp.getTotalValue());
+			System.out.println("" + temp.getTotalValue());
+			Gdx.app.log("Path", "Hval"
+					+ temp.hValue);
 			if (temp.getTotalValue() < f) {
 				f = temp.getTotalValue();
 				index = oList.lastIndexOf(temp);
