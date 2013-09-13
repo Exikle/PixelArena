@@ -76,7 +76,7 @@ public class Path {
 		// step 1
 		oList.add(cNode);
 		// step 2
-		for (int loop = 0; loop < 1; loop++) {
+		for (int loop = 0; loop < 2; loop++) {
 			// Step a)
 			Node node = checkForLowestCost();
 			cList.add(node);
@@ -95,12 +95,16 @@ public class Path {
 								Gdx.app.log("Node", "Added");
 							} else {
 								boolean better = betterIn(node, oList);
+								if (better) {
+									cNode.setParentNode(node);
+								}
 							}
 
 						}
 					}
 				}
 			}
+			
 		}
 
 	}
