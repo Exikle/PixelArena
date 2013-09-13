@@ -13,7 +13,7 @@ public class Node {
 
 	Node parentNode;
 
-	Vector2 parentVector;
+	Vector2 nodeVector;
 
 	Vector2 targetVector;
 
@@ -21,26 +21,43 @@ public class Node {
 		if (p != null) {
 			this.parentNode = node;
 		}
-		this.parentVector = new Vector2(p.x / 32, p.y / 32);
-		this.targetVector = new Vector2(end.x / 32, end.y / 32);
-		Gdx.app.log("Node", "Parent " + parentVector);
-		Gdx.app.log("Node", "Target " + targetVector);
+		this.nodeVector = new Vector2((int) p.x / 32,
+				(int) p.y / 32);
+		this.targetVector = new Vector2((int) end.x / 32,
+				(int) end.y / 32);
+		// Gdx.app.log("Node", "Parent " + nodeVector);
+		// Gdx.app.log("Node", "Target " + targetVector);
+		calculateHVal();
 	}
 
+	// just made this constructor to stop me from getting errors form old class
 	public Node(Node node, Vector2 p) {
 		if (p != null) {
 			this.parentNode = node;
 		}
-		this.parentVector = new Vector2(p.x / 32, p.y / 32);
-		Gdx.app.log("Node", "" + parentVector);
+		this.nodeVector = new Vector2(p.x / 32, p.y / 32);
+//		Gdx.app.log("Node", "" + nodeVector);
 	}
 
-	public void sethValue(int hValue) {
-		this.hValue = hValue;
+	public void calculateHVal() {
+		int x = (int) Math.abs(nodeVector.x - targetVector.x);
+		int y = (int) Math.abs(nodeVector.y - targetVector.y);
+		if (parentNode != null) {
+			hValue += parentNode.hValue;
+			Gdx.app.log("Node", "Has Parent:" + hValue);
+		}
+		hValue += (int) (x + y);
+//		Gdx.app.log("Node", "H-Val" + hValue);
 	}
 
 	public void setMoveCost(int moveCostValue) {
 		this.moveCostValue = moveCostValue;
+		calculateTotalValue();
+
+	}
+
+	private void calculateTotalValue() {
+		totalValue = moveCostValue + hValue;
 	}
 
 	public int getTotalValue() {
@@ -52,10 +69,10 @@ public class Node {
 	}
 
 	public Vector2 getParentVector() {
-		return parentVector;
+		return nodeVector;
 	}
 
 	public void setParentVector(Vector2 parentVector) {
-		this.parentVector = parentVector;
+		this.nodeVector = parentVector;
 	}
 }

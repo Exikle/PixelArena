@@ -77,10 +77,10 @@ public class PathFinding {
 		for (int loop = 0; loop < TIMES_TO_LOOP; loop++) {
 			if (!closedList.contains(currentNode)) {
 				openList.add(currentNode);
-				int startPX = (int) currentNode.parentVector.x;
-				int startPY = (int) currentNode.parentVector.y;
+				int startPX = (int) currentNode.nodeVector.x;
+				int startPY = (int) currentNode.nodeVector.y;
 				Gdx.app.log(PArena.LOG, "Pos "
-						+ currentNode.parentVector);
+						+ currentNode.nodeVector);
 				MIN_X = startPX - 1;
 				MIN_Y = startPY - 1;
 				MAX_X = startPX + 1;
@@ -139,9 +139,9 @@ public class PathFinding {
 						"" + currentNode.getTotalValue());
 				// System.out.println("PathFinding: " + currentNode.gVal);
 				System.out.println("PathFinding: "
-						+ currentNode.parentVector);
+						+ currentNode.nodeVector);
 				currentNode = openList.get(index);
-				arena.colorSquare(currentNode.parentVector);
+				arena.colorSquare(currentNode.nodeVector);
 			}
 		}
 	}
