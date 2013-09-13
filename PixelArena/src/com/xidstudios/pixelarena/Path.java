@@ -144,7 +144,7 @@ public class Path {
 		Gdx.app.log("Path", "oList size = " + oList.size());
 		int f = oList.get(index).getTotalValue();
 		for (Node temp : oList) {
-			Gdx.app.log("", "" + temp.getTotalValue());
+			Gdx.app.log("", oList.indexOf(temp) + "" + temp.getTotalValue());
 			if (temp.getTotalValue() < f) {
 				f = temp.getTotalValue();
 				index = oList.lastIndexOf(temp);

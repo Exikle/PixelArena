@@ -21,10 +21,8 @@ public class Node {
 		if (p != null) {
 			this.parentNode = node;
 		}
-		this.nodeVector = new Vector2((int) p.x / 32,
-				(int) p.y / 32);
-		this.targetVector = new Vector2((int) end.x / 32,
-				(int) end.y / 32);
+		this.nodeVector = new Vector2((int) p.x / 32, (int) p.y / 32);
+		this.targetVector = new Vector2((int) end.x / 32, (int) end.y / 32);
 		// Gdx.app.log("Node", "Parent " + nodeVector);
 		// Gdx.app.log("Node", "Target " + targetVector);
 		calculateHVal();
@@ -34,9 +32,10 @@ public class Node {
 	public Node(Node node, Vector2 p) {
 		if (p != null) {
 			this.parentNode = node;
+			Gdx.app.log("Node", "Has Parent Node");
 		}
 		this.nodeVector = new Vector2(p.x / 32, p.y / 32);
-//		Gdx.app.log("Node", "" + nodeVector);
+		// Gdx.app.log("Node", "" + nodeVector);
 	}
 
 	public void calculateHVal() {
@@ -44,10 +43,9 @@ public class Node {
 		int y = (int) Math.abs(nodeVector.y - targetVector.y);
 		if (parentNode != null) {
 			hValue += parentNode.hValue;
-			Gdx.app.log("Node", "Has Parent:" + hValue);
 		}
 		hValue += (int) (x + y);
-//		Gdx.app.log("Node", "H-Val" + hValue);
+		// Gdx.app.log("Node", "H-Val" + hValue);
 	}
 
 	public void setMoveCost(int moveCostValue) {
