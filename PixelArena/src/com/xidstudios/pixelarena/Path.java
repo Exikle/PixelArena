@@ -72,6 +72,7 @@ public class Path {
 			Cell[][] mapCells, Arena a, Player p) {
 		initializeVariables(from, to, mapCells, a, p);
 
+		oList.clear();
 		cNode = new Node(null, origin, end);
 		// step 1
 		oList.add(cNode);
@@ -82,8 +83,8 @@ public class Path {
 			oList.add(node);
 			Gdx.app.log("Path", "" + node.getParentVector());
 			setCheckLimits(node);
-			for (int x = startPosX; x <= endPosX; x++) {
-				for (int y = startPosY; y <= endPosY; y++) {
+			for (int y = startPosY; y <= endPosY; y++) {
+				for (int x = startPosX; x <= endPosX; x++) {
 					// check if adjacent on closed list
 					if (!cList.contains(node)) {
 						// check if not blocked
@@ -93,11 +94,8 @@ public class Path {
 								oList.add(new Node(node, new Vector2(x, y)));
 								Gdx.app.log("Node", "Added");
 							} else {
-								if (x != MAX_X - 1 && y != MAX_Y - 1) {
-									node.setMoveCost(14);
-								} else {
-									node.setMoveCost(10);
-								}
+								setMoveCost(x, y, node);
+								debugTotalValue(x, y, node);
 								oList.add(node);
 								boolean better = betterIn(node, oList);
 								if (better) {
@@ -108,10 +106,27 @@ public class Path {
 						}
 					}
 				}
+				System.out.println();
 			}
 
 		}
 
+	}
+
+	private static void debugTotalValue(int x, int y, Node node) {
+		if ((y == MAX_Y - 1) && (x == MAX_X - 1))
+			System.out.print("SS|");
+		else
+			System.out.print(node.getTotalValue() + "|");
+	}
+
+	private static void setMoveCost(int x, int y, Node node) {
+
+		if (x != MAX_X - 1 && y != MAX_Y - 1) {
+			node.setMoveCost(14);
+		} else {
+			node.setMoveCost(10);
+		}
 	}
 
 	private static boolean betterIn(Node n, List<Node> l) {
@@ -126,9 +141,10 @@ public class Path {
 
 	private static Node checkForLowestCost() {
 		int index = 0;
+		Gdx.app.log("Path", "oList size = " + oList.size());
 		int f = oList.get(index).getTotalValue();
 		for (Node temp : oList) {
-			Gdx.app.log("", "" + temp.getParentVector());
+			Gdx.app.log("", "" + temp.getTotalValue());
 			if (temp.getTotalValue() < f) {
 				f = temp.getTotalValue();
 				index = oList.lastIndexOf(temp);
