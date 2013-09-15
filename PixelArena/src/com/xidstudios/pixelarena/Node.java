@@ -46,7 +46,7 @@ public class Node {
 			hValue += parentNode.hValue;
 		}
 		hValue += (int) (x + y);
-//		Gdx.app.log("Node", "H-Val" + hValue);
+		Gdx.app.log("Node", "H-Val" + hValue);
 	}
 
 	public void setMoveCost(int moveCostValue) {

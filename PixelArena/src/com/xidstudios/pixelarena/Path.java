@@ -73,6 +73,7 @@ public class Path {
 		initializeVariables(from, to, mapCells, a, p);
 
 		oList.clear();
+		cList.clear();
 		cNode = new Node(null, origin, end);
 		// step 1
 		oList.add(cNode);
@@ -85,22 +86,19 @@ public class Path {
 			setCheckLimits(node);
 			for (int y = startPosY; y <= endPosY; y++) {
 				for (int x = startPosX; x <= endPosX; x++) {
+					Node n = new Node(node, new Vector2(x, y));
 					// check if adjacent on closed list
-					if (!cList.contains(node)) {
+					if (!cList.contains(n)) {
 						// check if not blocked
 						if (!cells[x][y].getTile().getProperties()
 								.containsKey("blocked")) {
-							Node n = new Node(node, new Vector2(x, y));
 							oList.add(n);
 							if (!oList.contains(node)) {
+								oList.add(n);
 								Gdx.app.log("Node", "Added");
 							} else {
 								setMoveCost(x, y, n);
 								debugTotalValue(x, y, n);
-								boolean better = betterIn(n, oList);
-								if (better) {
-									cNode.setParentNode(n);
-								}
 							}
 
 						}
@@ -129,24 +127,14 @@ public class Path {
 		}
 	}
 
-	private static boolean betterIn(Node n, List<Node> l) {
-		for (Node no : l) {
-			if (no.nodeVector.x == n.nodeVector.x
-					&& no.nodeVector.y == n.nodeVector.y
-					&& (no.getTotalValue()) <= (n.getTotalValue()))
-				return true;
-		}
-		return false;
-	}
-
 	private static Node checkForLowestCost() {
 		int index = 0;
-		Gdx.app.log("Path", "oList size = " + oList.size());
+		// Gdx.app.log("Path", "oList size = " + oList.size());
 		int f = oList.get(index).getTotalValue();
 		for (Node temp : oList) {
-			System.out.println("" + temp.getTotalValue());
-			Gdx.app.log("Path", "Hval"
-					+ temp.hValue);
+			// System.out.println("" + temp.getTotalValue());
+			// Gdx.app.log("Path", "Hval"
+			// + temp.hValue);
 			if (temp.getTotalValue() < f) {
 				f = temp.getTotalValue();
 				index = oList.lastIndexOf(temp);
