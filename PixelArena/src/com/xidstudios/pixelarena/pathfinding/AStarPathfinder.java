@@ -6,8 +6,8 @@ import java.util.PriorityQueue;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.math.Vector2;
 import com.xidstudios.pixelarena.arena.Arena;
-import com.xidstudios.pixelarena.pathfinding.testing.Map;
 
+@SuppressWarnings("unused")
 public class AStarPathfinder {
 
 	static TileInfo[][] superList;
@@ -37,7 +37,38 @@ public class AStarPathfinder {
 
 		boolean pathFound = false;
 
-		// superList = new TileInfo[arena..passable.length][Map.map.passable[0].length];
+		superList = new TileInfo[cells.length][cells[0].length];
+		openList = new PriorityQueue<TileInfo>(cells.length
+				* cells[0].length, new ComparatorByScore());
+
+		closedList = new ArrayList<TileInfo>();
+
+		superList[(int) sV.x][(int) sV.y] = new TileInfo(sV.x, sV.y,
+				null, 0, getHeuristicScore(sV.x, sV.y, dV.x, dV.y));
+
+		openList.add(superList[(int) sV.x][(int) sV.y]);
+
+		while (openList.size() > 0) {
+			//check map for path
+
+			// TileInfo currentTile = openList.poll();
+			// calcSurroundingTile(currentTile, -1, -1);
+			// calcSurroundingTile(currentTile, 0, -1);
+			// calcSurroundingTile(currentTile, +1, -1);
+			// calcSurroundingTile(currentTile, +1, 0);
+			// calcSurroundingTile(currentTile, +1, +1);
+			// calcSurroundingTile(currentTile, 0, +1);
+			// calcSurroundingTile(currentTile, -1, +1);
+			// calcSurroundingTile(currentTile, -1, 0);
+			break;
+		}
+
+		if (!pathFound) {
+			System.out.println("Path Not Found");
+		} else {
+			System.out.println("Path Found");
+		}
+		
 	}
 
 	// Yeah! Lets find paths and stuff! Totally!
@@ -89,10 +120,10 @@ public class AStarPathfinder {
 			// And if it so happens that the open tile we selected is the ending tile, fun stuff happens.
 			// This is mostly happytime pathdrawing code
 			if (currentTile.tileX == x2 && currentTile.tileY == y2) {
-				System.out.println("Path totally found brah");
+				System.out.println("Path Found and Created");
 				char[][] thePath = Map.map.getMap();
 				while (currentTile != null) {
-					thePath[currentTile.tileX][currentTile.tileY] = ',';
+					thePath[currentTile.tileX][currentTile.tileY] = '#';
 					currentTile = currentTile.parentTile;
 				}
 				Map.printMap(thePath);
@@ -160,9 +191,10 @@ public class AStarPathfinder {
 	 * and x/y2 defines the destination (what you're trying to get the heuristic for).
 	 */
 	// This is just Manhattan distance. xDistance + yDistance. Nothing complicated
-	public static int getHeuristicScore(int x1, int y1, int x2, int y2) {
-		int xDif = x2 > x1 ? x2 - x1 : x1 - x2; // because if-statements are faster than calling Math.abs (probably)
-		int yDif = y2 > y1 ? y2 - y1 : y1 - y2;
+	public static int getHeuristicScore(float x, float y, float x2,
+			float y2) {
+		int xDif = (int) (x2 > x ? x2 - x : x - x2); // because if-statements are faster than calling Math.abs (probably)
+		int yDif = (int) (y2 > y ? y2 - y : y - y2);
 
 		return (xDif + yDif) * 1; // Messing around with the heuristic is one of the key differences between A* and Djikstras. (Djistra? Djksrtsata? DK-DJ-Istria?)
 		// Because Djkistra's is more like a flood fill, and A* is more like a smart flood fill.

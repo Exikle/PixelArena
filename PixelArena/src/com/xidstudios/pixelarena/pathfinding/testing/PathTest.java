@@ -16,6 +16,7 @@ public class PathTest {
 		// Start the A* Pathfinder
 		switch (args[0]) {
 			case "-a*": {
+				//put start to finish
 				AStarPathfinder.findPath(0, 0, 9, 9);
 				break;
 			}

@@ -10,9 +10,9 @@ public class TileInfo {
 	public int cost;
 	public int heur;
 	
-	public TileInfo(int x, int y, TileInfo parent, int costToAdd, int heuristicScore){
-		tileX = x;
-		tileY = y;
+	public TileInfo(float x, float y, TileInfo parent, int costToAdd, int heuristicScore){
+		tileX = (int) x;
+		tileY = (int) y;
 		cost = costToAdd;
 		parentTile = parent;
 		heur = heuristicScore;

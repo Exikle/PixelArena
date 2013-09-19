@@ -1,9 +1,8 @@
-package com.xidstudios.pixelarena.pathfinding.testing;
-
+package com.xidstudios.pixelarena.pathfinding;
 
 public class Map {
 
-	public static Map map = new Map();
+	public static Map map;
 
 	public boolean[][] passable;
 
@@ -11,7 +10,10 @@ public class Map {
 
 	String[] mapRows = new String[10];
 
+	String[] cells;
+
 	public Map() {
+		map = new Map();
 		passable = new boolean[10][10];
 		passCost = new int[passable.length][passable[0].length];
 
@@ -26,10 +28,10 @@ public class Map {
 		mapRows[8] = ".XXXX.....";
 		mapRows[9] = "......X...";
 
-		createBoundaries();
+		findPassableTiles();
 	}
 
-	private void createBoundaries() {
+	private void findPassableTiles() {
 
 		for (int x = 0; x < passable.length; x++) {
 			for (int y = 0; y < passable[x].length; y++) {
@@ -49,7 +51,7 @@ public class Map {
 		for (int y = 0; y < mapArray.length; y++) {
 			for (int x = 0; x < mapArray[0].length; x++) {
 
-				mapArray[y][x] = passable[y][x] ? ' ' : 'X';
+				mapArray[y][x] = passable[y][x] ? ' ' : 'B';// blocked tiles
 
 			}
 		}
@@ -59,17 +61,17 @@ public class Map {
 
 	public static void printMap(char[][] mapArray) {
 		for (int i = 0; i < mapArray[0].length + 2; i++) {
-			System.out.print("X");
+			System.out.print("_");
 		}
 		System.out.println();
 		for (char[] line : mapArray) {
-			System.out.print("X");
+			System.out.print("|");
 			System.out.print(new String(line));
-			System.out.print("X");
+			System.out.print("|");
 			System.out.println();
 		}
 		for (int i = 0; i < mapArray[0].length + 2; i++) {
-			System.out.print("X");
+			System.out.print("-");
 		}
 		System.out.println();
 	}
