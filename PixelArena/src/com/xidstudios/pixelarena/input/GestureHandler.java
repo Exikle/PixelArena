@@ -8,12 +8,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.xidstudios.pixelarena.PArena;
-import com.xidstudios.pixelarena.Path;
-import com.xidstudios.pixelarena.PathFinding;
 import com.xidstudios.pixelarena.arena.Arena;
 import com.xidstudios.pixelarena.entity.Player;
 import com.xidstudios.pixelarena.tweenaccessors.SpriteTween;
@@ -57,9 +54,10 @@ public class GestureHandler implements GestureListener {
 		// PathFinding.calcPath(new Vector2(arena.oX, arena.oY),
 		// new Vector2(arena.touchX, arena.touchY), arena.cell,
 		// arena);
-		Path.calculatePath(new Vector2(arena.oX, arena.oY), new Vector2(
-				arena.touchX, arena.touchY), arena.cell, arena,
-				player);
+//		Path.calculatePath(new Vector2(arena.oX, arena.oY), new Vector2(
+//				arena.touchX, arena.touchY), arena.cell, arena,
+//				player);
+//		AStarPathfinder.findPath();
 		return false;
 	}
 
