@@ -1,6 +1,5 @@
 package com.xidstudios.pixelarena.pathfinding.testing;
 
-import java.util.PriorityQueue;
 
 public class Map {
 
@@ -10,11 +9,12 @@ public class Map {
 
 	public int[][] passCost;
 
+	String[] mapRows = new String[10];
+
 	public Map() {
 		passable = new boolean[10][10];
 		passCost = new int[passable.length][passable[0].length];
 
-		String[] mapRows = new String[11];
 		mapRows[0] = "..........";
 		mapRows[1] = ".XXX.XXX..";
 		mapRows[2] = ".X.X.X.XXX";
@@ -25,7 +25,11 @@ public class Map {
 		mapRows[7] = "....XXX...";
 		mapRows[8] = ".XXXX.....";
 		mapRows[9] = "......X...";
-		mapRows[10] = "......X...";
+
+		createBoundaries();
+	}
+
+	private void createBoundaries() {
 
 		for (int x = 0; x < passable.length; x++) {
 			for (int y = 0; y < passable[x].length; y++) {
