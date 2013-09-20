@@ -36,11 +36,11 @@ import com.xidstudios.pixelarena.entity.Player;
 
 public class Path {
 
-	private static Node cNode;
+	private static TileNode cNode;
 
-	private static List<Node> oList = new ArrayList<Node>();
+	private static List<TileNode> oList = new ArrayList<TileNode>();
 
-	private static List<Node> cList = new ArrayList<Node>();
+	private static List<TileNode> cList = new ArrayList<TileNode>();
 
 	private static Vector2 origin;
 
@@ -74,19 +74,19 @@ public class Path {
 
 		oList.clear();
 		cList.clear();
-		cNode = new Node(null, origin, end);
+		cNode = new TileNode(null, origin, end);
 		// step 1
 		oList.add(cNode);
 		// step 2
 		for (int loop = 0; loop < 2; loop++) {
 			// Step a)
-			Node node = checkForLowestCost();
+			TileNode node = checkForLowestCost();
 			oList.add(node);
 			Gdx.app.log("Path", "" + node.getParentVector());
 			setCheckLimits(node);
 			for (int y = startPosY; y <= endPosY; y++) {
 				for (int x = startPosX; x <= endPosX; x++) {
-					Node n = new Node(node, new Vector2(x, y));
+					TileNode n = new TileNode(node, new Vector2(x, y));
 					// check if adjacent on closed list
 					if (!cList.contains(n)) {
 						// check if not blocked
@@ -111,14 +111,14 @@ public class Path {
 
 	}
 
-	private static void debugTotalValue(int x, int y, Node node) {
+	private static void debugTotalValue(int x, int y, TileNode node) {
 		if ((y == MAX_Y - 1) && (x == MAX_X - 1))
 			System.out.print("SS|");
 		else
 			System.out.print(node.getTotalValue() + "|");
 	}
 
-	private static void setMoveCost(int x, int y, Node node) {
+	private static void setMoveCost(int x, int y, TileNode node) {
 
 		if (x != MAX_X - 1 && y != MAX_Y - 1) {
 			node.setMoveCost(14);
@@ -127,11 +127,11 @@ public class Path {
 		}
 	}
 
-	private static Node checkForLowestCost() {
+	private static TileNode checkForLowestCost() {
 		int index = 0;
 		// Gdx.app.log("Path", "oList size = " + oList.size());
 		int f = oList.get(index).getTotalValue();
-		for (Node temp : oList) {
+		for (TileNode temp : oList) {
 			// System.out.println("" + temp.getTotalValue());
 			// Gdx.app.log("Path", "Hval"
 			// + temp.hValue);
@@ -143,7 +143,7 @@ public class Path {
 		return oList.get(index);
 	}
 
-	private static void setCheckLimits(Node node) {
+	private static void setCheckLimits(TileNode node) {
 		int startPX = (int) node.nodeVector.x;
 		int startPY = (int) node.nodeVector.y;
 		MIN_X = startPX - 1;

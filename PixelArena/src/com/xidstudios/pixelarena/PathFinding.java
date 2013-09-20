@@ -40,11 +40,11 @@ public class PathFinding {
 
 	static Arena arena;
 
-	static Node currentNode;
+	static TileNode currentNode;
 
-	static List<Node> openList = new ArrayList<Node>();
+	static List<TileNode> openList = new ArrayList<TileNode>();
 
-	static List<Node> closedList = new ArrayList<Node>();
+	static List<TileNode> closedList = new ArrayList<TileNode>();
 
 	static int MIN_X;
 
@@ -71,7 +71,7 @@ public class PathFinding {
 		cells = mapCells;
 		arena = a;
 
-		currentNode = new Node(null, start);
+		currentNode = new TileNode(null, start);
 		openList.clear();
 
 		for (int loop = 0; loop < TIMES_TO_LOOP; loop++) {
@@ -107,7 +107,7 @@ public class PathFinding {
 						} else if (!cells[rowNum][colNum].getTile()
 								.getProperties()
 								.containsKey("blocked")) {
-							Node node = new Node(currentNode,
+							TileNode node = new TileNode(currentNode,
 									new Vector2(colNum * 32,
 											rowNum * 32));
 							if (rowNum != startPX
@@ -129,7 +129,7 @@ public class PathFinding {
 				closedList.add(currentNode);
 				int f = openList.get(0).getTotalValue();
 				int index = 0;
-				for (Node temp : openList) {
+				for (TileNode temp : openList) {
 					if (temp.getTotalValue() < f) {
 						f = temp.getTotalValue();
 						index = openList.lastIndexOf(temp);

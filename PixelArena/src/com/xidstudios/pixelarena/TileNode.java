@@ -3,7 +3,7 @@ package com.xidstudios.pixelarena;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 
-public class Node {
+public class TileNode {
 
 	int hValue;
 
@@ -11,13 +11,13 @@ public class Node {
 
 	int totalValue;
 
-	Node parentNode;
+	TileNode parentNode;
 
 	Vector2 nodeVector;
 
 	Vector2 targetVector;
 
-	Node(Node node, Vector2 p, Vector2 end) {
+	TileNode(TileNode node, Vector2 p, Vector2 end) {
 		if (p != null) {
 			this.parentNode = node;
 		}
@@ -30,7 +30,7 @@ public class Node {
 	}
 
 	// just made this constructor to stop me from getting errors form old class
-	public Node(Node node, Vector2 p) {
+	public TileNode(TileNode node, Vector2 p) {
 		if (p != null) {
 			this.parentNode = node;
 			// Gdx.app.log("Node", "Has Parent Node");
@@ -63,7 +63,7 @@ public class Node {
 		return totalValue;
 	}
 
-	public void setParentNode(Node parentNode) {
+	public void setParentNode(TileNode parentNode) {
 		this.parentNode = parentNode;
 	}
 
