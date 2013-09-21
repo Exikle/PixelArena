@@ -4,8 +4,6 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 
 public class MapChecker {
 
-	public static MapChecker m;
-
 	public static Cell[][] cells;
 
 	public boolean[][] passable;
@@ -13,8 +11,6 @@ public class MapChecker {
 	public int[][] passCost;
 
 	public MapChecker(Cell[][] cell) {
-		m = new MapChecker(cell);
-
 		passable = new boolean[cells.length][cells[0].length];
 		passCost = new int[passable.length][passable[0].length];
 

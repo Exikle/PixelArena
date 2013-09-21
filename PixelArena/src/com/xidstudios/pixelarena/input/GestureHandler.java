@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.xidstudios.pixelarena.PArena;
 import com.xidstudios.pixelarena.arena.Arena;
 import com.xidstudios.pixelarena.entity.Player;
+import com.xidstudios.pixelarena.pathfinding.PathCreation;
 import com.xidstudios.pixelarena.tweenaccessors.SpriteTween;
 
 public class GestureHandler implements GestureListener {
@@ -54,10 +55,12 @@ public class GestureHandler implements GestureListener {
 		// PathFinding.calcPath(new Vector2(arena.oX, arena.oY),
 		// new Vector2(arena.touchX, arena.touchY), arena.cell,
 		// arena);
-//		Path.calculatePath(new Vector2(arena.oX, arena.oY), new Vector2(
-//				arena.touchX, arena.touchY), arena.cell, arena,
-//				player);
-//		AStarPathfinder.findPath();
+		// Path.calculatePath(new Vector2(arena.oX, arena.oY), new Vector2(
+		// arena.touchX, arena.touchY), arena.cell, arena,
+		// player);
+		// AStarPathfinder.findPath();
+		PathCreation.findPath(new Vector2(arena.oX, arena.oY),
+				new Vector2(arena.touchX, arena.touchY), arena.cell);
 		return false;
 	}
 

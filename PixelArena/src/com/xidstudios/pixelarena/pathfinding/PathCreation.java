@@ -23,16 +23,22 @@ public class PathCreation {
 
 	static Arena arena;
 
-	private boolean pathFound;
+	private static boolean pathFound;
 
-	public void findPath(Vector2 startVector,
-			Vector2 destinationVector) {
+	static MapChecker map;
+
+	public static void findPath(Vector2 startVector,
+			Vector2 destinationVector, Cell[][] cell) {
 		pathFound = false;
 
-		this.sV = startVector;
-		this.dV = destinationVector;
+		sV = startVector;
+		dV = destinationVector;
 
-		superList = new Node[MapChecker.m.passable.length][MapChecker.m.passable[0].length];
+		map = new MapChecker(cell);
+
+		// System.out.println("" + MapChecker.m.passable.length);
+
+		superList = new Node[map.passable.length][map.passable[0].length];
 		openList = new PriorityQueue<Node>(superList.length
 				* superList[0].length, new ScoreComparator());
 
@@ -80,21 +86,20 @@ public class PathCreation {
 
 	}
 
-	private void calcSurroundingTile(Node node, int cX, int cY) {
+	private static void calcSurroundingTile(Node node, int cX, int cY) {
 		int newX = (int) (node.tileVector.x + cX);
 		int newY = (int) (node.tileVector.y + cY);
 
 		// out of bounds check
-		if (newX < 0 || newY < 0
-				|| newX >= MapChecker.m.passable.length
-				|| newY >= MapChecker.m.passable[0].length) {
+		if (newX < 0 || newY < 0 || newX >= map.passable.length
+				|| newY >= map.passable[0].length) {
 			return;
 		}
 
 		Node surroundingTile = superList[newX][newY];
 
 		int toTileCost = (cX != 0 && cY != 0 ? 14 : 10)
-				* MapChecker.m.passCost[newX][newY];
+				* map.passCost[newX][newY];
 
 		if (surroundingTile == null) {
 			Vector2 newV = new Vector2(newX, newY);
@@ -109,7 +114,7 @@ public class PathCreation {
 		}
 	}
 
-	private int getHeuristicScore(Vector2 startV, Vector2 destV) {
+	private static int getHeuristicScore(Vector2 startV, Vector2 destV) {
 
 		int xDif = (int) (destV.x > startV.x ? destV.x - startV.x
 				: startV.x - destV.x);
