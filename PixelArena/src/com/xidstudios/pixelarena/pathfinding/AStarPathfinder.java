@@ -28,49 +28,6 @@ public class AStarPathfinder {
 
 	private static Arena arena;
 
-	public static void findPath(Vector2 from, Vector2 to,
-			Cell[][] mapCells, Arena a) {
-		sV = from;
-		dV = to;
-		cells = mapCells;
-		arena = a;
-
-		boolean pathFound = false;
-
-		superList = new TileInfo[cells.length][cells[0].length];
-		openList = new PriorityQueue<TileInfo>(cells.length
-				* cells[0].length, new ComparatorByScore());
-
-		closedList = new ArrayList<TileInfo>();
-
-		superList[(int) sV.x][(int) sV.y] = new TileInfo(sV.x, sV.y,
-				null, 0, getHeuristicScore(sV.x, sV.y, dV.x, dV.y));
-
-		openList.add(superList[(int) sV.x][(int) sV.y]);
-
-		while (openList.size() > 0) {
-			//check map for path
-
-			// TileInfo currentTile = openList.poll();
-			// calcSurroundingTile(currentTile, -1, -1);
-			// calcSurroundingTile(currentTile, 0, -1);
-			// calcSurroundingTile(currentTile, +1, -1);
-			// calcSurroundingTile(currentTile, +1, 0);
-			// calcSurroundingTile(currentTile, +1, +1);
-			// calcSurroundingTile(currentTile, 0, +1);
-			// calcSurroundingTile(currentTile, -1, +1);
-			// calcSurroundingTile(currentTile, -1, 0);
-			break;
-		}
-
-		if (!pathFound) {
-			System.out.println("Path Not Found");
-		} else {
-			System.out.println("Path Found");
-		}
-		
-	}
-
 	// Yeah! Lets find paths and stuff! Totally!
 	// Alright. So this is the true "start" of the pathfinder.
 	// This method takes the start and the end points, but it also uses the map defined in the main class.
