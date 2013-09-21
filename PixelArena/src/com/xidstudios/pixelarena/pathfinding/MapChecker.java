@@ -10,7 +10,8 @@ public class MapChecker {
 
 	public int[][] passCost;
 
-	public MapChecker(Cell[][] cell) {
+	public MapChecker(Cell[][] cells) {
+		this.cells = cells;
 		passable = new boolean[cells.length][cells[0].length];
 		passCost = new int[passable.length][passable[0].length];
 

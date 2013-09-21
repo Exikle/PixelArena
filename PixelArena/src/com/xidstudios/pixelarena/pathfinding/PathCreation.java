@@ -44,11 +44,11 @@ public class PathCreation {
 
 		closedList = new ArrayList<Node>();
 
-		superList[(int) startVector.x][(int) startVector.y] = new Node(
+		superList[(int) startVector.x / 32][(int) startVector.y / 32] = new Node(
 				startVector, null, 0, getHeuristicScore(startVector,
 						destinationVector));
 
-		openList.add(superList[(int) startVector.x][(int) startVector.y]);
+		openList.add(superList[(int) startVector.x / 32][(int) startVector.y / 32]);
 
 		while (openList.size() > 0) {
 
