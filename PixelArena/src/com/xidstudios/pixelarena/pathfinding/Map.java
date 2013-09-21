@@ -32,12 +32,12 @@ public class Map {
 	}
 
 	private void findPassableTiles() {
-
 		for (int x = 0; x < passable.length; x++) {
 			for (int y = 0; y < passable[x].length; y++) {
 
 				passCost[x][y] = 1;
 
+				//if (condition)? (choice one) :which means or (choice two)
 				passable[y][x] = mapRows[y].charAt(x) == 'X' ? false
 						: true;
 
