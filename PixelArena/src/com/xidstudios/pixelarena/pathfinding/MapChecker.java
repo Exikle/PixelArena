@@ -13,6 +13,8 @@ public class MapChecker {
 	public MapChecker(Cell[][] cells) {
 		this.cells = cells;
 		passable = new boolean[cells.length][cells[0].length];
+		System.out.println("X = " + passable.length + ",Y "
+				+ passable[0].length);
 		passCost = new int[passable.length][passable[0].length];
 
 		checkPassable();

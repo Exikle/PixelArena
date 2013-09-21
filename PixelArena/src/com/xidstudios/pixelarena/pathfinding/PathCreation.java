@@ -72,7 +72,7 @@ public class PathCreation {
 					arena.colorSquare(new Vector2(
 							(int) currentTile.tileVector.x,
 							(int) currentTile.tileVector.y));
-					// should move player here.....maybe we'll see but gonna have to use the
+					// should move player, here.....maybe we'll see but gonna have to use the
 					currentTile = currentTile.parentNode;
 				}
 				pathFound = true;
@@ -89,10 +89,29 @@ public class PathCreation {
 	private static void calcSurroundingTile(Node node, int cX, int cY) {
 		int newX = (int) (node.tileVector.x + cX);
 		int newY = (int) (node.tileVector.y + cY);
+		// System.out.println(newX + "," + newY);
 
 		// out of bounds check
-		if (newX < 0 || newY < 0 || newX >= map.passable.length
-				|| newY >= map.passable[0].length) {
+		// if (newX < 0 || newY < 0 || newX >= map.passable.length
+		// || newY >= map.passable[0].length) {
+		// System.out.println("Out of Bounds");
+		// return;
+		// }
+		if (newX < 0) {
+			System.out.println("X is less than 0: X=" + newX);
+			return;
+		}
+		if (newY < 0) {
+			System.out.println("Y is less than 0: X=" + newY);
+			return;
+		}
+		if (newX >= map.passable.length) {
+			System.out.println("X Less pass length,  X=" + newY
+					+ ",pass=" + map.passable.length);
+			return;
+		}
+		if (newY >= map.passable[0].length) {
+			System.out.println("Y is less than passable length");
 			return;
 		}
 
@@ -106,7 +125,7 @@ public class PathCreation {
 			surroundingTile = new Node(newV, node, node.cost
 					+ toTileCost, getHeuristicScore(newV, dV));
 			superList[newX][newY] = surroundingTile;
-			if (Map.map.passable[newX][newY]) {
+			if (map.passable[newX][newY]) {
 				openList.add(surroundingTile);
 			}
 		} else if (surroundingTile.cost > node.cost + toTileCost) {
