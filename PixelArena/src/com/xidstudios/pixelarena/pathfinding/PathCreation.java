@@ -63,13 +63,12 @@ public class PathCreation {
 					&& currentTile.tileVector.y == destinationVector.y) {
 				System.out.println("Path Found and Created");
 				while (currentTile != null) {
-					// thePath[(int) currentTile.tileVector.x][(int) currentTile.tileVector.y] = '#';
 					arena.colorSquare(new Vector2(
 							(int) currentTile.tileVector.x,
 							(int) currentTile.tileVector.y));
+					// should move player here.....maybe we'll see but gonna have to use the
 					currentTile = currentTile.parentNode;
 				}
-				// Map.printMap(thePath);
 				pathFound = true;
 				break;
 			}
@@ -81,7 +80,34 @@ public class PathCreation {
 
 	}
 
-	private void calcSurroundingTile(Node node, int i, int j) {}
+	private void calcSurroundingTile(Node node, int cX, int cY) {
+		int newX = (int) (node.tileVector.x + cX);
+		int newY = (int) (node.tileVector.y + cY);
+
+		// out of bounds check
+		if (newX < 0 || newY < 0
+				|| newX >= MapChecker.m.passable.length
+				|| newY >= MapChecker.m.passable[0].length) {
+			return;
+		}
+
+		Node surroundingTile = superList[newX][newY];
+
+		int toTileCost = (cX != 0 && cY != 0 ? 14 : 10)
+				* MapChecker.m.passCost[newX][newY];
+
+		if (surroundingTile == null) {
+			Vector2 newV = new Vector2(newX, newY);
+			surroundingTile = new Node(newV, node, node.cost
+					+ toTileCost, getHeuristicScore(newV, dV));
+			superList[newX][newY] = surroundingTile;
+			if (Map.map.passable[newX][newY]) {
+				openList.add(surroundingTile);
+			}
+		} else if (surroundingTile.cost > node.cost + toTileCost) {
+			surroundingTile.parentNode = node;
+		}
+	}
 
 	private int getHeuristicScore(Vector2 startV, Vector2 destV) {
 
