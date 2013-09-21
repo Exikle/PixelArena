@@ -80,7 +80,7 @@ public class AStarPathfinder {
 				System.out.println("Path Found and Created");
 				char[][] thePath = Map.map.getMap();
 				while (currentTile != null) {
-					thePath[currentTile.tileX][currentTile.tileY] = '#';
+					thePath[currentTile.tileX][currentTile.tileY] = 'E';
 					currentTile = currentTile.parentTile;
 				}
 				Map.printMap(thePath);

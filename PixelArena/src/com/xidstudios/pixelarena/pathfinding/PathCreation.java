@@ -23,8 +23,12 @@ public class PathCreation {
 
 	static Arena arena;
 
+	private boolean pathFound;
+
 	public void findPath(Vector2 startVector,
 			Vector2 destinationVector) {
+		pathFound = false;
+
 		this.sV = startVector;
 		this.dV = destinationVector;
 
@@ -38,28 +42,54 @@ public class PathCreation {
 				startVector, null, 0, getHeuristicScore(startVector,
 						destinationVector));
 
+		openList.add(superList[(int) startVector.x][(int) startVector.y]);
+
+		while (openList.size() > 0) {
+
+			// Takes the tile from the TileInfo PriorityQueue. Once it's polled, the Queue no longer has it. It is in our hands now.
+			Node currentTile = openList.poll();
+
+			// Calculating all the nice tiles around the open tile we found
+			calcSurroundingTile(currentTile, -1, -1);
+			calcSurroundingTile(currentTile, 0, -1);
+			calcSurroundingTile(currentTile, +1, -1);
+			calcSurroundingTile(currentTile, +1, 0);
+			calcSurroundingTile(currentTile, +1, +1);
+			calcSurroundingTile(currentTile, 0, +1);
+			calcSurroundingTile(currentTile, -1, +1);
+			calcSurroundingTile(currentTile, -1, 0);
+
+			if (currentTile.tileVector.x == destinationVector.x
+					&& currentTile.tileVector.y == destinationVector.y) {
+				System.out.println("Path Found and Created");
+				while (currentTile != null) {
+					// thePath[(int) currentTile.tileVector.x][(int) currentTile.tileVector.y] = '#';
+					arena.colorSquare(new Vector2(
+							(int) currentTile.tileVector.x,
+							(int) currentTile.tileVector.y));
+					currentTile = currentTile.parentNode;
+				}
+				// Map.printMap(thePath);
+				pathFound = true;
+				break;
+			}
+
+		}
+		if (!pathFound) {
+			System.out.println("Path Not Found");
+		}
+
 	}
+
+	private void calcSurroundingTile(Node node, int i, int j) {}
 
 	private int getHeuristicScore(Vector2 startV, Vector2 destV) {
 
 		int xDif = (int) (destV.x > startV.x ? destV.x - startV.x
 				: startV.x - destV.x);
-		int yDif = (int)  (destV.y > startV.y ? destV.y - startV.y
+		int yDif = (int) (destV.y > startV.y ? destV.y - startV.y
 				: startV.y - destV.y);
 
 		return (xDif + yDif) * 1;
-	}
-
-	public static int getHeuristicScore(float x, float y, float x2,
-			float y2) {
-		int xDif = (int) (x2 > x ? x2 - x : x - x2); // because if-statements are faster than calling Math.abs (probably)
-		int yDif = (int) (y2 > y ? y2 - y : y - y2);
-
-		return (xDif + yDif) * 1; // Messing around with the heuristic is one of the key differences between A* and Djikstras. (Djistra? Djksrtsata? DK-DJ-Istria?)
-		// Because Djkistra's is more like a flood fill, and A* is more like a smart flood fill.
-		// When A* is "flood filling", it fills the flood toward where the heuristic tells it to go.
-		// And here, the heuristic is manhattan distance. The pathfinder (if written correctly), goes to tiles that are closer to the exit (which is a guesstimation,
-		// you don't know the true distance to the exit, you can only hypothesize)
-
 	}
 }
