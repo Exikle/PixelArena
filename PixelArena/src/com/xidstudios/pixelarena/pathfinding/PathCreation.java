@@ -87,9 +87,10 @@ public class PathCreation {
 	}
 
 	private static void calcSurroundingTile(Node node, int cX, int cY) {
-		int newX = (int) (node.tileVector.x + cX);
-		int newY = (int) (node.tileVector.y + cY);
-		// System.out.println(newX + "," + newY);
+		int newX = (int) (node.tileVector.x + cX) / 32;
+		int newY = (int) (node.tileVector.y + cY) / 32;
+		System.out.println((int) node.tileVector.x / 32 + ":"
+				+ (int) node.tileVector.y / 32);
 
 		// out of bounds check
 		// if (newX < 0 || newY < 0 || newX >= map.passable.length
