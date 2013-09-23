@@ -19,7 +19,7 @@ public class TwoDPathTest {
 			{ ".", ".", ".", ".", "X", "X", "X", ".", ".", "." },// RO7
 			{ ".", "X", "X", "X", "X", ".", ".", ".", ".", "." },// ROW8
 			{ ".", ".", ".", ".", ".", ".", "X", ".", ".", "." },// ROW9
-			{ ".", ".", ".", ".", ".", ".", "X", ".", "#", "." },// ROW10
+			{ ".", ".", ".", ".", ".", ".", "X", ".", ".", "." },// ROW10
 			{ ".", ".", ".", ".", ".", ".", ".", ".", "X", "X" } };// ROW11
 
 	TileInfo[][] superList;
@@ -46,7 +46,7 @@ public class TwoDPathTest {
 		passCost = new int[passable.length][passable[0].length];
 		System.out.println("X" + twoDMap.length);
 		System.out.println("Y" + twoDMap[0].length);
-		System.out.println(""+twoDMap[10][8].charAt(0));
+		System.out.println("" + twoDMap[10][8].charAt(0));
 		for (int x = 0; x < passable.length; x++) {
 			for (int y = 0; y < passable[x].length; y++) {
 				passCost[x][y] = 1;
@@ -107,7 +107,7 @@ public class TwoDPathTest {
 				System.out.println("The Path has been Found");
 				char[][] thePath = getMap();
 				while (currentTile != null) {
-					thePath[currentTile.tileX][currentTile.tileY] = ',';
+					thePath[currentTile.tileX][currentTile.tileY] = '+';
 					currentTile = currentTile.parentTile;
 				}
 				printMap(thePath);
@@ -138,22 +138,24 @@ public class TwoDPathTest {
 	}
 
 	public static void printMap(char[][] mapArray) {
-		for (int i = 0; i < mapArray[0].length + 2; i++) {
-			System.out.print("X");
+		System.out.print("|");
+		for (int i = 0; i < mapArray[0].length; i++) {
+			System.out.print("-");
 		}
-		System.out.println();
-		int counter = 0;
+		
+		System.out.println("|");
 		for (char[] line : mapArray) {
-			System.out.print("" + counter);
-			counter++;
+			System.out.print("|");
 			System.out.print(new String(line));
-			System.out.print("X");
+			System.out.print("|");
 			System.out.println();
 		}
-		for (int i = 0; i < mapArray[0].length + 2; i++) {
-			System.out.print("X");
+		
+		System.out.print("|");
+		for (int i = 0; i < mapArray[0].length; i++) {
+			System.out.print("-");
 		}
-		System.out.println();
+		System.out.println("|");
 	}
 
 	// Calculates the tile that is cX, cY away from the TileInfo tile.
