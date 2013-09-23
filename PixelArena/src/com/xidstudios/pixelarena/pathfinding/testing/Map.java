@@ -12,7 +12,7 @@ public class Map {
 
 		String[] mapRows = new String[10];
 		mapRows[0] = "..........";
-		mapRows[1] = ".XXX.XXX..";
+		mapRows[1] = "XXXX.XXX..";
 		mapRows[2] = ".X.X.X.XXX";
 		mapRows[3] = "......X.X.";
 		mapRows[4] = ".XXXXXXX.X";

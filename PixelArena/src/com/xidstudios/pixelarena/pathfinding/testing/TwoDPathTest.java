@@ -18,7 +18,9 @@ public class TwoDPathTest {
 			{ "X", "X", ".", ".", ".", ".", "X", "X", ".", "." },// RO6
 			{ ".", ".", ".", ".", "X", "X", "X", ".", ".", "." },// RO7
 			{ ".", "X", "X", "X", "X", ".", ".", ".", ".", "." },// ROW8
-			{ ".", ".", ".", ".", ".", ".", "X", ".", ".", "." } };// ROW9
+			{ ".", ".", ".", ".", ".", ".", "X", ".", ".", "." },// ROW9
+			{ ".", ".", ".", ".", ".", ".", "X", ".", ".", "." },// ROW10
+			{ ".", ".", ".", ".", ".", ".", ".", ".", "X", "X" } };// ROW11
 
 	TileInfo[][] superList;
 
@@ -36,7 +38,7 @@ public class TwoDPathTest {
 
 	public TwoDPathTest() {
 		createMap();
-		// findPath(0, 0, 9, 9);
+		findPath(0, 0, 9, 9);
 	}
 
 	private void createMap() {
@@ -48,7 +50,7 @@ public class TwoDPathTest {
 			for (int y = 0; y < passable[x].length; y++) {
 				passCost[x][y] = 1;
 				System.out.print(twoDMap[x][y]);
-				passable[x][y] = twoDMap[y][x].charAt(0) == 'X' ? false
+				passable[x][y] = twoDMap[x][y].charAt(0) == 'X' ? false
 						: true;
 			}
 			System.out.println();
@@ -101,13 +103,13 @@ public class TwoDPathTest {
 			// And if it so happens that the open tile we selected is the ending tile, fun stuff happens.
 			// This is mostly happytime pathdrawing code
 			if (currentTile.tileX == x2 && currentTile.tileY == y2) {
-				System.out.println("Path totally found brah");
-				char[][] thePath = Map.map.getMap();
+				System.out.println("The Path has been Found");
+				char[][] thePath = getMap();
 				while (currentTile != null) {
 					thePath[currentTile.tileX][currentTile.tileY] = ',';
 					currentTile = currentTile.parentTile;
 				}
-				Map.printMap(thePath);
+				printMap(thePath);
 				pathFound = true;
 				break;
 			}
@@ -121,6 +123,36 @@ public class TwoDPathTest {
 
 	}
 
+	public char[][] getMap() {
+		char[][] mapArray = new char[passable.length][passable[0].length];
+		for (int y = 0; y < mapArray.length; y++) {
+			for (int x = 0; x < mapArray[0].length; x++) {
+
+				mapArray[y][x] = passable[y][x] ? ' ' : 'X';
+
+			}
+		}
+
+		return mapArray;
+	}
+
+	public static void printMap(char[][] mapArray) {
+		for (int i = 0; i < mapArray[0].length + 2; i++) {
+			System.out.print("X");
+		}
+		System.out.println();
+		for (char[] line : mapArray) {
+			System.out.print("X");
+			System.out.print(new String(line));
+			System.out.print("X");
+			System.out.println();
+		}
+		for (int i = 0; i < mapArray[0].length + 2; i++) {
+			System.out.print("X");
+		}
+		System.out.println();
+	}
+
 	// Calculates the tile that is cX, cY away from the TileInfo tile.
 	// Handles it, essentially
 	public void calcSurroundingTile(TileInfo tile, int cX, int cY) {
@@ -130,17 +162,16 @@ public class TwoDPathTest {
 		int newY = tile.tileY + cY;
 
 		// Whee out of bounds checking
-		if (newX < 0 || newY < 0 || newX >= Map.map.passable.length
-				|| newY >= Map.map.passable[0].length) {
+		if (newX < 0 || newY < 0 || newX >= passable.length
+				|| newY >= passable[0].length) {
 			return;
 		}
 
 		// Now we take that surrounding tile from the SUPER LIST.
-		TileInfo surroundingTile = superList[tile.tileX + cX][tile.tileY
-				+ cY];
+		TileInfo surroundingTile = superList[newX][newY];
 		// And calculate how much it costs to move to the surrounding tile from the original tile (assuming we are taking the path that goes to the TileInfo tile)
 		int toTileCost = (cX != 0 && cY != 0 ? 14 : 10)
-				* Map.map.passCost[newX][newY];
+				* passCost[newX][newY];
 
 		// Now if we pulled a null from the superlist, we MAKE IT NOT NULL ANYMORE.
 		// How? BY MAKING A NEW TILEINFO THING. YEAH. TOTALLY.
@@ -151,7 +182,7 @@ public class TwoDPathTest {
 							newY, destX, destY));
 			superList[newX][newY] = surroundingTile;
 			// But if its one of those dirty, unpassable tiles... then we don't want it in the open list.
-			if (Map.map.passable[newX][newY]) {
+			if (passable[newX][newY]) {
 				// PURE AND PASSABLE TILES ONLY.
 				openList.add(surroundingTile);
 			}
