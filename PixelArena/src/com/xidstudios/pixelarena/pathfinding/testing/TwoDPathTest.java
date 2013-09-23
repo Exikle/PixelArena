@@ -19,7 +19,7 @@ public class TwoDPathTest {
 			{ ".", ".", ".", ".", "X", "X", "X", ".", ".", "." },// RO7
 			{ ".", "X", "X", "X", "X", ".", ".", ".", ".", "." },// ROW8
 			{ ".", ".", ".", ".", ".", ".", "X", ".", ".", "." },// ROW9
-			{ ".", ".", ".", ".", ".", ".", "X", ".", ".", "." },// ROW10
+			{ ".", ".", ".", ".", ".", ".", "X", ".", "#", "." },// ROW10
 			{ ".", ".", ".", ".", ".", ".", ".", ".", "X", "X" } };// ROW11
 
 	TileInfo[][] superList;
@@ -38,22 +38,23 @@ public class TwoDPathTest {
 
 	public TwoDPathTest() {
 		createMap();
-		findPath(0, 0, 9, 9);
+		findPath(0, 0, 11, 7);
 	}
 
 	private void createMap() {
 		passable = new boolean[twoDMap.length][twoDMap[0].length];
 		passCost = new int[passable.length][passable[0].length];
-		System.out.println(twoDMap.length);
-		System.out.println(twoDMap[0].length);
+		System.out.println("X" + twoDMap.length);
+		System.out.println("Y" + twoDMap[0].length);
+		System.out.println(""+twoDMap[10][8].charAt(0));
 		for (int x = 0; x < passable.length; x++) {
 			for (int y = 0; y < passable[x].length; y++) {
 				passCost[x][y] = 1;
-				System.out.print(twoDMap[x][y]);
+				// System.out.print(twoDMap[x][y]);
 				passable[x][y] = twoDMap[x][y].charAt(0) == 'X' ? false
 						: true;
 			}
-			System.out.println();
+			// System.out.println();
 		}
 
 	}
@@ -141,8 +142,10 @@ public class TwoDPathTest {
 			System.out.print("X");
 		}
 		System.out.println();
+		int counter = 0;
 		for (char[] line : mapArray) {
-			System.out.print("X");
+			System.out.print("" + counter);
+			counter++;
 			System.out.print(new String(line));
 			System.out.print("X");
 			System.out.println();
