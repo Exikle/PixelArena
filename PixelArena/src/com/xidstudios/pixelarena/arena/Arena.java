@@ -27,6 +27,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.xidstudios.pixelarena.GameFont;
+import com.xidstudios.pixelarena.arena.debug.MapDebugger;
 import com.xidstudios.pixelarena.entity.Player;
 import com.xidstudios.pixelarena.input.GestureHandler;
 import com.xidstudios.pixelarena.input.InputHandler;
@@ -181,6 +182,8 @@ public class Arena extends ArenaBase {
 		oY = (int) player.getY();
 		touchX = (int) player.getX();
 		touchY = (int) player.getY();
+		
+		new MapDebugger(map);
 		
 	}
 

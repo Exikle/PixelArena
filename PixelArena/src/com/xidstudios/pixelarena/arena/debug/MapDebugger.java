@@ -29,17 +29,17 @@ public class MapDebugger {
 		float mapWidth = col * tileWidth;
 		float mapHeight = row * tileHeight;
 
-		// Gdx.app.log(PArena.LOG, "THeight - " + tileHeight
-		// + ",TWidth - " + tileWidth);
-		// Gdx.app.log(PArena.LOG, "Col - " + col + ",Row - " + row);
-
-		cells = new Cell[(int) col][row];
+		cells = new Cell[col][row];
+		String[][] map = new String[col][row];
 		for (int y = 0; y < row; y++) {
 			for (int x = 0; x < col; x++) {
-				cell[x][y] = new Cell();
-				cell[x][y] = layer.getCell(x, y);
+				cells[x][y] = new Cell();
+				cells[x][y] = layer.getCell(x, y);
+				map[x][y] = cells[x][y].getTile().getProperties()
+						.containsKey("blocked") ? "X" : "-";
+				System.out.print(map[x][y]);
 			}
+			System.out.println("");
 		}
 	}
-
 }
