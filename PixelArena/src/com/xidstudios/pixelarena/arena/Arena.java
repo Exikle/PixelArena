@@ -181,6 +181,7 @@ public class Arena extends ArenaBase {
 		oY = (int) player.getY();
 		touchX = (int) player.getX();
 		touchY = (int) player.getY();
+		
 	}
 
 	private void createTiles() {

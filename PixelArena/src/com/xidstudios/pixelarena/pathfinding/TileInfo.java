@@ -16,9 +16,5 @@ public class TileInfo {
 		cost = costToAdd;
 		parentTile = parent;
 		heur = heuristicScore;
-	}
-	
-	
-	
-	
+	}	
 }

@@ -208,7 +208,7 @@ public class TwoDPathTest {
 	 */
 	// This is just Manhattan distance. xDistance + yDistance. Nothing complicated
 	public static int getHeuristicScore(int x1, int y1, int x2, int y2) {
-		int xDif = x2 > x1 ? x2 - x1 : x1 - x2; // because if-statements are faster than calling Math.abs (probably)
+		int xDif = x2 > x1 ? x2 - x1 : x1 - x2; // because if-statements are faster than calling Math.abs (probably)// yea probably
 		int yDif = y2 > y1 ? y2 - y1 : y1 - y2;
 
 		return (xDif + yDif) * 1; // Messing around with the heuristic is one of the key differences between A* and Djikstras. (Djistra? Djksrtsata? DK-DJ-Istria?)
