@@ -28,6 +28,8 @@ public class AStarPathfinding {
 	static int row;
 
 	public static void findPath(TiledMap m, Vector2 origin, Vector2 destination) {
+		System.out.println((int) origin.y / 32 + "," + (int) origin.y / 32);
+
 		TiledMap tileMap = m;
 		TiledMapTileLayer layer = (TiledMapTileLayer) tileMap.getLayers()
 				.get(0);
@@ -50,7 +52,11 @@ public class AStarPathfinding {
 				passable[x][y] = cells[x][y].getTile().getProperties()
 						.containsKey("blocked") ? false : true;
 				passCost[x][y] = 1;
-				System.out.print(map[x][y]);
+				if (x == (int) origin.x / 32 && y == (int) origin.y / 32) {
+					System.out.print("+");
+				} else {
+					System.out.print(map[x][y]);
+				}
 			}
 			System.out.println("|");
 		}
@@ -107,7 +113,7 @@ public class AStarPathfinding {
 			// And if it so happens that the open tile we selected is the ending
 			// tile, fun stuff happens.
 			// This is mostly happytime pathdrawing code
-			if (currentTile.tileX == x2 && currentTile.tileY == y2) {
+			if (currentTile.tileX == destX && currentTile.tileY == destY) {
 				System.out.println("The Path has been Found");
 				char[][] thePath = getMap();
 				while (currentTile != null) {
