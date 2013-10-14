@@ -98,8 +98,8 @@ public class Arena extends ArenaBase {
 			for (int x = 0; x < col; x++) {
 				if (!cell[x][y].getTile().getProperties()
 						.containsKey("blocked")) {
-					font.draw(batch, x + "," + y, x * tileWidth,
-							tileWidth + (y * tileWidth));
+					font.draw(batch, x + "," + y, x * tileWidth, tileWidth
+							+ (y * tileWidth));
 				}
 			}
 		}
@@ -114,8 +114,8 @@ public class Arena extends ArenaBase {
 					if (!cell[x][y].getTile().getProperties()
 							.containsKey("blocked")) {
 						render.setColor(Color.GRAY);
-						render.rect(x * tileWidth, y * tileHeight,
-								tileWidth, tileHeight);
+						render.rect(x * tileWidth, y * tileHeight, tileWidth,
+								tileHeight);
 					}
 				}
 			}
@@ -126,21 +126,20 @@ public class Arena extends ArenaBase {
 			render.begin(ShapeType.Filled);
 
 			render.setColor(Color.RED);
-			render.rect((touchX / 32) * tileWidth, (touchY / 32)
-					* tileHeight, tileWidth, tileHeight);
+			render.rect((touchX / 32) * tileWidth, (touchY / 32) * tileHeight,
+					tileWidth, tileHeight);
 
 			render.setColor(Color.YELLOW);
 			if (squareList != null) {
 				for (Vector2 temp : squareList) {
-					render.rect(temp.x * 32,
-							temp.y * 32, tileWidth, tileHeight);
+					render.rect(temp.x * 32, temp.y * 32, tileWidth, tileHeight);
 				}
 
 			}
 
 			render.setColor(Color.BLUE);
-			render.rect((oX / 32) * tileWidth,
-					(oY / 32) * tileHeight, tileWidth, tileHeight);
+			render.rect((oX / 32) * tileWidth, (oY / 32) * tileHeight,
+					tileWidth, tileHeight);
 			render.end();
 		}
 
@@ -170,10 +169,9 @@ public class Arena extends ArenaBase {
 		camera.position.set(Gdx.graphics.getWidth() / 2,
 				Gdx.graphics.getHeight() / 2, 0);
 
-		InputMultiplexer iM = new InputMultiplexer(new InputHandler(
-				camera, map, manager, player),
-				new GestureDetector(new GestureHandler(this, camera,
-						player, manager, map)));
+		InputMultiplexer iM = new InputMultiplexer(new InputHandler(camera,
+				map, manager, player), new GestureDetector(new GestureHandler(
+				this, camera, player, manager, map)));
 
 		Gdx.input.setInputProcessor(iM);
 
@@ -182,14 +180,13 @@ public class Arena extends ArenaBase {
 		oY = (int) player.getY();
 		touchX = (int) player.getX();
 		touchY = (int) player.getY();
-		
-		new MapDebugger(map);
-		
+
+		MapDebugger.print2DMap(map);
+
 	}
 
 	private void createTiles() {
-		TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers()
-				.get(0);
+		TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(0);
 
 		tileHeight = layer.getTileHeight();
 		// Gdx.app.log(PArena.LOG, "" + tileHeight);
@@ -225,19 +222,24 @@ public class Arena extends ArenaBase {
 	}
 
 	@Override
-	public void resize(int width, int height) {}
+	public void resize(int width, int height) {
+	}
 
 	@Override
-	public void hide() {}
+	public void hide() {
+	}
 
 	@Override
-	public void pause() {}
+	public void pause() {
+	}
 
 	@Override
-	public void resume() {}
+	public void resume() {
+	}
 
 	@Override
-	public void dispose() {}
+	public void dispose() {
+	}
 
 	public void colorSquare(Vector2 vP) {
 		Vector2 v = new Vector2((vP.x), (vP.y));

@@ -55,9 +55,10 @@ public class GestureHandler implements GestureListener {
 		// PathFinding.calcPath(new Vector2(arena.oX, arena.oY),
 		// new Vector2(arena.touchX, arena.touchY), arena.cell,
 		// arena);
-		Path.calculatePath(new Vector2(arena.oX, arena.oY),
-				new Vector2(arena.touchX, arena.touchY), arena.cell,
-				arena, player);
+		// Path.calculatePath(new Vector2(arena.oX, arena.oY),
+		// new Vector2(arena.touchX, arena.touchY), arena.cell,
+		// arena, player);
+		
 		return false;
 	}
 
