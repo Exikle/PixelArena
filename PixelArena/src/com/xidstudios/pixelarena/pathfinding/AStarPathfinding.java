@@ -10,7 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class AStarPathfinding {
 	private static Cell[][] cells;
-	private static String[][] map;
+
 	private static boolean[][] passable;
 
 	public static int[][] passCost;
@@ -36,29 +36,18 @@ public class AStarPathfinding {
 		int col = layer.getWidth();
 		int row = layer.getHeight();
 
-		// creates a 2d map
 		cells = new Cell[col][row];
-		map = new String[col][row];
 		passable = new boolean[col][row];
 		passCost = new int[col][row];
 		superList = new TileInfo[col][row];
 		for (int y = 0; y < row; y++) {
-			System.out.print("|");
 			for (int x = 0; x < col; x++) {
 				cells[x][y] = new Cell();
 				cells[x][y] = layer.getCell(x, y);
-				map[x][y] = cells[x][y].getTile().getProperties()
-						.containsKey("blocked") ? "X" : "-";
 				passable[x][y] = cells[x][y].getTile().getProperties()
 						.containsKey("blocked") ? false : true;
 				passCost[x][y] = 1;
-				if (x == (int) origin.x / 32 && y == (int) origin.y / 32) {
-					System.out.print("+");
-				} else {
-					System.out.print(map[x][y]);
-				}
 			}
-			System.out.println("|");
 		}
 		findPath(origin.x, origin.y, destination.x, destination.y);
 	}
@@ -73,34 +62,20 @@ public class AStarPathfinding {
 		destX = (int) x2 / 32;
 		destY = (int) y2 / 32;
 
-		// OPEN LIST. This is the créme de la créme, the finisher to the act,
-		// the Shakespeare of poetry.
-		// This is the list of tiles that will be calculated, as in, the
-		// pathfinder will look into these tiles eventually
-		// I don't even know if the Queue should be initiated with such a
-		// massive size. Seems... excessive.
 		openList = new PriorityQueue<TileInfo>(superList.length
 				* superList[0].length, new ComparatorByScore());
 
-		// The list of tiles that the program will never go into again. Once
-		// again, I have no clue why this is here.
 		closedList = new ArrayList<TileInfo>();
-
-		// Whee initializing the initial tile that we start on to get this party
-		// started
+		
 		superList[originX][originY] = new TileInfo(originX, originY, null, 0,
 				getHeuristicScore(originX, originY, destX, destY));
-		// Aaand adding it to the open list so it will actually calculate.
+		
 		openList.add(superList[originX][originY]);
-
-		// KEEP CALCULATING UNTIL THERE IS NOTHING ELSE LEFT IN THE OPEN LIST
+		
 		while (openList.size() > 0) {
-
-			// Takes the tile from the TileInfo PriorityQueue. Once it's polled,
-			// the Queue no longer has it. It is in our hands now.
+			
 			TileInfo currentTile = openList.poll();
 
-			// Calculating all the nice tiles around the open tile we found
 			calcSurroundingTile(currentTile, -1, -1);
 			calcSurroundingTile(currentTile, 0, -1);
 			calcSurroundingTile(currentTile, +1, -1);
@@ -109,10 +84,7 @@ public class AStarPathfinding {
 			calcSurroundingTile(currentTile, 0, +1);
 			calcSurroundingTile(currentTile, -1, +1);
 			calcSurroundingTile(currentTile, -1, 0);
-
-			// And if it so happens that the open tile we selected is the ending
-			// tile, fun stuff happens.
-			// This is mostly happytime pathdrawing code
+			
 			if (currentTile.tileX == destX && currentTile.tileY == destY) {
 				System.out.println("The Path has been Found");
 				char[][] thePath = getMap();
@@ -170,13 +142,7 @@ public class AStarPathfinding {
 				openList.add(surroundingTile);
 			}
 		} else if (surroundingTile.cost > tile.cost + toTileCost) {
-			// If it so happens that the cost we calculated to this tile was
-			// cheaper than the cost calculated to that tile from before,
-			// then by all means, the quickest way to this tile is by the tile
-			// we just came from.
 			surroundingTile.parentTile = tile;
-			// Resort here?
-			// Nah.
 		}
 
 	}
@@ -186,37 +152,18 @@ public class AStarPathfinding {
 	 * tile and x/y2 defines the destination (what you're trying to get the
 	 * heuristic for).
 	 */
-	// This is just Manhattan distance. xDistance + yDistance. Nothing
-	// complicated
 	public static int getHeuristicScore(int x1, int y1, int x2, int y2) {
-		int xDif = x2 > x1 ? x2 - x1 : x1 - x2; // because if-statements are
-												// faster than calling Math.abs
-												// (probably)// yea probably
+		int xDif = x2 > x1 ? x2 - x1 : x1 - x2;
 		int yDif = y2 > y1 ? y2 - y1 : y1 - y2;
 
-		return (xDif + yDif) * 1; // Messing around with the heuristic is one of
-									// the key differences between A* and
-									// Djikstras. (Djistra? Djksrtsata?
-									// DK-DJ-Istria?)
-		// Because Djkistra's is more like a flood fill, and A* is more like a
-		// smart flood fill.
-		// When A* is "flood filling", it fills the flood toward where the
-		// heuristic tells it to go.
-		// And here, the heuristic is manhattan distance. The pathfinder (if
-		// written correctly), goes to tiles that are closer to the exit (which
-		// is a guesstimation,
-		// you don't know the true distance to the exit, you can only
-		// hypothesize)
-
+		return (xDif + yDif) * 1;
 	}
 
 	public static char[][] getMap() {
 		char[][] mapArray = new char[passable.length][passable[0].length];
 		for (int y = 0; y < mapArray.length; y++) {
 			for (int x = 0; x < mapArray[0].length; x++) {
-
 				mapArray[y][x] = passable[y][x] ? ' ' : 'X';
-
 			}
 		}
 

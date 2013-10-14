@@ -54,7 +54,7 @@ public class TwoDPathTest {
 				passable[x][y] = twoDMap[x][y] == "X" ? false : true;
 			}
 			// System.out.println();
-		}
+		} 
 
 	}
 
@@ -64,40 +64,22 @@ public class TwoDPathTest {
 
 		destX = x2;
 		destY = y2;
-
-		// Superlist? What's that? I don't really know why I put this here.
-		// But essentially it is a list of many many tiles. All the tiles, in
-		// fact.
+		
 		superList = new TileInfo[passable.length][passable[0].length];
-
-		// OPEN LIST. This is the créme de la créme, the finisher to the act,
-		// the Shakespeare of poetry.
-		// This is the list of tiles that will be calculated, as in, the
-		// pathfinder will look into these tiles eventually
-		// I don't even know if the Queue should be initiated with such a
-		// massive size. Seems... excessive.
+		
 		openList = new PriorityQueue<TileInfo>(superList.length
 				* superList[0].length, new ComparatorByScore());
 
-		// The list of tiles that the program will never go into again. Once
-		// again, I have no clue why this is here.
 		closedList = new ArrayList<TileInfo>();
 
-		// Whee initializing the initial tile that we start on to get this party
-		// started
 		superList[x1][y1] = new TileInfo(x1, y1, null, 0, getHeuristicScore(x1,
 				y1, x2, y2));
-		// Aaand adding it to the open list so it will actually calculate.
+
 		openList.add(superList[x1][y1]);
 
-		// KEEP CALCULATING UNTIL THERE IS NOTHING ELSE LEFT IN THE OPEN LIST
 		while (openList.size() > 0) {
-
-			// Takes the tile from the TileInfo PriorityQueue. Once it's polled,
-			// the Queue no longer has it. It is in our hands now.
 			TileInfo currentTile = openList.poll();
 
-			// Calculating all the nice tiles around the open tile we found
 			calcSurroundingTile(currentTile, -1, -1);
 			calcSurroundingTile(currentTile, 0, -1);
 			calcSurroundingTile(currentTile, +1, -1);
@@ -107,9 +89,6 @@ public class TwoDPathTest {
 			calcSurroundingTile(currentTile, -1, +1);
 			calcSurroundingTile(currentTile, -1, 0);
 
-			// And if it so happens that the open tile we selected is the ending
-			// tile, fun stuff happens.
-			// This is mostly happytime pathdrawing code
 			if (currentTile.tileX == x2 && currentTile.tileY == y2) {
 				System.out.println("The Path has been Found");
 				char[][] thePath = getMap();
@@ -123,8 +102,7 @@ public class TwoDPathTest {
 			}
 
 		}
-
-		// Sadtime message
+		
 		if (!pathFound) {
 			System.out.println("The end");
 		}
@@ -164,9 +142,7 @@ public class TwoDPathTest {
 		}
 		System.out.println("|");
 	}
-
-	// Calculates the tile that is cX, cY away from the TileInfo tile.
-	// Handles it, essentially
+	
 	public void calcSurroundingTile(TileInfo tile, int cX, int cY) {
 
 		// Whee integers
@@ -212,13 +188,6 @@ public class TwoDPathTest {
 
 	}
 
-	/*
-	 * A method for finding the heuristic score of a tile where x/y1 defines the
-	 * tile and x/y2 defines the destination (what you're trying to get the
-	 * heuristic for).
-	 */
-	// This is just Manhattan distance. xDistance + yDistance. Nothing
-	// complicated
 	public static int getHeuristicScore(int x1, int y1, int x2, int y2) {
 		int xDif = x2 > x1 ? x2 - x1 : x1 - x2; // because if-statements are
 												// faster than calling Math.abs

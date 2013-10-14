@@ -60,7 +60,6 @@ public class GestureHandler implements GestureListener {
 		// arena, player);
 		AStarPathfinding.findPath(map, new Vector2(arena.oX, arena.oY),
 				new Vector2(arena.touchX, arena.touchY));
-
 		return false;
 	}
 
