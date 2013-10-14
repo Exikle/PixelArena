@@ -31,6 +31,7 @@ import com.xidstudios.pixelarena.arena.debug.MapDebugger;
 import com.xidstudios.pixelarena.entity.Player;
 import com.xidstudios.pixelarena.input.GestureHandler;
 import com.xidstudios.pixelarena.input.InputHandler;
+import com.xidstudios.pixelarena.pathfinding.AStarPathfinding;
 import com.xidstudios.pixelarena.tweenaccessors.SpriteTween;
 
 public class Arena extends ArenaBase {
@@ -181,7 +182,7 @@ public class Arena extends ArenaBase {
 		touchX = (int) player.getX();
 		touchY = (int) player.getY();
 
-		MapDebugger.print2DMap(map);
+//		MapDebugger.print2DMap(map);
 
 	}
 
